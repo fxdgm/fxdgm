@@ -6,6 +6,7 @@ Jan.Habscheid@rwth-aachen.de
 import numpy as np
 from mpi4py import MPI
 from dolfinx import mesh
+from basix.ufl import element
 from ufl import Mesh
 
 
