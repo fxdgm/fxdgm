@@ -1,4 +1,4 @@
-name: fenicsx
+name: fenicsx-env
 channels:
   - conda-forge
   - defaults
