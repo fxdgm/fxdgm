@@ -15,9 +15,9 @@ Find the thesis at:
 As a numerical solver, mainly FEniCSx was used and installed via conda.
 
 ```
-conda create -n fenicsx-env python=3.12.13
+conda create --name fenicsx-env python=3.12.3 -y
 conda activate fenicsx-env
-conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 matplotlib=3.8.4 numpy=2.0.1 scipy=1.14.0
+conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 matplotlib=3.8.4 numpy=1.26.4 scipy=1.14.0 -y
 ```
 
 ### Alternative installation
