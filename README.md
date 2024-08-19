@@ -35,7 +35,7 @@ conda env create -f environment.yml
 
 **Author**
 - Jan Habscheid
-Jan.Habscheid@rwth-aachen.de
+- Jan.Habscheid@rwth-aachen.de
 
 **Supervisor**
 - Dr. Lambert Theissen
