@@ -28,7 +28,7 @@ import numpy as np
 # Define Parameter
 e0 = 1.602e-19 # [As]
 k = 1.381e-23 # [J/K]
-T = 293.15 # [K]
+T = 293.75 # [K]
 epsilon0 = 8.85e-12 #[F/m]
 F = 9.65e+4 # [As/mol]
 NA = 6.022e+23 # [1/mol] - Avogadro constant
@@ -72,8 +72,8 @@ Q_DL_dimless_ = []
 for kappa in kappa_vec:
     y_A_R, y_C_R = Molarity / nR_mol, Molarity / nR_mol
     y_N_R = 1 - y_A_R - y_C_R
-    Q_DL_dimless_.append(Q_DL_dimless_ana(y_A_R, y_C_R, y_N_R, z_A, z_C, Phi_Pot_Diff_dimless, phi_R, p_R, Lambda2, a2, kappa))
-    Q_DL_dim_.append(Q_DL_dim_ana(y_A_R, y_C_R, y_N_R, z_A, z_C, Phi_Pot_Diff_dimless, phi_R, p_R, Lambda2, a2, nR_m, e0, LR, kappa))
+    Q_DL_dimless_.append(Q_DL_dimless_ana(y_A_R, y_C_R, y_N_R, z_A, z_C, Phi_Pot_Diff_dimless, phi_R, p_R, K, Lambda2, a2, kappa))
+    Q_DL_dim_.append(Q_DL_dim_ana(y_A_R, y_C_R, y_N_R, z_A, z_C, Phi_Pot_Diff_dimless, phi_R, p_R, K, Lambda2, a2, nR_m, e0, LR, kappa))
     
 C_DL_dim = [C_dl(q_dl, Phi_Pot_Diff_dim) for q_dl in Q_DL_dim_]
 C_DL_dimless = [C_dl(q_dl, Phi_Pot_Diff_dimless) for q_dl in Q_DL_dimless_]

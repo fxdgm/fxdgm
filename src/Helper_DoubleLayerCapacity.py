@@ -110,7 +110,7 @@ def Q_num_(y_A:np.ndarray, y_C:np.ndarray, n:np.ndarray, x:np.ndarray, z_A:float
     nF_int = -np.trapz(nF_dimensionless, x)
     return nF_int
 
-def Q_DL_dimless_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float, phi_L:float, phi_R:float, p_R:float, Lambda2:float, a2:float, kappa:float) -> float:
+def Q_DL_dimless_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float, phi_L:float, phi_R:float, p_R:float, K:str|float, Lambda2:float, a2:float, solvation:float) -> float:
     '''
     Calculates charge of the system using the analytical method in dimensionless units
 
@@ -132,16 +132,18 @@ def Q_DL_dimless_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float
     z_C : float
         Charge number of cations
     phi_L : float
-        Electric potential at the left boundary
+        Electric potential at the left boundary [V]
     phi_R : float
         Electric potential at the right boundary
     p_R : float
         Pressure at the right boundary
+    K : str | float
+        Bulk modulus, use 'incompressible' for an incompressible mixture
     Lambda2 : float
         Dimensionless parameter
     a2 : float
         Dimensionless parameter
-    kappa : float
+    solvation : float
         Solvation number
 
     Returns
@@ -150,17 +152,34 @@ def Q_DL_dimless_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float
         Charge of the system in dimensionless units
     '''
     z_N = 0
-    D_A = y_A_R / (np.exp(-a2*p_R-z_A*phi_R))
-    D_C = y_C_R / (np.exp(-a2*p_R-z_C*phi_R))
-    D_N = y_N_R / (np.exp(-a2*p_R-z_N*phi_R))
-    E_p = p_R
-    CLambda_L = np.log(D_A * np.exp(-z_A * phi_L + E_p * a2) + D_C * np.exp(-z_C * phi_L + E_p * a2) + D_N * np.exp(-z_N * phi_L + E_p * a2))
-    CLambda_R = np.log(D_A * np.exp(-z_A * phi_R + E_p * a2) + D_C * np.exp(-z_C * phi_R + E_p * a2) + D_N * np.exp(-z_N * phi_R + E_p * a2))
-    Lambda = np.sqrt(Lambda2)
-    Q_DL = (phi_L-phi_R) / np.abs(phi_L-phi_R) * Lambda * np.sqrt(2/(kappa+1)) * (np.sqrt(CLambda_L) - np.sqrt(CLambda_R))
+    if K == 'incompressible':
+        D_A = y_A_R / (np.exp(-(solvation+1)*a2*p_R-z_A*phi_R))
+        D_C = y_C_R / (np.exp(-(solvation+1)*a2*p_R-z_C*phi_R))
+        D_N = y_N_R / (np.exp(-(solvation+1)*a2*p_R-z_N*phi_R))
+        E_p = p_R
+        CLambda_L = np.log(D_A * np.exp(-z_A * phi_L - (solvation+1) * E_p) + D_C * np.exp(-z_C * phi_L - (solvation+1) * E_p) + D_N * np.exp(-z_N * phi_L - (solvation+1) * E_p))
+        CLambda_R = np.log(D_A * np.exp(-z_A * phi_R + E_p * a2) + D_C * np.exp(-z_C * phi_R + E_p * a2) + D_N * np.exp(-z_N * phi_R + E_p * a2))
+        Lambda = np.sqrt(Lambda2)
+        Q_DL = (phi_L-phi_R) / np.abs(phi_L-phi_R) * Lambda * np.sqrt(2/(solvation+1)) * (np.sqrt(CLambda_L) - np.sqrt(CLambda_R))
+    else:
+        C_A = y_A_R / ((K + p_R  - 1)**(-(solvation+1)*a2*K)*np.exp(-z_A*phi_R))
+        C_C = y_C_R / ((K + p_R  - 1)**(-(solvation+1)*a2*K)*np.exp(-z_C*phi_R))
+        C_N = y_N_R / ((K + p_R  - 1)**(-(solvation+1)*a2*K)*np.exp(-z_N*phi_R))
+        E_p = p_R
+
+        Lambda_tilda_L = C_A * np.exp(-z_A*phi_L) + C_C * np.exp(-z_C*phi_L) + C_N * np.exp(-z_N*phi_L)
+        Lambda_tilda_R = C_A * np.exp(-z_A*phi_R) + C_C * np.exp(-z_C*phi_R) + C_N * np.exp(-z_N*phi_R)
+
+        Lambda_hat_L = np.exp(np.log(Lambda_tilda_L) / (a2 * K))
+        Lambda_hat_R = np.exp(np.log(Lambda_tilda_R) / (a2 * K))
+
+        dx_Phi_L = np.sqrt(2 * a2/Lambda2 * (1 - K - E_p + Lambda_hat_L))
+        dx_Phi_R = np.sqrt(2 * a2/Lambda2 * (1 - K - E_p + Lambda_hat_R))
+
+        Q_DL = Lambda2 * (dx_Phi_L - dx_Phi_R)
     return Q_DL
 
-def Q_DL_dim_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float, phi_L:float, phi_R:float, p_R:float, Lambda2:float, a2:float, nR_m:float, e0:float, LR:float, kappa:float) -> float:
+def Q_DL_dim_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float, phi_L:float, phi_R:float, p_R:float, K:str|float, Lambda2:float, a2:float, nR_m:float, e0:float, LR:float, solvation:float) -> float:
     '''
     Calculates charge of the system using the analytical method in dimensionless units
 
@@ -187,6 +206,8 @@ def Q_DL_dim_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float, ph
         Value of electric potential at the right
     p_R : float
         Value of pressure at the right boundary
+    K : str | float
+        Bulk modulus, use 'incompressible' for an incompress
     Lambda2 : float
         Dimensionless parameter
     a2 : float
@@ -197,7 +218,7 @@ def Q_DL_dim_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float, ph
         Dielectric constant
     LR : float
         Reference length in m
-    kappa : float
+    solvation : float
         Solvation number
 
     Returns
@@ -205,7 +226,7 @@ def Q_DL_dim_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float, ph
     float
         Charge of the system in µAs/cm³
     '''
-    Q_DL = Q_DL_dimless_ana(y_A_R, y_C_R, y_N_R, z_A, z_C, phi_L, phi_R, p_R, Lambda2, a2, kappa)
+    Q_DL = Q_DL_dimless_ana(y_A_R, y_C_R, y_N_R, z_A, z_C, phi_L, phi_R, p_R, K, Lambda2, a2, solvation)
     Q_DL *= nR_m * e0 * LR
     Q_DL *= 1e+6 
     Q_DL *= 1/(1e+4)
