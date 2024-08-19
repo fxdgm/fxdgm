@@ -1,6 +1,8 @@
 '''
 Jan Habscheid
 Jan.Habscheid@rwth-aachen.de
+
+This script is used to calculate some first results for the incompressible, ternary electrolyte.
 '''
 
 # import the src file needed to solve the system of equations

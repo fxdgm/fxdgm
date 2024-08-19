@@ -1,6 +1,8 @@
 '''
 Jan Habscheid
 Jan.Habscheid@rwth-aachen.de
+
+This script is used to analyze the solvation effect of an incomressible, ternary electrolyte.
 '''
 
 # import the src file needed to solve the system of equations

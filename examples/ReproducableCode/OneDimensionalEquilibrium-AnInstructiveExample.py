@@ -1,6 +1,9 @@
 '''
 Jan Habscheid
 Jan.Habscheid@rwth-aachen.de
+
+This script is used to calculate the simplified one-dimensional equilibrium problem with a changed setting.
+For more information see the corresponding thesis.
 '''
 
 import numpy as np

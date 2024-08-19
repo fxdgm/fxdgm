@@ -1,6 +1,8 @@
 '''
 Jan Habscheid
 Jan.Habscheid@rwth-aachen.de
+
+This script is used to validate the analytical method for the calculation of the double layer capacity.
 '''
 
 # import the src file needed to solve the system of equations
@@ -8,7 +10,7 @@ import sys
 import os
 
 # Add the src directory to the sys.path
-src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', 'src')
+src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../../', 'src')
 sys.path.insert(0, src_path)
 
 from Eq02 import solve_System_2eq
@@ -90,6 +92,7 @@ Q_ana = Q_DL_dimless_ana(y_R, y_R, 1-2*y_R, z_A, z_C, phi_left, phi_right, p_rig
 C_DL_ana = C_dl(Q_ana, phi_left)
 
 
+# Plotting
 plt.figure()
 plt.plot(phi_left, Q_num - Q_ana, label='Difference')
 plt.grid()

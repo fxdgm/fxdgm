@@ -1,6 +1,8 @@
 '''
 Jan Habscheid
 Jan.Habscheid@rwth-aachen.de
+
+This script is used to compare the convergence of the DGM model 
 '''
 
 # import the src file needed to solve the system of equations

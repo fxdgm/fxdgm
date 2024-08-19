@@ -1,6 +1,8 @@
 '''
 Jan Habscheid
 Jan.Habscheid@rwth-aachen.de
+
+This script is used to analyze the influence of the solvation on the charge of the system and the double-layer capacity.
 '''
 
 # import the src file needed to solve the system of equations

@@ -1,6 +1,8 @@
 '''
 Jan Habscheid
 Jan.Habscheid@rwth-aachen.de
+
+This script is used to compare the thermodynamically consistent model, proposed by Dreyer, Guhlke and Müller, against the classical Nernst-Plank model with the Poisson-Boltzmann formulation.
 '''
 
 # import the src file needed to solve the system of equations
