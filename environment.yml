@@ -1,4 +1,4 @@
-name: fenicsx-env
+name: fenicsx
 channels:
   - conda-forge
   - defaults
@@ -271,7 +271,6 @@ dependencies:
   - tornado=6.4.1=py312h9a8786e_0
   - traitlets=5.14.3=pyhd8ed1ab_0
   - typing_extensions=4.12.2=pyha770c72_0
-  - tzdata=2024a=h0c530f3_0
   - urllib3=2.2.2=pyhd8ed1ab_0
   - utfcpp=4.0.5=ha770c72_0
   - vtk=9.3.0=qt_py312h1234567_200
@@ -314,5 +313,8 @@ dependencies:
   - zlib-ng=2.0.7=h0b41bf4_0
   - zstd=1.5.6=ha6fb4c9_0
   - pip:
+      - pandas==2.2.2
+      - pytz==2024.1
       - scipy==1.14.0
+      - tzdata==2024.1
 prefix: /home/janha/anaconda3/envs/fenicsx

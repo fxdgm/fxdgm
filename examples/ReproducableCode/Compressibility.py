@@ -8,7 +8,7 @@ import sys
 import os
 
 # Add the src directory to the sys.path
-src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src')
+src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', 'src')
 sys.path.insert(0, src_path)
 
 from Eq04 import solve_System_4eq
@@ -130,3 +130,8 @@ for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()
 fig.show()
+
+
+
+# Save the results
+np.savez('../Data/Compressibility.npz', phi_left=phi_left, phi_right=phi_right, p_right=p_right, y_AL=y_A_L, y_C_L=y_C_L, z_A=z_A, z_C=z_C, number_cells=number_cells, K_vec=K_vec, Lambda2=Lambda2, a2=a2, refinement_style=refinement_style, relax_param=relax_param, max_iter=max_iter, rtol=rtol, y_A=y_A, y_C=y_C, y_S=y_S, phi=phi, p=p, n=n, x=x)

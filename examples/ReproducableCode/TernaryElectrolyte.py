@@ -8,7 +8,7 @@ import sys
 import os
 
 # Add the src directory to the sys.path
-src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src')
+src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', 'src')
 sys.path.insert(0, src_path)
 
 from Eq04 import solve_System_4eq
@@ -19,13 +19,14 @@ del sys.path[0]
 # Further imports
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 # Define the parameters and boundary conditions
 phi_left = 4.0
 phi_right = 0.0
 p_right = 0.0
-y_A_L = 1/3
-y_C_L = 1/3
+y_A_R = 1/3
+y_C_R = 1/3
 z_A = -1.0
 z_C = 1.0
 K = 'incompressible'
@@ -36,7 +37,8 @@ refinement_style = 'log'
 rtol = 1e-8
 
 # solve the system
-y_A, y_C, phi, p, x = solve_System_4eq(phi_left, phi_right, p_right, z_A, z_C, y_A_L, y_C_L, K, Lambda2, a2, number_cells, relax_param=0.05, x0=0, x1=1, refinement_style='hard_log', return_type='Vector', max_iter=1_000, rtol=rtol)
+y_A, y_C, phi, p, x = solve_System_4eq(phi_left, phi_right, p_right, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, relax_param=0.05, x0=0, x1=1, 
+refinement_style='hard_log', return_type='Vector', max_iter=1_000, rtol=rtol)
 
 # Fine point, where space charge starts to diverge from zero
 index = 0
@@ -45,8 +47,6 @@ for i, nF_ in enumerate(nF):
     if np.isclose(nF_, 0, atol=1e-3):
         index = i
         break
-
-
 
 
 # Visualize the results
@@ -109,3 +109,7 @@ fig.legend(lines, labels, bbox_to_anchor=(0.73,1.1), ncol=6, fontsize=labelsize)
 fig.tight_layout()
 
 fig.show()
+
+
+# Save the data
+np.savez('../Data/TernaryElectrolyte.npz', phi_left=phi_left, phi_right=phi_right, p_right=p_right, z_A=z_A, z_C=z_C, y_A_R=y_A_R, y_C_R=y_C_R, K=K, Lambda2=Lambda2, a2=a2, number_cells=number_cells, x=x, phi=phi, p=p, y_A=y_A, y_C=y_C, nF=nF, index=index)

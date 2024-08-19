@@ -83,6 +83,7 @@ for row, subfig in enumerate(subfigs):
         ax.set_xlabel('x [-]', fontsize=labelsize)
         ax.grid(True)
         ax.tick_params(axis='x', labelrotation=45)
+fig.savefig('../Figures/OneDimensionalEquilibrium-AnInstructiveExample.svg')
 fig.show()
 
 
@@ -126,4 +127,5 @@ plt.ylim(dphi_values.min(), dphi_values.max())
 plt.xlabel('$\\varphi$')
 plt.xticks(rotation='vertical')
 plt.ylabel("$\phi$")
+plt.savefig('../Figures/InstructiveExample-Streamplot.svg')
 plt.show()

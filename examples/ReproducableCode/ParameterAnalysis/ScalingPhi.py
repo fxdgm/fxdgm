@@ -8,7 +8,7 @@ import sys
 import os
 
 # Add the src directory to the sys.path
-src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', 'src')
+src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..', 'src')
 sys.path.insert(0, src_path)
 
 from Eq04 import solve_System_4eq
@@ -18,6 +18,7 @@ del sys.path[0]
 
 # Import plotting library
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Define Parameter and buondary conditions
 phi_right = 0.0
@@ -70,3 +71,6 @@ plt.xlim(0,0.05)
 plt.grid()
 plt.tight_layout()
 plt.show()
+
+# Save the results
+np.savez('../../Data/ParameterAnalysis/ScalingPhi.npz', phi_right=phi_right, p_right=p_right, y_A_R=y_A_R, y_C_R=y_C_R, z_A=z_A, z_C=z_C, K=K, Lambda2=Lambda2, a2=a2, number_cells=number_cells, refinement_style=refinement_style, rtol=rtol, max_iter=max_iter, phi_left_vector=phi_left_vector, phi=phi, x=x, phi_scaled=phi_scaled)

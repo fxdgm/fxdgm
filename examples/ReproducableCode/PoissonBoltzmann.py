@@ -8,7 +8,7 @@ import sys
 import os
 
 # Add the src directory to the sys.path
-src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src')
+src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', 'src')
 sys.path.insert(0, src_path)
 
 from Eq04 import solve_System_4eq
@@ -22,7 +22,6 @@ import numpy as np
 from scipy.interpolate import interp1d
 
 # Define the parameters and boundary conditions
-# Define Parameter
 phi_left = 10.0
 phi_right = 0.0
 p_right = 0.0
@@ -108,7 +107,18 @@ plt.ylabel('$y_\\alpha$ [-]')
 plt.tight_layout()
 plt.show()
 
+# Save the results
+np.savez('../Data/PoissonBoltzmann_10.npz', x_DGM_10=x_DGM_10, y_A_DGM_10=y_A_DGM_10, y_C_DGM_10=y_C_DGM_10, y_S_DGM_10=y_S_DGM_10, phi_DGM_10=phi_DGM_10, p_DGM_10=p_DGM_10, x_PB_10=x_PB_10, y_A_PB_10=y_A_PB_10, y_C_PB_10=y_C_PB_10, y_S_PB_10=y_S_PB_10, phi_PB_10=phi_PB_10, p_PB_10=p_PB_10)
 
+# Smaller Delta varphi
+phi_left = 1.0
+y_A_DGM_1, y_C_DGM_1, phi_DGM_1, p_DGM_1, x_DGM_1 = solve_System_4eq(phi_left, phi_right, p_right, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, PoissonBoltzmann=False, relax_param=0.05, x0=0, x1=1, refinement_style=refinement_style, return_type='Vector', max_iter=10_000, rtol=rtol)
+y_S_DGM_1 = 1 - y_A_DGM_1 - y_C_DGM_1
+
+y_A_PB_1, y_C_PB_1, phi_PB_1, p_PB_1, x_PB_1 = solve_System_4eq(phi_left, phi_right, p_right, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, PoissonBoltzmann=True, relax_param=0.025, x0=0, x1=1, refinement_style=refinement_style, return_type='Vector', max_iter=10_000, rtol=rtol)
+y_S_PB_1 = 1 - y_A_PB_1 - y_C_PB_1
+    
+np.savez('../Data/PoissonBoltzmann_1.npz', phi_left=phi_left, phi_right=phi_right, p_right=p_right, z_A=z_A, z_C=z_C, y_A_R=y_A_R, y_C_R=y_C_R, K=K, Lambda2=Lambda2, a2=a2, number_cells=number_cells, y_A_DGM_01=y_A_DGM_1, y_C_DGM_01=y_C_DGM_1, y_S_DGM_01=y_S_DGM_1, phi_DGM_01=phi_DGM_1, p_DGM_01=p_DGM_1, x_DGM_01=x_DGM_1, y_A_PB_01=y_A_PB_1, y_C_PB_01=y_C_PB_1, y_S_PB_01=y_S_PB_1, phi_PB_01=phi_PB_1, p_PB_01=p_PB_1, x_PB_01=x_PB_1)
 
 # DGM convergence towards PB
 # Define Potential differences
@@ -196,3 +206,7 @@ plt.ylabel('log($L_\infty$)')
 plt.grid()
 plt.tight_layout()
 plt.show()
+
+
+# Save the results
+np.savez('../Data/PoissonBoltzmann_Convergence.npz', phi_left_vec=phi_left_vec, y_A_error_L2=y_A_error_L2, y_C_error_L2=y_C_error_L2, y_S_error_L2=y_S_error_L2, phi_error_L2=phi_error_L2, p_error_L2=p_error_L2, y_A_error_inf=y_A_error_inf, y_C_error_inf=y_C_error_inf, y_S_error_inf=y_S_error_inf, phi_error_inf=phi_error_inf, p_error_inf=p_error_inf)

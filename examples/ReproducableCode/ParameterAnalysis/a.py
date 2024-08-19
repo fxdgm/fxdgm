@@ -8,7 +8,7 @@ import os
 
 
 # Add the src directory to the sys.path
-src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', 'src')
+src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..', 'src')
 sys.path.insert(0, src_path)
 
 from Eq04 import solve_System_4eq
@@ -66,3 +66,6 @@ plt.tick_params(axis='both')
 plt.legend(loc='best')
 plt.tight_layout()
 plt.show()
+
+# Save the data
+np.savez('../../Data/ParameterAnalysis/a.npz', phi_right=phi_right, p_right = p_right, y_A_R = y_A_R, y_C_R=y_C_R, z_A = z_A, z_C = z_C, number_cells=number_cells, Lambda2=Lambda2, phi_left_vec=phi_left_vec, a2_vec=a2_vec, x=x, phi=phi, y_A=y_A, y_C=y_C, y_S=y_S, p=p)

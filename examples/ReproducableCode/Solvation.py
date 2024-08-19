@@ -8,7 +8,7 @@ import sys
 import os
 
 # Add the src directory to the sys.path
-src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src')
+src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', 'src')
 sys.path.insert(0, src_path)
 
 from Eq04 import solve_System_4eq
@@ -96,3 +96,8 @@ axs[1].plot(0, 0, color=colors[2], label='$y_S$')
 lgnd = fig.legend(bbox_to_anchor=(0.785, 1.1), ncol=6)
 fig.tight_layout()
 fig.show()
+
+
+
+# Save the data
+np.savez('../Data/Solvation.npz', phi_left=phi_left, phi_right=phi_right, p_right=p_right, y_A_R=y_A_R, y_C_R=y_C_R, z_A=z_A, z_C=z_C, number_cells=number_cells, a2=a2, Solvation_vec=Solvation_vec, Lambda2=Lambda2, x=x, phi=phi, p=p, y_A=y_A, y_C=y_C, y_S=y_S)
