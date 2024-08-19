@@ -30,6 +30,13 @@ conda env create -f environment.yml
 
 ## Usage
 
+Find the visualizations from the thesis and some extra calculations in the "examples" folder. 
+In the subfolder "ReproducableCode" is the code, to execute the calculations with some first visualizations.
+The subfolder "Data" stores the data for all the simulations in a *.npz file, which can be read with numpy `np.load(file.npz)`.
+"Visualizations" creates the necessary figures from the thesis and stores them in *.svg format in "Figures".
+
+In "src" there are the generic FEniCSx implementations, that were used to calculate the examples.
+
 
 ## Contact
 
