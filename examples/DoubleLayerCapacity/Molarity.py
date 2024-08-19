@@ -12,7 +12,7 @@ src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', 'sr
 sys.path.insert(0, src_path)
 
 from Eq02 import solve_System_2eq
-from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n_num, Q_num_, Q_DL_dimless_ana, Q_DL_dim_ana
+from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_DL_dimless_ana, Q_DL_dim_ana
 
 
 # Remove the src directory from sys.path after import

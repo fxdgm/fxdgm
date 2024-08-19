@@ -12,7 +12,7 @@ src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', 'sr
 sys.path.insert(0, src_path)
 
 from Eq02 import solve_System_2eq
-from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n_num, Q_num_, Q_DL_dimless_ana, Q_DL_dim_ana
+from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_DL_dimless_ana, Q_DL_dim_ana
 
 
 # Remove the src directory from sys.path after import
@@ -75,7 +75,7 @@ for i, phi_bcs in enumerate(phi_left):
     
 Q_num = []
 for j in range(len(phi_left)):
-    Q_num.append(Q_num_(y_A_num[j], y_C_num[j], n_num(p_num[j], K), x_num[j]))
+    Q_num.append(Q_num_(y_A_num[j], y_C_num[j], n(p_num[j], K), x_num[j]))
 Q_num = np.array(Q_num)
 
 dx_ = phi_left[1] - phi_left[0] # [1/V], Assumption: phi^L is uniformly distributed

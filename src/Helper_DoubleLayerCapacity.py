@@ -59,7 +59,7 @@ def C_dl(Q_DL:np.ndarray, Phi_pot:np.ndarray) -> np.ndarray:
     '''
     return (Q_DL[1:] - Q_DL[:-1]) / dx(Phi_pot)
 
-def n_num(p:np.ndarray, K:str|float) -> np.ndarray:
+def n(p:np.ndarray, K:str|float) -> np.ndarray:
     '''
     Calculates the total number density
 
