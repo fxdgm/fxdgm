@@ -36,7 +36,7 @@ NA = 6.022e+23 # [1/mol] - Avogadro constant
 nR_mol = 55
 nR_m = nR_mol * NA * 1/(1e-3)# [1/m^3]
 pR = 1.01325 * 1e+5 # [Pa]
-LR = 20e-8
+LR = 20e-9
 chi = 80 # [-]
 
 # Parameter and bcs for the electrolyte
@@ -54,12 +54,13 @@ p_right = 0
 number_cells = 1024
 relax_param = 0.03
 p_right = 0
+rtol = 1e-4 # ! Change back to 1e-8
 
 
 # phi^L domain
-Vol_start = 0
+Vol_start = 0.1 # ! Change back to 0
 Volt_end = 0.75
-n_Volts = 5#0
+n_Volts = 25#0
 
 phi_left = np.linspace(Vol_start, Volt_end, n_Volts) * e0/(k*T)
 
@@ -68,7 +69,7 @@ phi_left = np.linspace(Vol_start, Volt_end, n_Volts) * e0/(k*T)
 # Solution vectors
 y_A_num, y_C_num, y_S_num, phi_num, p_num, x_num = [], [], [], [], [], []
 for i, phi_bcs in enumerate(phi_left):
-    y_A_, y_C_, phi_, p_, x_ = solve_System_2eq(phi_bcs, phi_right, p_right, z_A, z_C, y_R, y_R, K, Lambda2, a2, number_cells, solvation=kappa, refinement_style='hard_log', rtol=1e-10, max_iter=2500, return_type='Vector', relax_param=relax_param)
+    y_A_, y_C_, phi_, p_, x_ = solve_System_2eq(phi_bcs, phi_right, p_right, z_A, z_C, y_R, y_R, K, Lambda2, a2, number_cells, solvation=kappa, refinement_style='hard_log', rtol=rtol, max_iter=2500, return_type='Vector', relax_param=relax_param)
     y_S_ = 1 - y_A_ - y_C_
     y_A_num.append(y_A_)
     y_C_num.append(y_C_)
@@ -82,9 +83,9 @@ for j in range(len(phi_left)):
     Q_num.append(Q_num_(y_A_num[j], y_C_num[j], n(p_num[j], K), x_num[j]))
 Q_num = np.array(Q_num)
 
-# dx_ = phi_left[1] - phi_left[0] # [1/V], Assumption: phi^L is uniformly distributed
-# C_DL_num = (Q_num[1:] - Q_num[:-1])/dx_ # [µAs/cm³]
-# C_DL_num = np.array(C_DL_num)
+dx_ = phi_left[1] - phi_left[0] # [1/V], Assumption: phi^L is uniformly distributed
+C_DL_num = (Q_num[1:] - Q_num[:-1])/dx_ # [µAs/cm³]
+C_DL_num = np.array(C_DL_num)
 C_dl_num = C_dl(Q_num, phi_left)
 
 
@@ -116,3 +117,7 @@ plt.xlabel('$\delta \\varphi$ [-]')
 plt.ylabel('$C_{dl,num} - C_{dl,ana} [-]$')
 plt.tight_layout()
 plt.show()
+
+print('phi_left:', phi_left)
+print('Q_num:', Q_num)
+print('Q_ana:', Q_ana)

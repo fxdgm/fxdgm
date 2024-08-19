@@ -8,7 +8,7 @@ from mpi4py import MPI
 from dolfinx import mesh, fem, log
 from dolfinx.fem.petsc import NonlinearProblem
 from dolfinx.nls.petsc import NewtonSolver
-from ufl import TestFunctions, split, dot, grad, dx, inner, ln, Mesh
+from ufl import TestFunctions, split, dot, grad, dx, inner, Mesh, exp
 from basix.ufl import element, mixed_element
 import matplotlib.pyplot as plt
 
@@ -51,7 +51,7 @@ def create_refined_mesh(refinement_style:str, number_cells:int) -> Mesh:
     msh = mesh.create_mesh(MPI.COMM_WORLD, cells_np, coordinates_np_, domain)
     return msh
 
-def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, z_C:float, y_A_R:float, y_C_R:float, K:float|str, Lambda2:float, a2:float, number_cells:int, solvation:float = 0, PoissonBoltzmann:bool=False, relax_param:float=None, x0:float=0, x1:float=1, refinement_style:str='uniform', return_type:str='Scalar', rtol:float=1e-8, max_iter:float=500):
+def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, z_C:float, y_A_R:float, y_C_R:float, K:float|str, Lambda2:float, a2:float, number_cells:int, solvation:float = 0, relax_param:float=None, x0:float=0, x1:float=1, refinement_style:str='uniform', return_type:str='Scalar', rtol:float=1e-8, max_iter:float=500):
     '''
     Solve the simplified dimensionless system of equations presented in: Numerical Treatment of a Thermodynamically Consistent Electrolyte Model, B.Sc. Thesis Habscheid 2024
 
@@ -96,8 +96,6 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         Number of cells in the mesh
     solvation : float, optional
         solvation number, by default 0
-    PoissonBoltzmann : bool, optional
-        Solve classical Nernst-Planck model with the use of the Poisson-Boltzmann formulation if True, else solve the presented model by Dreyer, Guhlke, Müller, by default False
     relax_param : float, optional
         Relaxation parameter for the Newton solver
         xₙ₊₁ = γ xₙ f(xₙ)/f'(xₙ) with γ the relaxation parameter
@@ -122,6 +120,8 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         Returns atomic fractions for species A and C, electric potential, pressure, and the mesh
         If return_type is 'Vector', the solution is returned as numpy arrays
     '''
+    if return_type == 'Scalar':
+        raise NotImplementedError('Scalar return type is not implemented yet')
     # Define boundaries of the domain
     x0 = 0
     x1 = 1
@@ -143,20 +143,18 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
     CG1_elem = element('Lagrange', msh.basix_cell(), 1)
 
     # Define Mixed Function Space
-    W_elem = mixed_element([CG1_elem, CG1_elem, CG1_elem, CG1_elem])
+    W_elem = mixed_element([CG1_elem, CG1_elem])#, CG1_elem, CG1_elem])
     W = fem.functionspace(msh, W_elem)
 
     # Define Trial- and Testfunctions
     u = fem.Function(W)
-    y_A, y_C, phi, p = split(u)
-    (v_A, v_C, v_1, v_2) = TestFunctions(W)
+    phi, p = split(u)
+    (v_1, v_2) = TestFunctions(W)
 
     # Collapse function space for bcs
     W0, _ = W.sub(0).collapse()
     W1, _ = W.sub(1).collapse()
-    W2, _ = W.sub(2).collapse()
-    W3, _ = W.sub(3).collapse()
-
+    
     # Define boundary conditions values
     def phi_left_(x):
         return np.full_like(x[0], phi_left)
@@ -164,42 +162,36 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         return np.full_like(x[0], phi_right)
     def p_right_(x):
         return np.full_like(x[0], p_right)
-    def y_A_right_(x):
-        return np.full_like(x[0], y_A_R)
-    def y_C_right_(x):
-        return np.full_like(x[0], y_C_R)
-
+    
     # Interpolate bcs functions
-    phi_left_bcs = fem.Function(W2)
+    phi_left_bcs = fem.Function(W0)
     phi_left_bcs.interpolate(phi_left_)
-    phi_right_bcs = fem.Function(W2)
+    phi_right_bcs = fem.Function(W0)
     phi_right_bcs.interpolate(phi_right_)
-    p_right_bcs = fem.Function(W3)
+    p_right_bcs = fem.Function(W1)
     p_right_bcs.interpolate(p_right_)
-    y_A_right_bcs = fem.Function(W0)
-    y_A_right_bcs.interpolate(y_A_right_)
-    y_C_right_bcs = fem.Function(W1)
-    y_C_right_bcs.interpolate(y_C_right_)
-
+    
     # Identify dofs for boundary conditions
     # Define boundary conditions
-    facet_left_dofs = fem.locate_dofs_geometrical((W.sub(2), W.sub(2).collapse()[0]), Left)
-    facet_right_dofs = fem.locate_dofs_geometrical((W.sub(2), W.sub(2).collapse()[0]), Right)
-    bc_left_phi = fem.dirichletbc(phi_left_bcs, facet_left_dofs, W.sub(2))
-    bc_right_phi = fem.dirichletbc(phi_right_bcs, facet_right_dofs, W.sub(2))
-
-    facet_right_dofs = fem.locate_dofs_geometrical((W.sub(3), W.sub(3).collapse()[0]), Right)
-    bc_right_p = fem.dirichletbc(p_right_bcs, facet_right_dofs, W.sub(3))
-
+    facet_left_dofs = fem.locate_dofs_geometrical((W.sub(0), W.sub(0).collapse()[0]), Left)
     facet_right_dofs = fem.locate_dofs_geometrical((W.sub(0), W.sub(0).collapse()[0]), Right)
-    bc_right_y_A = fem.dirichletbc(y_A_right_bcs, facet_right_dofs, W.sub(0))
+    bc_left_phi = fem.dirichletbc(phi_left_bcs, facet_left_dofs, W.sub(0))
+    bc_right_phi = fem.dirichletbc(phi_right_bcs, facet_right_dofs, W.sub(0))
 
     facet_right_dofs = fem.locate_dofs_geometrical((W.sub(1), W.sub(1).collapse()[0]), Right)
-    bc_right_y_C = fem.dirichletbc(y_C_right_bcs, facet_right_dofs, W.sub(1))
+    bc_right_p = fem.dirichletbc(p_right_bcs, facet_right_dofs, W.sub(1))
 
+    
     # Combine boundary conditions into list
-    bcs = [bc_left_phi, bc_right_phi, bc_right_p, bc_right_y_A, bc_right_y_C]
-        
+    bcs = [bc_left_phi, bc_right_phi, bc_right_p]
+
+    def y_A(phi, p):
+        D_A = y_A_R / exp(-(solvation + 1) * a2 * p_right - z_A * phi_right)
+        return D_A * exp(-(solvation + 1) * a2 * p - z_A * phi)
+    
+    def y_C(phi, p):
+        D_C = y_C_R / exp(-(solvation + 1) * a2 * p_right - z_C * phi_right)
+        return D_C * exp(-(solvation + 1) * a2 * p - z_C * phi)
     
 
     # Define variational problem
@@ -207,30 +199,6 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         # total free charge density
         def nF(y_A, y_C):
             return (z_C * y_C + z_A * y_A)
-        
-        # Diffusion fluxes for species A and C
-        def J_A(y_A, y_C, phi, p):
-            return ln(y_A) + a2 * (p - 1) * (solvation + 1) + z_A * phi
-        
-        def J_C(y_A, y_C, phi, p):
-            return ln(y_C) + a2 * (p - 1) * (solvation + 1) + z_C * phi
-        
-        # Variational Form
-        A = (
-            inner(grad(phi), grad(v_1)) * dx
-            - 1 / Lambda2 * nF(y_A, y_C) * v_1 * dx
-        ) + (
-            inner(grad(p), grad(v_2)) * dx
-            + 1 / a2 * nF(y_A, y_C) * dot(grad(phi), grad(v_2)) * dx
-        ) + (
-            inner(grad(J_A(y_A, y_C, phi, p)), grad(v_A)) * dx
-            + inner(grad(J_C(y_A, y_C, phi, p)), grad(v_C)) * dx
-        )
-        if PoissonBoltzmann:
-            A += (
-                inner(grad(- a2 * (p - 1) * (solvation + 1)), grad(v_A)) * dx
-                + inner(grad(- a2 * (p - 1) * (solvation + 1)), grad(v_C)) * dx
-            )
     else: 
         # total number density
         def n(p):
@@ -239,36 +207,15 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         # total free charge density
         def nF(y_A, y_C, p):
             return (z_C * y_C + z_A * y_A) * n(p)
-        
-        # Diffusion fluxes for species A and C
-        def J_A(y_A, y_C, phi, p):
-            return ln(y_A) + a2 * (solvation + 1) * K * ln(1 + 1/K * (p-1)) + z_A * phi
-        
-        def J_C(y_A, y_C, phi, p):
-            return ln(y_C) + a2 * (solvation + 1)* K * ln(1 + 1/K * (p-1)) + z_C * phi
-
-        A = (
-            inner(grad(phi), grad(v_1)) * dx
-            - 1 / Lambda2 * nF(y_A, y_C, p) * v_1 * dx
-        ) + (
-            inner(grad(p), grad(v_2)) * dx
-            + 1 / a2 * nF(y_A, y_C, p) * dot(grad(phi), grad(v_2)) * dx
-        ) + (
-            inner(grad(J_A(y_A, y_C, phi, p)), grad(v_A)) * dx
-            + inner(grad(J_C(y_A, y_C, phi, p)), grad(v_C)) * dx
-        )
+            # Variational Form
+    A = (
+        inner(grad(phi), grad(v_1)) * dx
+        - 1 / Lambda2 * nF(y_A(phi, p), y_C(phi, p)) * v_1 * dx
+    ) + (
+        inner(grad(p), grad(v_2)) * dx
+        + 1 / a2 * nF(y_A(phi, p), y_C(phi, p)) * dot(grad(phi), grad(v_2)) * dx
+    )
     F = A
-
-    # Initialize initial guess for u
-    y_C_init = fem.Function(W1)
-    y_A_init = fem.Function(W0)
-    y_C_init.interpolate(lambda x: np.full_like(x[0], y_C_R))
-    y_A_init.interpolate(lambda x: np.full_like(x[0], y_A_R))
-
-    with u.vector.localForm() as u_loc:
-        u_loc.set(0)
-    u.sub(0).interpolate(y_A_init)
-    u.sub(1).interpolate(y_C_init)
 
     # Define Nonlinear Problem
     problem = NonlinearProblem(F, u, bcs=bcs)
@@ -294,20 +241,22 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
     print(f"Number of interations: {n:d}")
 
     # Split the mixed function space into the individual components    
-    y_A, y_C, phi, p = u.split()
+    phi, p = u.split()
     
     # Return the solution
     if return_type=='Vector':
         x_vals = np.array(msh.geometry.x[:,0])
-        y_A_vals = np.array(u.sub(0).collapse().x.array)
-        y_C_vals = np.array(u.sub(1).collapse().x.array)
-        phi_vals = np.array(u.sub(2).collapse().x.array)
-        p_vals = np.array(u.sub(3).collapse().x.array)
+        phi_vals = np.array(u.sub(0).collapse().x.array)
+        p_vals = np.array(u.sub(1).collapse().x.array)
+
+        # Calculate the atomic fractions
+        D_A = y_A_R / np.exp(-(solvation + 1) * a2 * p_right - z_A * phi_right)
+        y_A_vals = D_A * np.exp(-(solvation + 1) * a2 * p_vals - z_A * phi_vals)
+    
+        D_C = y_C_R / np.exp(-(solvation + 1) * a2 * p_right - z_C * phi_right)
+        y_C_vals = D_C * np.exp(-(solvation + 1) * a2 * p_vals - z_C * phi_vals)
         
         return y_A_vals, y_C_vals, phi_vals, p_vals, x_vals
-    elif return_type=='Scalar':
-        return y_A, y_C, phi, p, msh
-    
     
 if __name__ == '__main__':
     # Define the parameters
