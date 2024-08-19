@@ -33,24 +33,18 @@ conda env create -f environment.yml
 
 ## Contact
 
-|------------|----------------------------------------------|
-| Author     | Jan Habscheid                                |
-:            : Jan.Habscheid@rwth-aachen.de                 :
-|------------|----------------------------------------------|
-| Supervisor | Dr. Lambert Theissen                         |
-:            : ACoM - Applied and Computational Mathematics |
-:            : RWTH Aachen University                       |
-:            : theisen@acom.rwth-aachen.de                  |
-|------------|----------------------------------------------|
-| Supervisor | Prof. Dr. Manuel Torrilhon                   |
-:            : ACoM - Applied and Computational Mathematics |
-:            : RWTH Aachen University                       |
-:            : mt@acom.rwth-aachen.de
-|------------|----------------------------------------------|
+**Author**
+- Jan Habscheid
+Jan.Habscheid@rwth-aachen.de
 
+**Supervisor**
+- Dr. Lambert Theissen
+- ACoM - Applied and Computational Mathematics
+- RWTH Aachen University
+- theisen@acom.rwth-aachen.de
 
-|   |   |
-|---|---|
-|__Author__|Jan Habscheid
-            Jan.Habscheid@rwth-aachen.de |
-| Normal Key | Value2 |
+**Supervisor**
+- Prof. Dr. Manuel Torrilhon
+- ACoM - Applied and Computational Mathematics
+- RWTH Aachen University
+- mt@acom.rwth-aachen.de
