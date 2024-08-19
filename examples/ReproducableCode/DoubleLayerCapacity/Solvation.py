@@ -3,6 +3,8 @@ Jan Habscheid
 Jan.Habscheid@rwth-aachen.de
 
 This script is used to analyze the influence of the solvation on the charge of the system and the double-layer capacity.
+
+# ! This is not correct and needed to be checked, as it seems that something is wrong for kappa=0
 '''
 
 # import the src file needed to solve the system of equations
@@ -10,10 +12,9 @@ import sys
 import os
 
 # Add the src directory to the sys.path
-src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', 'src')
+src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..', 'src')
 sys.path.insert(0, src_path)
 
-from Eq02 import solve_System_2eq
 from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_DL_dimless_ana, Q_DL_dim_ana
 
 
@@ -114,6 +115,8 @@ fig.show()
 
 
 # Double Layer Capacity
+Phi_pot_center_array_dimless = Phi_pot_center(Phi_Pot_Diff_dimless)
+Phi_pot_center_array_dim = Phi_pot_center(Phi_Pot_Diff_dim)
 fig = plt.figure()
 color_dimless = 'tab:purple'
 color_dim = 'tab:red'
@@ -122,7 +125,7 @@ ax2 = fig.add_subplot(111, label="2", frame_on=False)
 
 # Plot dimensional data
 for i, c_dl in enumerate(C_DL_dim):
-    ax.plot(Phi_pot_center(Phi_Pot_Diff_dim), c_dl, color=colors[i], label=f'$\kappa$: {kappa_vec[i]}')
+    ax.plot(Phi_pot_center_array_dim, c_dl, color=colors[i], label=f'$\kappa$: {kappa_vec[i]}')
 ax.grid()
 ax.set_xlabel('$\delta \\varphi [nm]$', color=color_dim)
 ax.set_ylabel('$C_{dl}$ [\u03bc$F/cm^2]$', color=color_dim)
@@ -130,7 +133,7 @@ ax.tick_params(axis='x', colors=color_dim)
 ax.tick_params(axis='y', colors=color_dim)
 
 for i, c_dl in enumerate(C_DL_dimless):
-    ax2.plot(Phi_pot_center(Phi_Pot_Diff_dimless), c_dl, color=colors[i])
+    ax2.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i])
 # ax2.grid()
 ax2.xaxis.tick_top()
 ax2.yaxis.tick_right()
@@ -144,3 +147,6 @@ ax2.tick_params(axis='y', colors=color_dimless)
 fig.legend()
 fig.tight_layout()
 fig.show()
+
+# Save the results
+np.savez('../../Data/DoubleLayerCapacity/Solvation.npz', Lambda2=Lambda2, a2=a2, K=K, kappa_vec=kappa_vec, z_A=z_A, z_C=z_C, phi_R=phi_R, p_R=p_R, Vol_start=Vol_start, Volt_end=Volt_end, n_Volts=n_Volts, Phi_pot_center_array_dim=Phi_pot_center_array_dim, Phi_pot_center_array_dimless=Phi_pot_center_array_dimless, Phi_Pot_Diff_dim=Phi_Pot_Diff_dim, Phi_Pot_Diff_dimless=Phi_Pot_Diff_dimless, C_DL_dim=C_DL_dim, C_DL_dimless=C_DL_dimless, Q_DL_dim_=Q_DL_dim_, Q_DL_dimless_=Q_DL_dimless_, Molarity=Molarity)
