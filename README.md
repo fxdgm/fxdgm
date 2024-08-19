@@ -13,6 +13,7 @@ Find the thesis at:
 ## Installation
 
 As a numerical solver, mainly FEniCSx was used and installed via conda.
+All the calculations were performed on a Linux machine. According to the documentation, everything should work well on macOS, but this was not tested. FEniCSx offers some beta versions for Windows support, but it is recommended to use WSL2 instead.
 
 ```
 conda create --name fenicsx-env python=3.12.3 -y
