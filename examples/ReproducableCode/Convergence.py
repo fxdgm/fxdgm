@@ -100,3 +100,6 @@ plt.ylabel('log($L_\infty$)')
 plt.grid()
 plt.tight_layout()
 plt.show()
+
+# Save the results
+np.savez('../Data/Convergence.npz', number_cells_vec=number_cells_vec, y_A_error_L2=y_A_error_L2, y_C_error_L2=y_C_error_L2, y_S_error_L2=y_S_error_L2, phi_error_L2=phi_error_L2, p_error_L2=p_error_L2, y_A_error_inf=y_A_error_inf, y_C_error_inf=y_C_error_inf, y_S_error_inf=y_S_error_inf, phi_error_inf=phi_error_inf, p_error_inf=p_error_inf)
