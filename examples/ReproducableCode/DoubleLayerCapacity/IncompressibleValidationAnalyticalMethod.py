@@ -15,6 +15,7 @@ import os
 src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../../', 'src')
 sys.path.insert(0, src_path)
 
+from Eq04 import solve_System_4eq
 from Eq02 import solve_System_2eq
 from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_DL_dimless_ana, Q_DL_dim_ana
 
@@ -43,7 +44,7 @@ chi = 80 # [-]
 Lambda2 = (k*T*epsilon0*(1+chi))/(e0**2 * nR_m * (LR)**2)
 a2 = (pR)/(nR_m * k * T)
 K = 'incompressible'
-kappa = 5
+kappa = 0
 Molarity = 0.01
 y_R = Molarity / nR_mol
 z_A, z_C = -1.0, 1.0
@@ -60,7 +61,7 @@ rtol = 1e-4 # ! Change back to 1e-8
 # phi^L domain
 Vol_start = 0.1 # ! Change back to 0
 Volt_end = 0.75
-n_Volts = 25#0
+n_Volts = 5#0
 
 phi_left = np.linspace(Vol_start, Volt_end, n_Volts) * e0/(k*T)
 
@@ -69,7 +70,7 @@ phi_left = np.linspace(Vol_start, Volt_end, n_Volts) * e0/(k*T)
 # Solution vectors
 y_A_num, y_C_num, y_S_num, phi_num, p_num, x_num = [], [], [], [], [], []
 for i, phi_bcs in enumerate(phi_left):
-    y_A_, y_C_, phi_, p_, x_ = solve_System_2eq(phi_bcs, phi_right, p_right, z_A, z_C, y_R, y_R, K, Lambda2, a2, number_cells, solvation=kappa, refinement_style='hard_log', rtol=rtol, max_iter=2500, return_type='Vector', relax_param=relax_param)
+    y_A_, y_C_, phi_, p_, x_ = solve_System_4eq(phi_bcs, phi_right, p_right, z_A, z_C, y_R, y_R, K, Lambda2, a2, number_cells, solvation=kappa, refinement_style='hard_log', rtol=rtol, max_iter=2500, return_type='Vector', relax_param=relax_param)
     y_S_ = 1 - y_A_ - y_C_
     y_A_num.append(y_A_)
     y_C_num.append(y_C_)
@@ -98,7 +99,7 @@ C_DL_ana = C_dl(Q_ana, phi_left)
 # Plotting
 plt.figure()
 # plt.plot(phi_left, Q_num - Q_ana, label='Difference')
-plt.plot(phi_left, Q_num, label='Numerical')
+# plt.plot(phi_left, Q_num, label='Numerical')
 plt.plot(phi_left, Q_ana, label='Analytical')
 plt.grid()
 plt.legend()
@@ -109,7 +110,7 @@ plt.show()
 
 plt.figure()
 # plt.plot(Phi_pot_center(phi_left), C_DL_num - C_DL_ana, label='Difference')
-plt.plot(Phi_pot_center(phi_left), C_dl_num, label='Numerical')
+# plt.plot(Phi_pot_center(phi_left), C_dl_num, label='Numerical')
 plt.plot(Phi_pot_center(phi_left), C_DL_ana, label='Analytical')
 plt.grid()
 plt.legend()

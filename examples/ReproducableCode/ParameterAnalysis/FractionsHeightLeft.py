@@ -33,11 +33,12 @@ number_cells = 1024*4
 refinement_style = 'hard_log'
 rtol = 1e-8
 max_iter = 10_000
+relax_param = 0.05
 
-phi_left_vec = np.linspace(-10, 10, 101)
+phi_left_vec = np.linspace(-10, 10, 201)
 y_A, y_C, y_S, phi, p, x = [], [], [], [], [], []
 for phi_left_ in phi_left_vec:
-    y_A_, y_C_, phi_, p_, x_ = solve_System_2eq(phi_left_, phi_right, p_right, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, refinement_style=refinement_style, return_type='Vector', max_iter=max_iter, rtol=rtol)
+    y_A_, y_C_, phi_, p_, x_ = solve_System_2eq(phi_left_, phi_right, p_right, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, relax_param=relax_param, refinement_style=refinement_style, return_type='Vector', max_iter=max_iter, rtol=rtol)
     y_S_ = 1 - y_A_ - y_C_
     y_A.append(y_A_)
     y_C.append(y_C_)

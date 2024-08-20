@@ -197,7 +197,7 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
     # Define variational problem
     if K == 'incompressible':
         # total free charge density
-        def nF(y_A, y_C):
+        def nF(y_A, y_C, p):
             return (z_C * y_C + z_A * y_A)
     else: 
         # total number density
@@ -207,13 +207,13 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         # total free charge density
         def nF(y_A, y_C, p):
             return (z_C * y_C + z_A * y_A) * n(p)
-            # Variational Form
+    # Variational Form
     A = (
         inner(grad(phi), grad(v_1)) * dx
-        - 1 / Lambda2 * nF(y_A(phi, p), y_C(phi, p)) * v_1 * dx
+        - 1 / Lambda2 * nF(y_A(phi, p), y_C(phi, p), p) * v_1 * dx
     ) + (
         inner(grad(p), grad(v_2)) * dx
-        + 1 / a2 * nF(y_A(phi, p), y_C(phi, p)) * dot(grad(phi), grad(v_2)) * dx
+        + 1 / a2 * nF(y_A(phi, p), y_C(phi, p), p) * dot(grad(phi), grad(v_2)) * dx
     )
     F = A
 
