@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 from ufl import Measure
 from dolfinx.mesh import locate_entities, meshtags
 
-def ElectrolyticDiode(Bias_type:str, phi_bias:float, z_A:float, z_C:float, y_A_bath:float, y_C_bath:float, K:float|str, Lambda2:float, a2:float, number_cells:list, solvation:float = 0, PoissonBoltzmann:bool=False, relax_param:float=None, Lx:float=2, Ly:float=10, rtol:float=1e-8, max_iter:float=500, return_type:str='Vector'):
+def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C:float, y_A_bath:float, y_C_bath:float, K:float|str, Lambda2:float, a2:float, number_cells:list, solvation:float = 0, PoissonBoltzmann:bool=False, relax_param:float=None, Lx:float=2, Ly:float=10, rtol:float=1e-8, max_iter:float=500, return_type:str='Vector'):
     '''
     Solves the system of equations for the example of an electric diode
 
@@ -33,6 +33,8 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, z_A:float, z_C:float, y_A_b
         ForwardBias, NoBias, BackwardBias
     phi_bias : float
         Bias in φ
+    g_phi : float
+        Neumann boundary condition for φ
     z_A : float
         Charge number of species A
     z_C : float
@@ -272,7 +274,7 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, z_A:float, z_C:float, y_A_b
 
 if __name__ == '__main__':
     phi_bias = 10
-    Bias_type = 'BackwardBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
+    Bias_type = 'ForwardBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
     g_phi = 5
     y_fixed = 0.01
     z_A = -1.0
@@ -297,7 +299,7 @@ if __name__ == '__main__':
     max_iter = 15_000    
 
     # Solve the system
-    y_A, y_C, phi, p, X = ElectrolyticDiode(Bias_type, phi_bias, z_A, z_C, y_fixed, y_fixed, K, Lambda2, a2, number_cells, solvation, PoissonBoltzmann, relax_param, Lx, Ly, rtol, max_iter, return_type='Vector')
+    y_A, y_C, phi, p, X = ElectrolyticDiode(Bias_type, phi_bias, g_phi, z_A, z_C, y_fixed, y_fixed, K, Lambda2, a2, number_cells, solvation, PoissonBoltzmann, relax_param, Lx, Ly, rtol, max_iter, return_type='Vector')
     x, y = X[0], X[1]
     y_S = 1 - y_A - y_C
 
