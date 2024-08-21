@@ -1,6 +1,8 @@
 '''
 Jan Habscheid
 Jan.Habscheid@rwth-aachen.de
+
+This file implements the fenics solver for the reduced systme of equations to two equations for the electric potential and the pressure.
 '''
 
 import numpy as np

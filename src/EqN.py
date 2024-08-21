@@ -2,7 +2,7 @@
 Jan Habscheid
 Jan.Habscheid@rwth-aachen.de
 
-This script implements the fenics solver for a ternary electrolyte (N=3, A,C,S)
+This script implements the fenics solver for the generic system of equations for N species
 '''
 
 import numpy as np
@@ -53,7 +53,7 @@ def create_refined_mesh(refinement_style:str, number_cells:int) -> Mesh:
     msh = mesh.create_mesh(MPI.COMM_WORLD, cells_np, coordinates_np_, domain)
     return msh
 
-def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, z_C:float, y_A_R:float, y_C_R:float, K:float|str, Lambda2:float, a2:float, number_cells:int, solvation:float = 0, PoissonBoltzmann:bool=False, relax_param:float=None, x0:float=0, x1:float=1, refinement_style:str='uniform', return_type:str='Scalar', rtol:float=1e-8, max_iter:float=500):
+def solve_System_Neq(phi_left:float, phi_right:float, p_right:float, z_alpha:list, y_R:list, K:float|str, Lambda2:float, a2:float, number_cells:int, solvation:float = 0, PoissonBoltzmann:bool=False, relax_param:float=None, x0:float=0, x1:float=1, refinement_style:str='uniform', return_type:str='Vector', rtol:float=1e-8, max_iter:float=500):
     '''
     Solve the dimensionless system of equations presented in: Numerical Treatment of a Thermodynamically Consistent Electrolyte Model, B.Sc. Thesis Habscheid 2024
 
@@ -74,14 +74,10 @@ def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         Value of φ at the right boundary
     p_right : float
         Value of p at the right boundary
-    z_A : float
-        Charge number of species A
-    z_C : float
-        Charge number of species C
-    y_A_R : float
-        Atomic fractions of species A at right boundary
-    y_C_R : float
-        Atomic fractions of species C at right boundary
+    z_alpha : list
+        Charge numbers for species α = 1,...,N-1
+    y_R : list
+        Atomic fractions at right boundary for species α = 1,...,N-1
     K : float | str
         Dimensioness bulk modulus of the electrolyte. If 'incompressible', the system is solved for an incompressible electrolyte
     Lambda2 : float
@@ -91,9 +87,9 @@ def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
     number_cells : int
         Number of cells in the mesh
     solvation : float, optional
-        solvation number, by default 0
+        solvation number, not implemented yet, by default 0
     PoissonBoltzmann : bool, optional
-        Solve classical Nernst-Planck model with the use of the Poisson-Boltzmann formulation if True, else solve the presented model by Dreyer, Guhlke, Müller, by default False
+        Solve classical Nernst-Planck model with the use of the Poisson-Boltzmann formulation if True, else solve the presented model by Dreyer, Guhlke, Müller, Not implemented yet, by default False
     relax_param : float, optional
         Relaxation parameter for the Newton solver
         xₙ₊₁ = γ xₙ f(xₙ)/f'(xₙ) with γ the relaxation parameter
@@ -106,7 +102,7 @@ def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         Specify for refinement towards zero
         Options are 'uniform', 'log', 'hard_log', 'hard_hard_log' by default 'uniform'
     return_type : str, optional
-        'Vector' or 'Scalar', 'Scalar' returns dolfinx.fem type and 'Vector' numpy arrays of the solution, by default 'Scalar'
+        'Vector' or 'Scalar' (not implemented yet, should be implemented in a later version), 'Scalar' returns dolfinx.fem type and 'Vector' numpy arrays of the solution, by default 'Vector'
     rtol : float, optional
         Relative tolerance for Newton solver, by default 1e-8
     max_iter : float, optional
@@ -117,12 +113,17 @@ def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
     y_A, y_C, phi, p, msh
         Returns atomic fractions for species A and C, electric potential, pressure, and the mesh
         If return_type is 'Vector', the solution is returned as numpy arrays
+        Only return_type 'Vector' is implemented yet
     '''
+    if solvation != 0: 
+        raise NotImplementedError('Solvation number not implemented yet')
+    if PoissonBoltzmann:
+        raise NotImplementedError('Poisson-Boltzmann not implemented yet')
     # Define boundaries of the domain
     x0 = 0
     x1 = 1
 
-    # Define boundaries for the boundary conditions
+    # Define boundaries
     def Left(x):
         return np.isclose(x[0], x0)
 
@@ -139,19 +140,24 @@ def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
     CG1_elem = element('Lagrange', msh.basix_cell(), 1)
 
     # Define Mixed Function Space
-    W_elem = mixed_element([CG1_elem, CG1_elem, CG1_elem, CG1_elem])
+    Elem_list = [CG1_elem, CG1_elem]
+    [Elem_list.append(CG1_elem) for _ in range(len(z_alpha))]
+    W_elem = mixed_element(Elem_list)
     W = fem.functionspace(msh, W_elem)
 
     # Define Trial- and Testfunctions
     u = fem.Function(W)
-    y_A, y_C, phi, p = split(u)
-    (v_A, v_C, v_1, v_2) = TestFunctions(W)
+    my_TrialFunctions = split(u)
+    my_TestFunctions = TestFunctions(W)
+
+    phi, p = my_TrialFunctions[0], my_TrialFunctions[1]
+    v_1, v_2 = my_TestFunctions[0], my_TestFunctions[1]
+    y_alpha = my_TrialFunctions[2:]
+    v_alpha = my_TestFunctions[2:]
 
     # Collapse function space for bcs
-    W0, _ = W.sub(0).collapse()
-    W1, _ = W.sub(1).collapse()
-    W2, _ = W.sub(2).collapse()
-    W3, _ = W.sub(3).collapse()
+    W_ = []
+    [W_.append(W.sub(i).collapse()[0]) for i in range(len(z_alpha)+2)]
 
     # Define boundary conditions values
     def phi_left_(x):
@@ -160,116 +166,84 @@ def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         return np.full_like(x[0], phi_right)
     def p_right_(x):
         return np.full_like(x[0], p_right)
-    def y_A_right_(x):
-        return np.full_like(x[0], y_A_R)
-    def y_C_right_(x):
-        return np.full_like(x[0], y_C_R)
-
+    
     # Interpolate bcs functions
-    phi_left_bcs = fem.Function(W2)
+    phi_left_bcs = fem.Function(W_[0])
     phi_left_bcs.interpolate(phi_left_)
-    phi_right_bcs = fem.Function(W2)
+    phi_right_bcs = fem.Function(W_[0])
     phi_right_bcs.interpolate(phi_right_)
-    p_right_bcs = fem.Function(W3)
+    p_right_bcs = fem.Function(W_[1])
     p_right_bcs.interpolate(p_right_)
-    y_A_right_bcs = fem.Function(W0)
-    y_A_right_bcs.interpolate(y_A_right_)
-    y_C_right_bcs = fem.Function(W1)
-    y_C_right_bcs.interpolate(y_C_right_)
 
     # Identify dofs for boundary conditions
-    # Define boundary conditions
-    facet_left_dofs = fem.locate_dofs_geometrical((W.sub(2), W.sub(2).collapse()[0]), Left)
-    facet_right_dofs = fem.locate_dofs_geometrical((W.sub(2), W.sub(2).collapse()[0]), Right)
-    bc_left_phi = fem.dirichletbc(phi_left_bcs, facet_left_dofs, W.sub(2))
-    bc_right_phi = fem.dirichletbc(phi_right_bcs, facet_right_dofs, W.sub(2))
-
-    facet_right_dofs = fem.locate_dofs_geometrical((W.sub(3), W.sub(3).collapse()[0]), Right)
-    bc_right_p = fem.dirichletbc(p_right_bcs, facet_right_dofs, W.sub(3))
-
+    facet_left_dofs = fem.locate_dofs_geometrical((W.sub(0), W.sub(0).collapse()[0]), Left)
     facet_right_dofs = fem.locate_dofs_geometrical((W.sub(0), W.sub(0).collapse()[0]), Right)
-    bc_right_y_A = fem.dirichletbc(y_A_right_bcs, facet_right_dofs, W.sub(0))
+    bc_left_phi = fem.dirichletbc(phi_left_bcs, facet_left_dofs, W.sub(0))
+    bc_right_phi = fem.dirichletbc(phi_right_bcs, facet_right_dofs, W.sub(0))
 
     facet_right_dofs = fem.locate_dofs_geometrical((W.sub(1), W.sub(1).collapse()[0]), Right)
-    bc_right_y_C = fem.dirichletbc(y_C_right_bcs, facet_right_dofs, W.sub(1))
+    bc_right_p = fem.dirichletbc(p_right_bcs, facet_right_dofs, W.sub(1))
 
-    # Combine boundary conditions into list
-    bcs = [bc_left_phi, bc_right_phi, bc_right_p, bc_right_y_A, bc_right_y_C]
+    # Combine boundary conditions for electric potential and pressure into list
+    bcs = [bc_left_phi, bc_right_phi, bc_right_p]
+
+    # Repeat the same for the boundary conditoins for the atomic fractions
+    for i in range(len(z_alpha)):
+        y_right_bcs = fem.Function(W_[i+2])
+        def y_right_(x):
+            return np.full_like(x[0], y_R[i])
+        y_right_bcs.interpolate(y_right_)
+        facet_right_dofs = fem.locate_dofs_geometrical((W.sub(i+2), W.sub(i+2).collapse()[0]), Right)
+        bc_right_y = fem.dirichletbc(y_right_bcs, facet_right_dofs, W.sub(i+2))
+        bcs.append(bc_right_y)
         
-    
-
     # Define variational problem
     if K == 'incompressible':
         # total free charge density
-        def nF(y_A, y_C):
-            return (z_C * y_C + z_A * y_A)
+        def nF(y_alpha):
+            nF = 0
+            for i in range(len(z_alpha)):
+                nF += z_alpha[i] * y_alpha[i]
+            return nF
         
         # Diffusion fluxes for species A and C
-        def J_A(y_A, y_C, phi, p):
-            return ln(y_A) + a2 * (p - 1) * (solvation + 1) + z_A * phi
-        
-        def J_C(y_A, y_C, phi, p):
-            return ln(y_C) + a2 * (p - 1) * (solvation + 1) + z_C * phi
+        def J_alpha(y_alpha, alpha, phi, p):
+            mu_alpha = ln(y_alpha[alpha])
+            mu_S = ln(1 - sum(y_alpha))
+            return mu_alpha - mu_S + z_alpha[alpha] * phi
         
         # Variational Form
         A = (
             inner(grad(phi), grad(v_1)) * dx
-            - 1 / Lambda2 * nF(y_A, y_C) * v_1 * dx
+            - 1 / Lambda2 * nF(y_alpha) * v_1 * dx
         ) + (
             inner(grad(p), grad(v_2)) * dx
-            + 1 / a2 * nF(y_A, y_C) * dot(grad(phi), grad(v_2)) * dx
-        ) + (
-            inner(grad(J_A(y_A, y_C, phi, p)), grad(v_A)) * dx
-            + inner(grad(J_C(y_A, y_C, phi, p)), grad(v_C)) * dx
+            + 1 / a2 * nF(y_alpha) * dot(grad(phi), grad(v_2)) * dx
         )
-        if PoissonBoltzmann:
+        for alpha in range(len(z_alpha)):
             A += (
-                inner(grad(- a2 * (p - 1) * (solvation + 1)), grad(v_A)) * dx
-                + inner(grad(- a2 * (p - 1) * (solvation + 1)), grad(v_C)) * dx
+                inner(grad(J_alpha(y_alpha, alpha, phi, p)), grad(v_alpha[alpha])) * dx
             )
+        if PoissonBoltzmann:
+            raise ValueError('Poisson-Boltzmann not implemented for incompressible systems')
     else: 
-        # total number density
-        def n(p):
-            return (p-1)/K + 1
-        
-        # total free charge density
-        def nF(y_A, y_C, p):
-            return (z_C * y_C + z_A * y_A) * n(p)
-        
-        # Diffusion fluxes for species A and C
-        def J_A(y_A, y_C, phi, p):
-            return ln(y_A) + a2 * (solvation + 1) * K * ln(1 + 1/K * (p-1)) + z_A * phi
-        
-        def J_C(y_A, y_C, phi, p):
-            return ln(y_C) + a2 * (solvation + 1)* K * ln(1 + 1/K * (p-1)) + z_C * phi
-
-        A = (
-            inner(grad(phi), grad(v_1)) * dx
-            - 1 / Lambda2 * nF(y_A, y_C, p) * v_1 * dx
-        ) + (
-            inner(grad(p), grad(v_2)) * dx
-            + 1 / a2 * nF(y_A, y_C, p) * dot(grad(phi), grad(v_2)) * dx
-        ) + (
-            inner(grad(J_A(y_A, y_C, phi, p)), grad(v_A)) * dx
-            + inner(grad(J_C(y_A, y_C, phi, p)), grad(v_C)) * dx
-        )
+        raise ValueError('Only incompressible systems are implemented')
     F = A
 
     # Initialize initial guess for u
-    y_C_init = fem.Function(W1)
-    y_A_init = fem.Function(W0)
-    y_C_init.interpolate(lambda x: np.full_like(x[0], y_C_R))
-    y_A_init.interpolate(lambda x: np.full_like(x[0], y_A_R))
-
     with u.vector.localForm() as u_loc:
         u_loc.set(0)
-    u.sub(0).interpolate(y_A_init)
-    u.sub(1).interpolate(y_C_init)
+
+    # Initialize initial guess for u
+    for alpha in range(len(z_alpha)):
+        y_alpha_init = fem.Function(W_[alpha+2])
+        y_alpha_init.interpolate(lambda x: np.full_like(x[0], y_R[alpha]))
+        u.sub(alpha+2).interpolate(y_alpha_init)
 
     # Define Nonlinear Problem
     problem = NonlinearProblem(F, u, bcs=bcs)
 
-    # Define Newton Solver and solver settings
+    # Define Newton Solver
     solver = NewtonSolver(MPI.COMM_WORLD, problem)
     solver.convergence_criterion = "incremental"
     solver.rtol = rtol
@@ -283,69 +257,66 @@ def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
     solver.max_it = max_iter
     solver.report = True
 
-    # Solve the problem
+    
     log.set_log_level(log.LogLevel.INFO)
     n, converged = solver.solve(u)
     assert (converged)
-    print(f"Number of interations: {n:d}")
+    print(f"Number of (interations: {n:d}")
 
-    # Split the mixed function space into the individual components    
-    y_A, y_C, phi, p = u.split()
-    
-    # Return the solution
+    # Return the solution    
     if return_type=='Vector':
-        x_vals = np.array(msh.geometry.x[:,0])
-        y_A_vals = np.array(u.sub(0).collapse().x.array)
-        y_C_vals = np.array(u.sub(1).collapse().x.array)
-        phi_vals = np.array(u.sub(2).collapse().x.array)
-        p_vals = np.array(u.sub(3).collapse().x.array)
-        
-        return y_A_vals, y_C_vals, phi_vals, p_vals, x_vals
-    elif return_type=='Scalar':
-        return y_A, y_C, phi, p, msh
+        x = np.array(msh.geometry.x[:,0])
+        phi = np.array(u.sub(0).collapse().x.array)
+        p = np.array(u.sub(1).collapse().x.array)
+        y = []
+        [y.append(u.sub(i+2).collapse().x.array) for i in range(len(z_alpha))]
+        y = np.array(y)    
+        return y, phi, p, x
     
     
 if __name__ == '__main__':
     # Define the parameters
-    phi_left = 5.0
+    phi_left = 8.0
     phi_right = 0.0
     p_right = 0.0
-    y_A_R = 1/3
-    y_C_R = 1/3
-    z_A = -1.0
-    z_C = 1.0
+    y_R = [3/6, 1/6, 1/6]
+    z_alpha = [-1.0, 1.0, 2.0]
     K = 'incompressible'
     Lambda2 = 8.553e-6
     a2 = 7.5412e-4
     number_cells = 1024
-    relax_param = .1
+    relax_param = .05
     rtol = 1e-4
-    max_iter = 500
+    max_iter = 2_500
+    refinement_style = 'hard_log'
+    return_type = 'Vector'
     
     # Solve the system
-    y_A, y_C, phi, p, x = solve_System_4eq(phi_left, phi_right, p_right, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, relax_param=relax_param, x0=0, x1=1, refinement_style='uniform', return_type='Vector', max_iter=max_iter, rtol=rtol)
+    y, phi, p, x = solve_System_Neq(phi_left, phi_right, p_right, z_alpha, y_R, K, Lambda2, a2, number_cells, relax_param=relax_param, refinement_style=refinement_style, return_type=return_type, max_iter=max_iter, rtol=rtol)
     
     # Plot the solution
+    plt.figure()
     plt.plot(x, phi)
     plt.xlim(0,0.05)
     plt.grid()
     plt.xlabel('x [-]')
-    plt.ylabel('$\\varphi$  [-]')
+    plt.ylabel('$\\varphi$ [-]')
     plt.show()
     
-    plt.plot(x, y_A, '--', color='tab:blue', label='$y_A$')
-    plt.plot(x, y_C, '-', color='tab:blue', label='$y_C$')
-    plt.plot(x, 1 - y_A - y_C, ':', color='tab:blue', label='$y_S$')
+    plt.figure()
+    plt.xlim(0,0.05)
+    plt.plot(x, p)
+    plt.grid()
+    plt.xlabel('x [-]')
+    plt.ylabel('$p$ [-]')
+    plt.show()
+
+    plt.figure()
+    for i in range(len(z_alpha)):
+        plt.plot(x, y[i], label=f'$y_{i}$')
     plt.xlim(0,0.05)
     plt.legend()
     plt.grid()
     plt.xlabel('x [-]')
-    plt.ylabel('$y_\\alpha$ [-]')
-    plt.show()
-    
-    plt.plot(x, p)
-    plt.xlim(0,0.05)
-    plt.grid()
-    plt.xlabel('x [-]')
-    plt.ylabel('$p$ [-]')
+    plt.ylabel('$y_i$ [-]')
     plt.show()
