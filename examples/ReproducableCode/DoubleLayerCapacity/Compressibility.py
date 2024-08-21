@@ -45,12 +45,13 @@ Molarity = 0.01
 y_R = Molarity / nR_mol
 z_A, z_C = -1.0, 1.0
 
-K_vec = ['incompressible', 100_000, 50_000, 20_000]
+# K_vec = ['incompressible', 100_000, 50_000, 20_000] #15_000, 5_000, 1_500, 500]
+K_vec = ['incompressible', 15_000, 1_500, 500]
 Lambda2 = (k*T*epsilon0*(1+chi))/(e0**2 * nR_m * (LR)**2)
 a2 = (pR)/(nR_m * k * T)
 
 # Solver settings
-number_cells = 1024
+number_cells = 1024*4
 p_right = 0
 phi_right = 0
 rtol = 1e-4 # ! Change back to 1e-8
@@ -58,9 +59,12 @@ rtol = 1e-4 # ! Change back to 1e-8
 # phi^L domain
 Volt_start = 0
 Volt_end = 0.75
-n_Volts = 7 # ! Change back to 101
+# Volt_start = -1.0
+# Volt_end = 1.0
+n_Volts = 25 # ! Change back to 101
 
-phi_left_dimless = np.linspace(Volt_start, Volt_end, n_Volts) * e0/(k*T)
+Phi_Pot_Diff_dim = np.linspace(Volt_start, Volt_end, n_Volts) 
+Phi_Pot_Diff_dimless = Phi_Pot_Diff_dim * e0/(k*T)
 
 y_A, y_C, y_S, phi, p, x, n_sol = [], [], [], [], [], [], []
 for index, K_ in enumerate(K_vec):
@@ -68,7 +72,7 @@ for index, K_ in enumerate(K_vec):
     print('K: ', str(K_))
     print('-------------------------------------------------------------------')
     phi_inner, y_A_inner, y_C_inner, y_S_inner, p_inner,x_inner, n_inner = [], [], [], [], [], [], []
-    for i, phi_bcs in enumerate(phi_left_dimless):
+    for i, phi_bcs in enumerate(Phi_Pot_Diff_dimless):
         print('-------------------------------------------------------------------')
         print('K: ', str(K_))
         print('phi_bcs: ', phi_bcs)
@@ -93,32 +97,32 @@ for index, K_ in enumerate(K_vec):
     p.append(p_inner)
     x.append(x_inner)
     n_sol.append(n_inner)
-phi_left_dim = phi_left_dimless * (k*T)/e0
     
 
 
 # Charge
-Q = []
+Q_DL_dimless_ = []
 for i in range(len(K_vec)):
     Q_inner = []
-    for j in range(len(phi_left_dimless)):
+    for j in range(len(Phi_Pot_Diff_dimless)):
         # ToDo: nR_m -> n
         Q_inner.append(Q_num_(y_A[i][j], y_C[i][j], n_sol[i][j], x[i][j]))
-    Q.append(Q_inner)
-Q = np.array(Q)
+    Q_DL_dimless_.append(Q_inner)
+Q_DL_dimless_ = np.array(Q_DL_dimless_)
+Q_DL_dim_ = Q_DL_dimless_ * nR_m * e0 * LR * 1e+6 * 1/(1e+4) # [µF/cm³]
 
 # Double layer capacity
-dx_ = phi_left_dimless[1] - phi_left_dimless[0] # [1/V], uniformly distributed
-C_DL = (Q[:,1:] - Q[:,:-1])/dx_ # [µAs/cm³] # ? Right unit?
-C_DL = np.array(C_DL)
-phi_left_center = (phi_left_dimless[1:] + phi_left_dimless[:-1])/2 # Center points for plotting C_DL
+C_DL_dim = [C_dl(q_dl, Phi_Pot_Diff_dim) for q_dl in Q_DL_dim_]
+C_DL_dimless = [C_dl(q_dl, Phi_Pot_Diff_dimless) for q_dl in Q_DL_dimless_]
 
+Phi_pot_center_array_dimless = Phi_pot_center(Phi_Pot_Diff_dimless)
+Phi_pot_center_array_dim = Phi_pot_center(Phi_Pot_Diff_dim)
 
 
 # Visualizations
 # Charge
 plt.figure()
-[plt.plot(phi_left_dimless, Q[i], label=f'K = {K_vec[i]}') for i in range(len(K_vec))]
+[plt.plot(Phi_Pot_Diff_dimless, Q_DL_dimless_[i], label=f'K = {K_vec[i]}') for i in range(len(K_vec))]
 plt.grid()
 plt.legend()
 plt.xlabel('$\delta \\varphi$ [-]')
@@ -128,7 +132,7 @@ plt.show()
 
 # Double layer capacity
 plt.figure()
-[plt.plot(phi_left_center, C_DL[i], label=f'K = {K_vec[i]}') for i in range(len(K_vec))]
+[plt.plot(Phi_pot_center_array_dimless, C_DL_dimless[i], label=f'K = {K_vec[i]}') for i in range(len(K_vec))]
 plt.grid()
 plt.legend()
 plt.xlabel('$\delta \\varphi$ [-]')
@@ -143,9 +147,9 @@ colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple']
 plt.figure()
 for i in range(len(K_vec)):
     clr = colors[i]
-    plt.plot(phi_left_dimless, y_A_np[i,:,0], '--', color=clr)
-    plt.plot(phi_left_dimless, y_C_np[i,:,0], '-', color=clr)
-    plt.plot(phi_left_dimless, y_S_np[i,:,0], ':', color=clr)
+    plt.plot(Phi_Pot_Diff_dimless, y_A_np[i,:,0], '--', color=clr)
+    plt.plot(Phi_Pot_Diff_dimless, y_C_np[i,:,0], '-', color=clr)
+    plt.plot(Phi_Pot_Diff_dimless, y_S_np[i,:,0], ':', color=clr)
 dummy, = plt.plot(0, 0, color='grey', linestyle='--', label='$y_A$')
 dummy, = plt.plot(0, 0, color='grey', linestyle='-', label='$y_C$')
 dummy, = plt.plot(0, 0, color='grey', linestyle=':', label='$y_S$')
@@ -164,9 +168,9 @@ plt.figure()
 clr = colors[0]
 for i in range(len(K_vec)):
     clr = colors[i]
-    plt.plot(phi_left_dimless, n_A_np[i,:,0], '--', color=clr)
-    plt.plot(phi_left_dimless, n_C_np[i,:,0], '-', color=clr)
-    plt.plot(phi_left_dimless, n_S_np[i,:,0], ':', color=clr)
+    plt.plot(Phi_Pot_Diff_dimless, n_A_np[i,:,0], '--', color=clr)
+    plt.plot(Phi_Pot_Diff_dimless, n_C_np[i,:,0], '-', color=clr)
+    plt.plot(Phi_Pot_Diff_dimless, n_S_np[i,:,0], ':', color=clr)
 dummy, = plt.plot(0, 0, color='grey', linestyle='--', label='$n_A$')
 dummy, = plt.plot(0, 0, color='grey', linestyle='-', label='$n_C$')
 dummy, = plt.plot(0, 0, color='grey', linestyle=':', label='$n_S$')
@@ -180,6 +184,5 @@ plt.tight_layout()
 plt.show()
 
 
-
 # Store data
-np.savez('../../Data/DoubleLayerCapacity/Compressibility.npz', Lambda2=Lambda2, a2=a2, K_vec=K_vec, kappa=kappa, Molarity=Molarity, y_R=y_R, z_A=z_A, z_C=z_C, number_cells=number_cells, p_right=p_right, phi_right=phi_right, rtol=rtol, Volt_start=Volt_start, Volt_end=Volt_end, n_Volts=n_Volts, phi_left_dim=phi_left_dim, phi_left_dimless=phi_left_dimless, y_A=y_A, y_C=y_C, y_S=y_S, phi=phi, p=p, x=x, n_sol=n_sol, Q=Q, C_DL=C_DL, phi_left_center=phi_left_center, y_A_np=y_A_np, y_C_np=y_C_np, y_S_np=y_S_np, n_sol_np=n_sol_np, n_A_np=n_A_np, n_C_np=n_C_np, n_S_np=n_S_np)
+np.savez('../../Data/DoubleLayerCapacity/DLKap_Compressibility.npz', Lambda2=Lambda2, a2=a2, K_vec=K_vec, kappa=kappa, Molarity=Molarity, y_R=y_R, z_A=z_A, z_C=z_C, number_cells=number_cells, p_right=p_right, phi_right=phi_right, rtol=rtol, Volt_start=Volt_start, Volt_end=Volt_end, n_Volts=n_Volts, Phi_Pot_Diff_dimless=Phi_Pot_Diff_dimless, Phi_Pot_Diff_dim=Phi_Pot_Diff_dim, Phi_pot_center_array_dim=Phi_pot_center_array_dim, Phi_pot_center_array_dimless=Phi_pot_center_array_dimless, y_A=y_A, y_C=y_C, y_S=y_S, phi=phi, p=p, x=x, n_sol=n_sol, Q_DL_dimless_=Q_DL_dimless_, Q_DL_dim_ =Q_DL_dim_, C_DL_dimless=C_DL_dimless, C_DL_dim=C_DL_dim, y_A_np=y_A_np, y_C_np=y_C_np, y_S_np=y_S_np, n_sol_np=n_sol_np, n_A_np=n_A_np, n_C_np=n_C_np, n_S_np=n_S_np)

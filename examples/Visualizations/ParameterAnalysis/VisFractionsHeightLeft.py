@@ -26,7 +26,7 @@ axs.plot(phi_left_vec, y_C_np[:,0], label='$y_C$', lw=lw)
 axs.plot(phi_left_vec, y_S_np[:,0], label='$y_S$', lw=lw)
 axs.grid()
 axs.set_xlabel('$\delta \\varphi$ [-]', fontsize=labelsize)
-axs.set_ylabel('$y_\\alpha$ [-]', fontsize=labelsize)
+axs.set_ylabel('$y_\\alpha^L$ [-]', fontsize=labelsize)
 axs.tick_params(axis='both', labelsize=labelsize)
 
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]

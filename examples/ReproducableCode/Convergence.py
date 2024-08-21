@@ -10,7 +10,7 @@ import sys
 import os
 
 # Add the src directory to the sys.path
-src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src')
+src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', 'src')
 sys.path.insert(0, src_path)
 
 from Eq04 import solve_System_4eq
@@ -102,4 +102,4 @@ plt.tight_layout()
 plt.show()
 
 # Save the results
-np.savez('../Data/Convergence.npz', number_cells_vec=number_cells_vec, y_A_error_L2=y_A_error_L2, y_C_error_L2=y_C_error_L2, y_S_error_L2=y_S_error_L2, phi_error_L2=phi_error_L2, p_error_L2=p_error_L2, y_A_error_inf=y_A_error_inf, y_C_error_inf=y_C_error_inf, y_S_error_inf=y_S_error_inf, phi_error_inf=phi_error_inf, p_error_inf=p_error_inf)
+np.savez('../Data/Convergence.npz', number_cells_vec=number_cells_vec, y_A_error_L2=y_A_error_L2, y_C_error_L2=y_C_error_L2, y_S_error_L2=y_S_error_L2, phi_error_L2=phi_error_L2, p_error_L2=p_error_L2, y_A_error_inf=y_A_error_inf, y_C_error_inf=y_C_error_inf, y_S_error_inf=y_S_error_inf, phi_error_inf=phi_error_inf, p_error_inf=p_error_inf, y_A=y_A, y_C=y_C, y_S=y_S, phi=phi, p=p, x=x)
