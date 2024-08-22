@@ -193,16 +193,32 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
     if K == 'incompressible':
         def nF(y_A, y_C):
             return (z_C * y_C + z_A * y_A)
+
+        def J_A(y_A, y_C, phi, p):
+            g_A = (solvation + 1) * a2 * (p - 1) # g_Aref, but constant and take gradient
+            mu_A = g_A + ln(y_A)
+            g_N = a2 * (p - 1) # solvation_N = 0, g_Sref, but constant and take gradient
+            mu_N = g_N + ln(1 - y_A - y_C)
+            return grad(mu_A - mu_N + z_A * phi)
+        
+        def J_C(y_A, y_C, phi, p):
+            g_C = (solvation + 1) * a2 * (p - 1) # g_Cref, but constant and take gradient
+            mu_C = g_C + ln(y_C)
+            g_N = a2 * (p - 1)
+            mu_N = g_N + ln(1 - y_A - y_C)
+            return grad(mu_C - mu_N + z_C * phi)
         
         A = (
             inner(grad(phi), grad(v_1)) * dx
-            - Lambda2 * nF(y_A, y_C) * v_1 * dx
+            - 1 / Lambda2 * nF(y_A, y_C) * v_1 * dx
         ) + (
             inner(grad(p), grad(v_2)) * dx
             + 1 / a2 * nF(y_A, y_C) * dot(grad(phi), grad(v_2)) * dx
         ) + (
-            inner(grad(ln(y_A) + a2 * solvation * p - ln(1-y_A-y_C) + z_A * phi), grad(v_A)) * dx
-            + inner(grad(ln(y_C) + a2 * solvation * p- ln(1-y_A-y_C) + z_C * phi), grad(v_C)) * dx
+            inner(J_A(y_A, y_C, phi, p), grad(v_A)) * dx
+            + inner(J_C(y_A, y_C, phi, p), grad(v_C)) * dx
+            # inner(grad(ln(y_A) + a2 * solvation * p - ln(1-y_A-y_C) + z_A * phi), grad(v_A)) * dx
+            # + inner(grad(ln(y_C) + a2 * solvation * p- ln(1-y_A-y_C) + z_C * phi), grad(v_C)) * dx
         )
 
     # Define Neumann boundaries
@@ -274,19 +290,16 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
 
 if __name__ == '__main__':
     phi_bias = 10
-    Bias_type = 'ForwardBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
+    Bias_type = 'BackwardBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
     g_phi = 5
     y_fixed = 0.01
     z_A = -1.0
     z_C = 1.0
     K = 'incompressible'
-    # Lambda2 = 1e-7#7#1e-3
-    # a2 = 1e-4
-    # Lambda2 = 1e-8#8.33e-8 
-    # a2 = 7.3656e-4
-    Lambda2 = 8.553e-6
-    a2 = 7.5412e-4
-    number_cells = [20, 200]
+    Lambda2 = 8.553e-2 # ! Change back to 1e-6
+    # g_phi *= np.sqrt(Lambda2) # ! Unsure about this scaling
+    a2 = 7.5412e-2
+    number_cells = [20, 100]
     Lx = 2
     Ly = 10
     x0 = np.array([0, 0])
@@ -296,7 +309,7 @@ if __name__ == '__main__':
     PoissonBoltzmann = False
     rtol = 1e-3 # ToDo: Change back to 1e-8, currently just for testing
     relax_param = 0.05
-    max_iter = 15_000    
+    max_iter = 15_000
 
     # Solve the system
     y_A, y_C, phi, p, X = ElectrolyticDiode(Bias_type, phi_bias, g_phi, z_A, z_C, y_fixed, y_fixed, K, Lambda2, a2, number_cells, solvation, PoissonBoltzmann, relax_param, Lx, Ly, rtol, max_iter, return_type='Vector')

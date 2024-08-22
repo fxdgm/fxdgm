@@ -210,7 +210,7 @@ def solve_System_Neq(phi_left:float, phi_right:float, p_right:float, z_alpha:lis
         def J_alpha(y_alpha, alpha, phi, p):
             mu_alpha = ln(y_alpha[alpha])
             mu_S = ln(1 - sum(y_alpha))
-            return mu_alpha - mu_S + z_alpha[alpha] * phi
+            return grad(mu_alpha - mu_S + z_alpha[alpha] * phi)
         
         # Variational Form
         A = (
@@ -222,7 +222,7 @@ def solve_System_Neq(phi_left:float, phi_right:float, p_right:float, z_alpha:lis
         )
         for alpha in range(len(z_alpha)):
             A += (
-                inner(grad(J_alpha(y_alpha, alpha, phi, p)), grad(v_alpha[alpha])) * dx
+                inner(J_alpha(y_alpha, alpha, phi, p), grad(v_alpha[alpha])) * dx
             )
         if PoissonBoltzmann:
             raise ValueError('Poisson-Boltzmann not implemented for incompressible systems')

@@ -206,10 +206,10 @@ def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         
         # Diffusion fluxes for species A and C
         def J_A(y_A, y_C, phi, p):
-            return ln(y_A) + a2 * (p - 1) * (solvation + 1) + z_A * phi
+            return grad(ln(y_A) + a2 * (p - 1) * (solvation + 1) + z_A * phi)
         
         def J_C(y_A, y_C, phi, p):
-            return ln(y_C) + a2 * (p - 1) * (solvation + 1) + z_C * phi
+            return grad(ln(y_C) + a2 * (p - 1) * (solvation + 1) + z_C * phi)
         
         # Variational Form
         A = (
@@ -219,8 +219,8 @@ def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
             inner(grad(p), grad(v_2)) * dx
             + 1 / a2 * nF(y_A, y_C) * dot(grad(phi), grad(v_2)) * dx
         ) + (
-            inner(grad(J_A(y_A, y_C, phi, p)), grad(v_A)) * dx
-            + inner(grad(J_C(y_A, y_C, phi, p)), grad(v_C)) * dx
+            inner(J_A(y_A, y_C, phi, p), grad(v_A)) * dx
+            + inner(J_C(y_A, y_C, phi, p), grad(v_C)) * dx
         )
         if PoissonBoltzmann:
             A += (

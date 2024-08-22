@@ -54,16 +54,19 @@ legend_width = 8
 levels_colorbar = 20
 levels_contour = 20
 
+vmap_concentrations = np.linspace(0, 1, levels_colorbar)
+vmap_potential = np.linspace(-20, 20, levels_colorbar)
+vmap_pressure = np.linspace(np.min(p_packed), np.max(p_packed), levels_colorbar)
+
 for bias, (y_A, y_C, y_S, phi, p, x, y) in enumerate(zip(y_A_packed, y_C_packed, y_S_packed, phi_packed, p_packed, x_packed, y_packed)): 
-    c = axs[bias,0].tricontourf(x, y, phi, cmap=color_theme_potential, levels=np.linspace(np.min(phi),np.max(phi),levels_colorbar))#, extend="both")
+    c = axs[bias,0].tricontourf(x, y, phi, cmap=color_theme_potential, levels=vmap_potential)#, extend="both")
     # c.cmap.set_under('k')
-    c.set_clim(np.min(phi), np.max(phi))
+    c.set_clim(-20, 20)
     cbar = fig.colorbar(c, ax=axs[bias,0])
     cbar.ax.tick_params(labelsize=labelsize)
     axs[bias,0].tricontour(x, y, phi, colors='black', levels=levels_contour)
     axs[bias,0].tick_params(axis='both', labelsize=labelsize)
 
-    vmap_concentrations = np.linspace(0, 1, levels_colorbar)
     c = axs[bias,1].tricontourf(x, y, y_A, cmap=color_theme_concentration, vmin=np.min(y_A), vmax=np.max(y_A), levels=vmap_concentrations)#, extend='both')
     # cbar = fig.colorbar(c, ax=axs[bias,1], boundaries=np.linspace(0,1,5))
     # cbar.solids.set_edgecolor("face")
@@ -78,12 +81,14 @@ for bias, (y_A, y_C, y_S, phi, p, x, y) in enumerate(zip(y_A_packed, y_C_packed,
     axs[bias,2].tick_params(axis='both', labelsize=labelsize)
 
     c = axs[bias,3].tricontourf(x, y, y_S, cmap=color_theme_concentration, levels=vmap_concentrations)
+    c.set_clim(0, 1)
     cbar = fig.colorbar(c, ax=axs[bias,3])
     cbar.ax.tick_params(labelsize=labelsize)
     axs[bias,3].tricontour(x, y, y_S, colors='black', levels=levels_contour)
     axs[bias,3].tick_params(axis='both', labelsize=labelsize)
 
-    c = axs[bias,4].tricontourf(x, y, p, cmap=color_theme_pressure, levels=np.linspace(np.min(p),np.max(p),levels_colorbar))
+    c = axs[bias,4].tricontourf(x, y, p, cmap=color_theme_pressure, levels=vmap_pressure)
+    c.set_clim(np.min(p_packed), np.max(p_packed))
     cbar = fig.colorbar(c, ax=axs[bias,4])
     cbar.ax.tick_params(labelsize=labelsize)
     axs[bias,4].tricontour(x, y, p, colors='black', levels=levels_contour)
