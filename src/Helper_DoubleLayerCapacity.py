@@ -4,6 +4,7 @@ Jan.Habscheid@rwth-aachen.de
 '''
 
 import numpy as np
+from scipy.optimize import fixed_point, fsolve
 
 
 # Helper functions
@@ -157,66 +158,51 @@ def Q_DL_dimless_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float
         # Assume E_p = p_R = 0        
         D_A = y_A_R / (np.exp(-(solvation+1)*a2*p_R-z_A*phi_R))
         D_C = y_C_R / (np.exp(-(solvation+1)*a2*p_R-z_C*phi_R))
-        D_N = y_N_R / (np.exp(-(solvation+1)*a2*p_R-z_N*phi_R))
+        D_N = y_N_R / (np.exp(-a2*p_R))
 
-        D_tilde_A = np.log(D_A)
-        D_tilde_C = np.log(D_C)
-        D_tilde_N = np.log(D_N)
+        Q_DL = []
+        dx_phi_L = 0
+        for phi_L_ in phi_L:
+            def func(p_L):
+                # A_Term = D_A * np.exp(-z_A*phi_L)
+                A_Term = D_A * np.exp(-(solvation+1)*a2*p_L-z_A*phi_L_)
+                C_Term = D_C * np.exp(-(solvation+1)*a2*p_L-z_C*phi_L_)
+                N_Term = D_N * np.exp(-a2*p_L)
 
-        CLambda_L = - z_A * phi_L + D_tilde_A - z_C * phi_L + D_tilde_C - z_N * phi_L + D_tilde_N
-        CLambda_R = - z_A * phi_R + D_tilde_A - z_C * phi_R + D_tilde_C - z_N * phi_R + D_tilde_N
+                return (A_Term + C_Term + N_Term) - 1
+            p_L = fsolve(func, dx_phi_L)
+            dx_phi_L = np.sqrt(p_L - E_p) * np.sqrt(2*a2/Lambda2)
+            Q_DL_ = Lambda2 * dx_phi_L
+            Q_DL.append(Q_DL_)
+        Q_DL = np.array(Q_DL)
+
+        # def func_L(p_L):
+        #     CLambda = D_A * np.exp(-z_A * phi_L - solvation*a2*p_L) + D_C * np.exp(-z_C * phi_L - solvation*a2*p_L) + D_N
+        #     return np.log(CLambda)/a2
+        
+        # p_L = fixed_point(func_L, 0, maxiter=5_000)
+        # Lambda = np.sqrt(Lambda2)
+        # a = np.sqrt(a2)
+        # Q_DL = np.sqrt(2) * Lambda * a * np.sqrt(p_L - E_p)
+
+        # ! ToDo: Implement full analytical for solvation == 0
+        
+    else:
+        C_A = y_A_R / ((K + p_R  - 1)**(-1*a2*K)*np.exp(-z_A*phi_R))
+        C_C = y_C_R / ((K + p_R  - 1)**(-1*a2*K)*np.exp(-z_C*phi_R))
+        C_N = y_N_R / ((K + p_R  - 1)**(-1*a2*K)*np.exp(-z_N*phi_R))
+
+        CLambda_L = C_A * np.exp(-z_A*phi_L) + C_C * np.exp(-z_C*phi_L) + C_N
+        # CLambda_R = C_A * np.exp(-z_A*phi_R) + C_C * np.exp(-z_C*phi_R) + C_N
+
+        Left = np.sqrt((1/CLambda_L)**(-1/(a2*K)) + 1 - K - E_p)
+        # Right = np.sqrt((1/CLambda_R)**(-1/(a2*K)) + 1 - K - E_p)
 
         Lambda = np.sqrt(Lambda2)
         a = np.sqrt(a2)
 
-        N = 3
-
-        Q_DL = Lambda * a * (np.sqrt(-CLambda_L/(-(N-1)*(solvation+1)-1)) - np.sqrt(-CLambda_R/(-(N-1)*(solvation+1)-1)))
-
-        # CLambda_L = np.log(D_A * np.exp(-z_A * phi_L) + D_C * np.exp(-z_C * phi_L) + D_N * np.exp(-z_N * phi_L))
-        # CLambda_R = np.log(D_A * np.exp(-z_A * phi_R) + D_C * np.exp(-z_C * phi_R) + D_N * np.exp(-z_N * phi_R))
-
-        # Lambda = np.sqrt(Lambda2)
-        # Q_DL = (phi_L-phi_R) / np.abs(phi_L-phi_R) * Lambda * np.sqrt(2) * (np.sqrt(CLambda_L/(solvation+1) - E_p * a2) - np.sqrt(CLambda_R/(solvation+1) - E_p * a2))
-    else:
-        C_A = y_A_R / ((K + p_R  - 1)**(-(solvation+1)*a2*K)*np.exp(-z_A*phi_R))
-        C_C = y_C_R / ((K + p_R  - 1)**(-(solvation+1)*a2*K)*np.exp(-z_C*phi_R))
-        C_N = y_N_R / ((K + p_R  - 1)**(-(solvation+1)*a2*K)*np.exp(-z_N*phi_R))
-
-        # # Lambda_tilda_L = C_A * np.exp(-z_A*phi_L) + C_C * np.exp(-z_C*phi_L) + C_N * np.exp(-z_N*phi_L)
-        # # Lambda_tilda_R = C_A * np.exp(-z_A*phi_R) + C_C * np.exp(-z_C*phi_R) + C_N * np.exp(-z_N*phi_R)
-
-        # # # Lambda_hat_L = np.exp(np.log(Lambda_tilda_L) / (a2 * K))
-        # # # Lambda_hat_R = np.exp(np.log(Lambda_tilda_R) / (a2 * K))
-
-        # # dx_Phi_L = np.sqrt(2 * a2/Lambda2 * (1 - K - E_p + Lambda_hat_L))
-        # # dx_Phi_R = np.sqrt(2 * a2/Lambda2 * (1 - K - E_p + Lambda_hat_R))
-
-        # # Q_DL = Lambda2 * (dx_Phi_L - dx_Phi_R)
-
-        # Lambda_tilde_L = C_A * np.exp(-z_A*phi_L) + C_C * np.exp(-z_C*phi_L) + C_N * np.exp(-z_N*phi_L)
-        # Lambda_tilde_R = C_A * np.exp(-z_A*phi_R) + C_C * np.exp(-z_C*phi_R) + C_N * np.exp(-z_N*phi_R)
-
-        # Lambda_hat_L = (1/Lambda_tilde_L)**(-1/((solvation+1)*a2*K))
-        # Lambda_hat_R = (1/Lambda_tilde_R)**(-1/((solvation+1)*a2*K))
-
-        # a = np.sqrt(a2)
-        # Lambda = np.sqrt(Lambda2)
-        # K_tilde = 1 - K + E_p
-
-        # Q_DL = Lambda * a * np.sqrt(2) * (np.sqrt(Lambda_hat_L - K_tilde) - np.sqrt(Lambda_hat_R - K_tilde))
-
-        Lambda_L = C_A * np.exp(-z_A*phi_L) + C_C * np.exp(-z_C*phi_L) + C_N * np.exp(-z_N*phi_L)
-        Lambda_R = C_A * np.exp(-z_A*phi_R) + C_C * np.exp(-z_C*phi_R) + C_N * np.exp(-z_N*phi_R)
-
-        B = -a2 * K
-        A = 1/2 * Lambda2/a2
-        K_tilde = K + E_p - 1
-
-        dx_Phi_L = (np.power(1/Lambda_L, B) - K_tilde) / A 
-        dx_Phi_R = (np.power(1/Lambda_R, B) - K_tilde) / A
-
-        Q_DL = Lambda2 * (dx_Phi_L - dx_Phi_R)
+        Q_DL = Lambda * a * np.sqrt(2) * (Left)# - Right)
+                     
     return Q_DL
 
 def Q_DL_dim_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float, phi_L:float, phi_R:float, p_R:float, K:str|float, Lambda2:float, a2:float, nR_m:float, e0:float, LR:float, solvation:float) -> float:

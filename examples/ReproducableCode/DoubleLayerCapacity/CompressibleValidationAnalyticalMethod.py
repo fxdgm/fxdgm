@@ -75,12 +75,13 @@ nR_m = nR_mol * NA * 1/(1e-3)# [1/m^3]
 pR = 1.01325 * 1e+5 # [Pa]
 LR = 20e-8
 chi = 80 # [-]
-
+K_vec = ['incompressible', 50_000, 15_000, 1_500, 500] # Working
+# ! Not working: 100_000, 20_000
 # Parameter and bcs for the electrolyte
 Lambda2 = (k*T*epsilon0*(1+chi))/(e0**2 * nR_m * (LR)**2)
 a2 = (pR)/(nR_m * k * T)
-K = 1_000#'incompressible'
 kappa = 0
+K = 50_000
 Molarity = 0.01
 y_R = Molarity / nR_mol
 z_A, z_C = -1.0, 1.0
@@ -103,26 +104,26 @@ phi_left_dimless = np.linspace(Vol_start, Volt_end, n_Volts) * e0/(k*T)
 
 # Numerical calculations
 # Solution vectors
-# y_A_num, y_C_num, y_S_num, phi_num, p_num, x_num = [], [], [], [], [], []
-# for i, phi_bcs in enumerate(phi_left_dimless):
-#     y_A_, y_C_, phi_, p_, x_ = solve_System_4eq(phi_bcs, phi_right, p_right, z_A, z_C, y_R, y_R, K, Lambda2, a2, number_cells, solvation=kappa, refinement_style='hard_log', rtol=1e-4, max_iter=2500, return_type='Vector', relax_param=relax_param)
-#     y_S_ = 1 - y_A_ - y_C_
-#     y_A_num.append(y_A_)
-#     y_C_num.append(y_C_)
-#     y_S_num.append(y_S_)
-#     phi_num.append(phi_)
-#     p_num.append(p_)
-#     x_num.append(x_)
+y_A_num, y_C_num, y_S_num, phi_num, p_num, x_num = [], [], [], [], [], []
+for i, phi_bcs in enumerate(phi_left_dimless):
+    y_A_, y_C_, phi_, p_, x_ = solve_System_4eq(phi_bcs, phi_right, p_right, z_A, z_C, y_R, y_R, K, Lambda2, a2, number_cells, solvation=kappa, refinement_style='hard_log', rtol=1e-4, max_iter=2500, return_type='Vector', relax_param=relax_param)
+    y_S_ = 1 - y_A_ - y_C_
+    y_A_num.append(y_A_)
+    y_C_num.append(y_C_)
+    y_S_num.append(y_S_)
+    phi_num.append(phi_)
+    p_num.append(p_)
+    x_num.append(x_)
     
-# Q_num = []
-# for j in range(len(phi_left_dimless)):
-#     Q_num.append(Q_num_(y_A_num[j], y_C_num[j], n(p_num[j], K), x_num[j]))
-# Q_num = np.array(Q_num)
+Q_num = []
+for j in range(len(phi_left_dimless)):
+    Q_num.append(Q_num_(y_A_num[j], y_C_num[j], n(p_num[j], K), x_num[j]))
+Q_num = np.array(Q_num)
 
-# dx_ = phi_left_dimless[1] - phi_left_dimless[0] # [1/V], Assumption: phi^L is uniformly distributed
-# C_DL_num = (Q_num[1:] - Q_num[:-1])/dx_ # [µAs/cm³]
-# C_DL_num = np.array(C_DL_num)
-# C_dl_num = C_dl(Q_num, phi_left_dimless)
+dx_ = phi_left_dimless[1] - phi_left_dimless[0] # [1/V], Assumption: phi^L is uniformly distributed
+C_DL_num = (Q_num[1:] - Q_num[:-1])/dx_ # [µAs/cm³]
+C_DL_num = np.array(C_DL_num)
+C_dl_num = C_dl(Q_num, phi_left_dimless)
 
 # Analytical calculations
 # K = K_vec[0]
@@ -137,7 +138,7 @@ plt.figure()
 # plt.plot(phi_left, Q_num[1] - Q_ana, label='Difference')
 # plt.plot(phi_left_dimless, Q_num - Q_ana, label='Difference')
 # plt.plot(phi_left_dimless, Q_num[1], label='Numerical')
-# plt.plot(phi_left_dimless, Q_num, label='Numerical')
+plt.plot(phi_left_dimless, Q_num, label='Numerical')
 plt.plot(phi_left_dimless, Q_ana, label='Analytical')
 plt.grid()
 plt.legend()
@@ -150,7 +151,7 @@ plt.figure()
 # plt.plot(Phi_pot_center(phi_left), C_DL_num[1] - C_DL_ana, label='Difference')
 # plt.plot(Phi_pot_center(phi_left_dimless), C_DL_num - C_DL_ana, label='Difference')
 # plt.plot(Phi_pot_center(phi_left_dimless), C_DL_num[1], label='Numerical')
-# plt.plot(Phi_pot_center(phi_left_dimless), C_DL_num, label='Numerical')
+plt.plot(Phi_pot_center(phi_left_dimless), C_DL_num, label='Numerical')
 plt.plot(Phi_pot_center(phi_left_dimless), C_DL_ana, label='Analytical')
 plt.grid()
 plt.legend()

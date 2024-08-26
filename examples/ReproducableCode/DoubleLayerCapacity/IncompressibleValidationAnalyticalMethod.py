@@ -44,7 +44,7 @@ chi = 80 # [-]
 Lambda2 = (k*T*epsilon0*(1+chi))/(e0**2 * nR_m * (LR)**2)
 a2 = (pR)/(nR_m * k * T)
 K = 'incompressible'
-kappa = 0
+kappa = 5
 Molarity = 0.01
 y_R = Molarity / nR_mol
 z_A, z_C = -1.0, 1.0
@@ -61,7 +61,7 @@ rtol = 1e-4 # ! Change back to 1e-8
 # phi^L domain
 Vol_start = 0.1 # ! Change back to 0
 Volt_end = 0.75
-n_Volts = 5#0
+n_Volts = 10#0
 
 phi_left = np.linspace(Vol_start, Volt_end, n_Volts) * e0/(k*T)
 
@@ -99,7 +99,7 @@ C_DL_ana = C_dl(Q_ana, phi_left)
 # Plotting
 plt.figure()
 # plt.plot(phi_left, Q_num - Q_ana, label='Difference')
-# plt.plot(phi_left, Q_num, label='Numerical')
+plt.plot(phi_left, Q_num, label='Numerical')
 plt.plot(phi_left, Q_ana, label='Analytical')
 plt.grid()
 plt.legend()
@@ -110,7 +110,7 @@ plt.show()
 
 plt.figure()
 # plt.plot(Phi_pot_center(phi_left), C_DL_num - C_DL_ana, label='Difference')
-# plt.plot(Phi_pot_center(phi_left), C_dl_num, label='Numerical')
+plt.plot(Phi_pot_center(phi_left), C_dl_num, label='Numerical')
 plt.plot(Phi_pot_center(phi_left), C_DL_ana, label='Analytical')
 plt.grid()
 plt.legend()
@@ -120,5 +120,5 @@ plt.tight_layout()
 plt.show()
 
 print('phi_left:', phi_left)
-print('Q_num:', Q_num)
+# print('Q_num:', Q_num)
 print('Q_ana:', Q_ana)
