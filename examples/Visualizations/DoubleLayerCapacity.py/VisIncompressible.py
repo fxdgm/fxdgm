@@ -28,31 +28,32 @@ C_DL_dimless = data_Molarity['C_DL_dimless']
 # Plotting
 # Charge
 fig = plt.figure()
-colors = ['tab:blue', 'tab:orange', 'tab:green']
+colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple']
 color_dimless = 'tab:purple'
 color_dim = 'tab:red'
 ax = fig.add_subplot(111, label="1")
 ax2 = fig.add_subplot(111, label="2", frame_on=False)
 
+# Plot dimensionless data
+for i, q_dl in enumerate(Q_DL_dimless_):
+    ax.plot(Phi_Pot_Diff_dimless, q_dl, color=colors[i], label=f'M: {Molarity[i]}')
+ax.grid()
+ax.set_xlabel('$\delta \\varphi [-]$', color=color_dimless)
+ax.set_ylabel('$Q [-]$', color=color_dimless)
+ax.tick_params(axis='x', colors=color_dimless)
+ax.tick_params(axis='y', colors=color_dimless)
+
 # Plot dimensional data
 for i, q_dl in enumerate(Q_DL_dim_):
-    ax.plot(Phi_Pot_Diff_dim, q_dl, color=colors[i], label=f'M: {Molarity[i]}')
-ax.grid()
-ax.set_xlabel('$\delta \\varphi [nm]$', color=color_dim)
-ax.set_ylabel('$Q$ [\u03bc$F/cm^3]$', color=color_dim)
-ax.tick_params(axis='x', colors=color_dim)
-ax.tick_params(axis='y', colors=color_dim)
-
-for i, q_dl in enumerate(Q_DL_dimless_):
-    ax2.plot(Phi_Pot_Diff_dimless, q_dl, color=colors[i])
+    ax2.plot(Phi_Pot_Diff_dim, q_dl, color=colors[i])
 ax2.xaxis.tick_top()
 ax2.yaxis.tick_right()
-ax2.set_xlabel('$\delta \\varphi [-]$', color=color_dimless) 
-ax2.set_ylabel('$Q [-]$', color=color_dimless)       
+ax2.set_xlabel('$\delta \\varphi [nm]$', color=color_dim) 
+ax2.set_ylabel('$Q$ [\u03bc$F/cm^3]$', color=color_dim)       
 ax2.xaxis.set_label_position('top') 
 ax2.yaxis.set_label_position('right') 
-ax2.tick_params(axis='x', colors=color_dimless)
-ax2.tick_params(axis='y', colors=color_dimless)
+ax2.tick_params(axis='x', colors=color_dim)
+ax2.tick_params(axis='y', colors=color_dim)
 
 fig.legend()
 fig.tight_layout()
@@ -68,25 +69,25 @@ ax = fig.add_subplot(111, label="1")
 ax2 = fig.add_subplot(111, label="2", frame_on=False)
 
 # Plot dimensional data
-for i, c_dl in enumerate(C_DL_dim):
-    ax.plot(Phi_pot_center_array_dim, c_dl, color=colors[i], label=f'M: {Molarity[i]}')
-ax.grid()
-ax.set_xlabel('$\delta \\varphi [nm]$', color=color_dim)
-ax.set_ylabel('$C_{dl}$ [\u03bc$F/cm^2]$', color=color_dim)
-ax.tick_params(axis='x', colors=color_dim)
-ax.tick_params(axis='y', colors=color_dim)
-
 for i, c_dl in enumerate(C_DL_dimless):
-    ax2.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i])
+    ax.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i], label=f'M: {Molarity[i]}')
+ax.grid()
+ax.set_xlabel('$\delta \\varphi [-]$', color=color_dimless)
+ax.set_ylabel('$C_{dl} [-]$', color=color_dimless)
+ax.tick_params(axis='x', colors=color_dimless)
+ax.tick_params(axis='y', colors=color_dimless)
+
+for i, c_dl in enumerate(C_DL_dim):
+    ax2.plot(Phi_pot_center_array_dim, c_dl, color=colors[i])
 # ax2.grid()
 ax2.xaxis.tick_top()
 ax2.yaxis.tick_right()
-ax2.set_xlabel('$\delta \\varphi [-]$', color=color_dimless) 
-ax2.set_ylabel('$Q [-]$', color=color_dimless)       
+ax2.set_xlabel('$\delta \\varphi [nm]$', color=color_dim) 
+ax2.set_ylabel('$C_{dl}$ [\u03bc$F/cm^2]$', color=color_dim)       
 ax2.xaxis.set_label_position('top') 
 ax2.yaxis.set_label_position('right') 
-ax2.tick_params(axis='x', colors=color_dimless)
-ax2.tick_params(axis='y', colors=color_dimless)
+ax2.tick_params(axis='x', colors=color_dim)
+ax2.tick_params(axis='y', colors=color_dim)
 
 fig.legend()
 fig.tight_layout()
@@ -112,31 +113,32 @@ kappa_vec = data_Solvation['kappa_vec']
 # Plotting
 # Charge
 fig = plt.figure()
-colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:cyan']
+colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple']
 color_dimless = 'tab:purple'
 color_dim = 'tab:red'
 ax = fig.add_subplot(111, label="1")
 ax2 = fig.add_subplot(111, label="2", frame_on=False)
 
+# Plot dimensionless data
+for i, q_dl in enumerate(Q_DL_dimless_):
+    ax.plot(Phi_Pot_Diff_dimless, q_dl, color=colors[i], label=f'$\kappa$: {kappa_vec[i]}')
+ax.grid()
+ax.set_xlabel('$\delta \\varphi [-]$', color=color_dimless)
+ax.set_ylabel('$Q [-]$', color=color_dimless)
+ax.tick_params(axis='x', colors=color_dimless)
+ax.tick_params(axis='y', colors=color_dimless)
+
 # Plot dimensional data
 for i, q_dl in enumerate(Q_DL_dim_):
-    ax.plot(Phi_Pot_Diff_dim, q_dl, color=colors[i], label=f'$\kappa$: {kappa_vec[i]}')
-ax.grid()
-ax.set_xlabel('$\delta \\varphi [nm]$', color=color_dim)
-ax.set_ylabel('$Q$ [\u03bc$F/cm^3]$', color=color_dim)
-ax.tick_params(axis='x', colors=color_dim)
-ax.tick_params(axis='y', colors=color_dim)
-
-for i, q_dl in enumerate(Q_DL_dimless_):
-    ax2.plot(Phi_Pot_Diff_dimless, q_dl, color=colors[i])
+    ax2.plot(Phi_Pot_Diff_dim, q_dl, color=colors[i])
 ax2.xaxis.tick_top()
 ax2.yaxis.tick_right()
-ax2.set_xlabel('$\delta \\varphi [-]$', color=color_dimless) 
-ax2.set_ylabel('$Q [-]$', color=color_dimless)       
+ax2.set_xlabel('$\delta \\varphi [nm]$', color=color_dim) 
+ax2.set_ylabel('$Q$ [\u03bc$F/cm^3]$', color=color_dim)       
 ax2.xaxis.set_label_position('top') 
 ax2.yaxis.set_label_position('right') 
-ax2.tick_params(axis='x', colors=color_dimless)
-ax2.tick_params(axis='y', colors=color_dimless)
+ax2.tick_params(axis='x', colors=color_dim)
+ax2.tick_params(axis='y', colors=color_dim)
 
 fig.legend()
 fig.tight_layout()
@@ -152,25 +154,25 @@ ax = fig.add_subplot(111, label="1")
 ax2 = fig.add_subplot(111, label="2", frame_on=False)
 
 # Plot dimensional data
-for i, c_dl in enumerate(C_DL_dim):
-    ax.plot(Phi_pot_center_array_dim, c_dl, color=colors[i], label=f'$\kappa$: {kappa_vec[i]}')
-ax.grid()
-ax.set_xlabel('$\delta \\varphi [nm]$', color=color_dim)
-ax.set_ylabel('$C_{dl}$ [\u03bc$F/cm^2]$', color=color_dim)
-ax.tick_params(axis='x', colors=color_dim)
-ax.tick_params(axis='y', colors=color_dim)
-
 for i, c_dl in enumerate(C_DL_dimless):
-    ax2.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i])
+    ax.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i], label=f'$\kappa$: {kappa_vec[i]}')
+ax.grid()
+ax.set_xlabel('$\delta \\varphi [-]$', color=color_dimless)
+ax.set_ylabel('$C_{dl} [-]$', color=color_dimless)
+ax.tick_params(axis='x', colors=color_dimless)
+ax.tick_params(axis='y', colors=color_dimless)
+
+for i, c_dl in enumerate(C_DL_dim):
+    ax2.plot(Phi_pot_center_array_dim, c_dl, color=colors[i])
 # ax2.grid()
 ax2.xaxis.tick_top()
 ax2.yaxis.tick_right()
-ax2.set_xlabel('$\delta \\varphi [-]$', color=color_dimless) 
-ax2.set_ylabel('$Q [-]$', color=color_dimless)       
+ax2.set_xlabel('$\delta \\varphi [nm]$', color=color_dim) 
+ax2.set_ylabel('$C_{dl}$ [\u03bc$F/cm^2]$', color=color_dim)       
 ax2.xaxis.set_label_position('top') 
 ax2.yaxis.set_label_position('right') 
-ax2.tick_params(axis='x', colors=color_dimless)
-ax2.tick_params(axis='y', colors=color_dimless)
+ax2.tick_params(axis='x', colors=color_dim)
+ax2.tick_params(axis='y', colors=color_dim)
 
 fig.legend()
 fig.tight_layout()
@@ -196,31 +198,32 @@ C_DL_dimless = data_Lambda['C_DL_dimless']
 # Plotting
 # Charge
 fig = plt.figure()
-colors = ['tab:blue', 'tab:orange', 'tab:green']
+colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple']
 color_dimless = 'tab:purple'
 color_dim = 'tab:red'
 ax = fig.add_subplot(111, label="1")
 ax2 = fig.add_subplot(111, label="2", frame_on=False)
 
+# Plot dimensionless data
+for i, q_dl in enumerate(Q_DL_dimless_):
+    ax.plot(Phi_Pot_Diff_dimless, q_dl, color=colors[i], label=f'$\lambda^2$: {Lambda2_vec[i]}')
+ax.grid()
+ax.set_xlabel('$\delta \\varphi [-]$', color=color_dimless)
+ax.set_ylabel('$Q [-]$', color=color_dimless)
+ax.tick_params(axis='x', colors=color_dimless)
+ax.tick_params(axis='y', colors=color_dimless)
+
 # Plot dimensional data
 for i, q_dl in enumerate(Q_DL_dim_):
-    ax.plot(Phi_Pot_Diff_dim, q_dl, color=colors[i], label=f'$\lambda^2$: {Lambda2_vec[i]}')
-ax.grid()
-ax.set_xlabel('$\delta \\varphi [nm]$', color=color_dim)
-ax.set_ylabel('$Q$ [\u03bc$F/cm^3]$', color=color_dim)
-ax.tick_params(axis='x', colors=color_dim)
-ax.tick_params(axis='y', colors=color_dim)
-
-for i, q_dl in enumerate(Q_DL_dimless_):
-    ax2.plot(Phi_Pot_Diff_dimless, q_dl, color=colors[i])
+    ax2.plot(Phi_Pot_Diff_dim, q_dl, color=colors[i])
 ax2.xaxis.tick_top()
 ax2.yaxis.tick_right()
-ax2.set_xlabel('$\delta \\varphi [-]$', color=color_dimless) 
-ax2.set_ylabel('$Q [-]$', color=color_dimless)       
+ax2.set_xlabel('$\delta \\varphi [nm]$', color=color_dim) 
+ax2.set_ylabel('$Q$ [\u03bc$F/cm^3]$', color=color_dim)       
 ax2.xaxis.set_label_position('top') 
 ax2.yaxis.set_label_position('right') 
-ax2.tick_params(axis='x', colors=color_dimless)
-ax2.tick_params(axis='y', colors=color_dimless)
+ax2.tick_params(axis='x', colors=color_dim)
+ax2.tick_params(axis='y', colors=color_dim)
 
 fig.legend()
 fig.tight_layout()
@@ -236,25 +239,25 @@ ax = fig.add_subplot(111, label="1")
 ax2 = fig.add_subplot(111, label="2", frame_on=False)
 
 # Plot dimensional data
-for i, c_dl in enumerate(C_DL_dim):
-    ax.plot(Phi_pot_center_array_dim, c_dl, color=colors[i], label=f'$\lambda^2$: {Lambda2_vec[i]}')
-ax.grid()
-ax.set_xlabel('$\delta \\varphi [nm]$', color=color_dim)
-ax.set_ylabel('$C_{dl}$ [\u03bc$F/cm^2]$', color=color_dim)
-ax.tick_params(axis='x', colors=color_dim)
-ax.tick_params(axis='y', colors=color_dim)
-
 for i, c_dl in enumerate(C_DL_dimless):
-    ax2.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i])
+    ax.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i], label=f'$\lambda^2$: {Lambda2_vec[i]}')
+ax.grid()
+ax.set_xlabel('$\delta \\varphi [-]$', color=color_dimless)
+ax.set_ylabel('$C_{dl} [-]$', color=color_dimless)
+ax.tick_params(axis='x', colors=color_dimless)
+ax.tick_params(axis='y', colors=color_dimless)
+
+for i, c_dl in enumerate(C_DL_dim):
+    ax2.plot(Phi_pot_center_array_dim, c_dl, color=colors[i])
 # ax2.grid()
 ax2.xaxis.tick_top()
 ax2.yaxis.tick_right()
-ax2.set_xlabel('$\delta \\varphi [-]$', color=color_dimless) 
-ax2.set_ylabel('$Q [-]$', color=color_dimless)       
+ax2.set_xlabel('$\delta \\varphi [nm]$', color=color_dim) 
+ax2.set_ylabel('$C_{dl}$ [\u03bc$F/cm^2]$', color=color_dim)       
 ax2.xaxis.set_label_position('top') 
 ax2.yaxis.set_label_position('right') 
-ax2.tick_params(axis='x', colors=color_dimless)
-ax2.tick_params(axis='y', colors=color_dimless)
+ax2.tick_params(axis='x', colors=color_dim)
+ax2.tick_params(axis='y', colors=color_dim)
 
 fig.legend()
 fig.tight_layout()

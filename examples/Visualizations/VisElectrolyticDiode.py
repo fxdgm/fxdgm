@@ -102,3 +102,11 @@ axs[0,4].set_title('$p [-]$', fontsize=labelsize)
 fig.tight_layout()
 fig.savefig('../Figures/ElectrolyticDiode.svg')
 fig.show()
+
+print('np.max(y_A_Forward):', np.max(y_A_Forward))
+print('np.max(y_A_NoBias):', np.max(y_A_NoBias))
+print('np.max(y_A_Backward):', np.max(y_A_Backward))
+
+print('np.max(y_C_Forward):', np.max(y_C_Forward))
+print('np.max(y_C_NoBias):', np.max(y_C_NoBias))
+print('np.max(y_C_Backward):', np.max(y_C_Backward))

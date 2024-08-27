@@ -307,23 +307,24 @@ def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
     
 if __name__ == '__main__':
     # Define the parameters
-    phi_left = 5.0
+    phi_left = 10.0
     phi_right = 0.0
     p_right = 0.0
-    y_A_R = 1/3
-    y_C_R = 1/3
+    y_A_R = 0.01#1/3
+    y_C_R = 0.01#1/3
     z_A = -1.0
     z_C = 1.0
     K = 'incompressible'
     Lambda2 = 8.553e-6
     a2 = 7.5412e-4
+    solvation = 0
     number_cells = 1024
     relax_param = .1
     rtol = 1e-4
     max_iter = 500
     
     # Solve the system
-    y_A, y_C, phi, p, x = solve_System_4eq(phi_left, phi_right, p_right, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, relax_param=relax_param, x0=0, x1=1, refinement_style='uniform', return_type='Vector', max_iter=max_iter, rtol=rtol)
+    y_A, y_C, phi, p, x = solve_System_4eq(phi_left, phi_right, p_right, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, solvation=solvation,  relax_param=relax_param, x0=0, x1=1, refinement_style='uniform', return_type='Vector', max_iter=max_iter, rtol=rtol)
     
     # Plot the solution
     plt.plot(x, phi)

@@ -29,7 +29,7 @@ T = 293.75 # [K]
 epsilon0 = 8.85e-12 #[F/m]
 F = 9.65e+4 # [As/mol]
 NA = 6.022e+23 # [1/mol] - Avogadro constant
-nR_mol = 55
+nR_mol = 55 # [mol/m^3]
 nR_m = nR_mol * NA * 1/(1e-3)# [1/m^3]
 pR = 1.01325 * 1e+5 # [Pa]
 LR = 20e-8
@@ -56,7 +56,7 @@ Phi_Pot_Diff_dimless = Phi_Pot_Diff_dim * e0/(k*T)
 
 
 # Molarity
-Molarity = np.array([0.01, 0.1, 1])
+Molarity = np.array([0.01, 0.1, 1]) # [mol/m^3]
 
 Q_DL_dim_ = []
 Q_DL_dimless_ = []

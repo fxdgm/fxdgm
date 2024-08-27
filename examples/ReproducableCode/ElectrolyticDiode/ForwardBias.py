@@ -25,13 +25,14 @@ import numpy as np
 # Parameter
 phi_bias = 10
 Bias_type = 'ForwardBias'
-g_phi = 5
+g_phi = 10
 y_fixed = 0.01
 z_A = -1.0
 z_C = 1.0
 K = 'incompressible'
-Lambda2 = 8.553e-2 # ! e-6
-a2 = 7.5412e-2 # !e-4
+Lambda2 = 3e-2 # 8.553e-2 # ! e-6
+a2 = 7.5412e-4 # !e-4
+solvation = 0
 number_cells = [20, 100] # ! [40, 400]
 Lx = 2
 Ly = 10
@@ -44,7 +45,7 @@ relax_param = 0.05
 max_iter = 15_000    
 
 # Solve the system
-y_A, y_C, phi, p, X, u = ElectrolyticDiode(Bias_type, phi_bias, g_phi, z_A, z_C, y_fixed, y_fixed, K, Lambda2, a2, number_cells, relax_param=relax_param, Lx=Lx, Ly=Ly, rtol=rtol, max_iter=max_iter, return_type='Extended')
+y_A, y_C, phi, p, X, u = ElectrolyticDiode(Bias_type, phi_bias, g_phi, z_A, z_C, y_fixed, y_fixed, K, Lambda2, a2, number_cells, relax_param=relax_param, Lx=Lx, Ly=Ly, rtol=rtol, solvation=solvation, max_iter=max_iter, return_type='Extended')
 x, y = X[0], X[1]
 y_S = 1 - y_A - y_C
 

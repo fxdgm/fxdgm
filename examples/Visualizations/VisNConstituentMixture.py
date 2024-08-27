@@ -37,6 +37,8 @@ for i in range(2):
             # Concentrations
             for species in range(len(z[plotting_index])):
                 axs[i,j].plot(x[plotting_index], y[plotting_index][species], label=f'z = {z[plotting_index][species]}', lw=lw, color=colors[species])
+            y_S_ = 1 - np.sum(y[plotting_index], axis=0)
+            axs[i,j].plot(x[plotting_index], y_S_, label=f'z = {0}', lw=lw, color=colors[-1])
             lgnd = axs[i,j].legend(fontsize=labelsize)
             for line in lgnd.get_lines():
                 line.set_linewidth(legend_width)
@@ -90,3 +92,6 @@ for line in lgnd.get_lines():
 
 fig.show()
 fig.savefig('../Figures/NConstituentMixture_ElectricPotential.svg', bbox_inches='tight')
+
+for p_ in p:
+    print(np.max(p_))

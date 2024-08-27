@@ -160,22 +160,24 @@ def Q_DL_dimless_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float
         D_C = y_C_R / (np.exp(-(solvation+1)*a2*p_R-z_C*phi_R))
         D_N = y_N_R / (np.exp(-a2*p_R))
 
-        Q_DL = []
-        dx_phi_L = 0
-        for phi_L_ in phi_L:
-            def func(p_L):
-                # A_Term = D_A * np.exp(-z_A*phi_L)
-                A_Term = D_A * np.exp(-(solvation+1)*a2*p_L-z_A*phi_L_)
-                C_Term = D_C * np.exp(-(solvation+1)*a2*p_L-z_C*phi_L_)
-                N_Term = D_N * np.exp(-a2*p_L)
+        # fsolve method
+        # Q_DL = []
+        # dx_phi_L = 0
+        # for phi_L_ in phi_L:
+        #     def func(p_L):
+        #         # A_Term = D_A * np.exp(-z_A*phi_L)
+        #         A_Term = D_A * np.exp(-(solvation+1)*a2*p_L-z_A*phi_L_)
+        #         C_Term = D_C * np.exp(-(solvation+1)*a2*p_L-z_C*phi_L_)
+        #         N_Term = D_N * np.exp(-a2*p_L)
 
-                return (A_Term + C_Term + N_Term) - 1
-            p_L = fsolve(func, dx_phi_L)
-            dx_phi_L = np.sqrt(p_L - E_p) * np.sqrt(2*a2/Lambda2)
-            Q_DL_ = Lambda2 * dx_phi_L
-            Q_DL.append(Q_DL_)
-        Q_DL = np.array(Q_DL)
+        #         return (A_Term + C_Term + N_Term) - 1
+        #     p_L = fsolve(func, dx_phi_L)
+        #     dx_phi_L = np.sqrt(p_L - E_p) * np.sqrt(2*a2/Lambda2)
+        #     Q_DL_ = Lambda2 * dx_phi_L
+        #     Q_DL.append(Q_DL_)
+        # Q_DL = np.array(Q_DL)
 
+        # Fixed Point Iteration
         # def func_L(p_L):
         #     CLambda = D_A * np.exp(-z_A * phi_L - solvation*a2*p_L) + D_C * np.exp(-z_C * phi_L - solvation*a2*p_L) + D_N
         #     return np.log(CLambda)/a2
@@ -186,7 +188,13 @@ def Q_DL_dimless_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float
         # Q_DL = np.sqrt(2) * Lambda * a * np.sqrt(p_L - E_p)
 
         # ! ToDo: Implement full analytical for solvation == 0
-        
+        # Analytical method
+        E_p = p_R
+        CLambda_L = np.log(D_A * np.exp(-z_A * phi_L - (solvation+1) * E_p) + D_C * np.exp(-z_C * phi_L - (solvation+1) * E_p) + D_N * np.exp(-z_N * phi_L - (solvation+1) * E_p))
+        # CLambda_R = np.log(D_A * np.exp(-z_A * phi_R + E_p * a2) + D_C * np.exp(-z_C * phi_R + E_p * a2) + D_N * np.exp(-z_N * phi_R + E_p * a2))
+        Lambda = np.sqrt(Lambda2)
+        Q_DL = (phi_L-phi_R) / np.abs(phi_L-phi_R) * Lambda * np.sqrt(2/(solvation+1)) * (np.sqrt(CLambda_L))# - np.sqrt(CLambda_R)) # dx_phi_R -> 0
+        return Q_DL
     else:
         C_A = y_A_R / ((K + p_R  - 1)**(-1*a2*K)*np.exp(-z_A*phi_R))
         C_C = y_C_R / ((K + p_R  - 1)**(-1*a2*K)*np.exp(-z_C*phi_R))
@@ -201,9 +209,9 @@ def Q_DL_dimless_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float
         Lambda = np.sqrt(Lambda2)
         a = np.sqrt(a2)
 
-        Q_DL = Lambda * a * np.sqrt(2) * (Left)# - Right)
-                     
-    return Q_DL
+        Q_DL = (phi_L-phi_R) / np.abs(phi_L-phi_R) * Lambda * a * np.sqrt(2) * (Left)# - Right)
+        return Q_DL
+    raise ValueError('Invalid input for K')
 
 def Q_DL_dim_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float, phi_L:float, phi_R:float, p_R:float, K:str|float, Lambda2:float, a2:float, nR_m:float, e0:float, LR:float, solvation:float) -> float:
     '''

@@ -189,9 +189,25 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
     # Collect boundary conditions
     bcs = [bc_bottom_phi, bc_top_phi, bc_bottom_y_A, bc_top_y_A, bc_bottom_y_C, bc_top_y_C]
 
+    # def p_bottom_(x):
+    #     return np.full_like(x[1], 0)
+    # def p_top_(x):
+    #     return np.full_like(x[1], 0)
+    # p_bottom_bcs = fem.Function(W3)
+    # p_bottom_bcs.interpolate(p_bottom_)
+    # p_top_bcs = fem.Function(W3)
+    # p_top_bcs.interpolate(p_top_)
+    # facet_bottom_dofs = fem.locate_dofs_geometrical((W.sub(3), W.sub(3).collapse()[0]), Bottom)
+    # facet_top_dofs = fem.locate_dofs_geometrical((W.sub(3), W.sub(3).collapse()[0]), Top)
+    # bc_bottom_p = fem.dirichletbc(p_bottom_bcs, facet_bottom_dofs, W.sub(3))
+    # bc_top_p = fem.dirichletbc(p_top_bcs, facet_top_dofs, W.sub(3))
+    # bcs.append(bc_bottom_p)
+    # bcs.append(bc_top_p)
+
     # Variational formulation
     if K == 'incompressible':
         def nF(y_A, y_C):
+            # n = const = 1
             return (z_C * y_C + z_A * y_A)
 
         def J_A(y_A, y_C, phi, p):
@@ -217,8 +233,6 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
         ) + (
             inner(J_A(y_A, y_C, phi, p), grad(v_A)) * dx
             + inner(J_C(y_A, y_C, phi, p), grad(v_C)) * dx
-            # inner(grad(ln(y_A) + a2 * solvation * p - ln(1-y_A-y_C) + z_A * phi), grad(v_A)) * dx
-            # + inner(grad(ln(y_C) + a2 * solvation * p- ln(1-y_A-y_C) + z_C * phi), grad(v_C)) * dx
         )
 
     # Define Neumann boundaries
@@ -298,7 +312,7 @@ if __name__ == '__main__':
     K = 'incompressible'
     Lambda2 = 8.553e-2 # ! Change back to 1e-6
     # g_phi *= np.sqrt(Lambda2) # ! Unsure about this scaling
-    a2 = 7.5412e-2
+    a2 = 7.5412e-4
     number_cells = [20, 100]
     Lx = 2
     Ly = 10
