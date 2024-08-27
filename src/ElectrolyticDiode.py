@@ -211,18 +211,20 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
             return (z_C * y_C + z_A * y_A)
 
         def J_A(y_A, y_C, phi, p):
-            g_A = (solvation + 1) * a2 * (p - 1) # g_Aref, but constant and take gradient
-            mu_A = g_A + ln(y_A)
-            g_N = a2 * (p - 1) # solvation_N = 0, g_Sref, but constant and take gradient
-            mu_N = g_N + ln(1 - y_A - y_C)
-            return grad(mu_A - mu_N + z_A * phi)
+            # g_A = (solvation + 1) * a2 * (p - 1) # g_Aref, but constant and take gradient
+            # mu_A = g_A + ln(y_A)
+            # g_N = a2 * (p - 1) # solvation_N = 0, g_Sref, but constant and take gradient
+            # mu_N = g_N + ln(1 - y_A - y_C)
+            # return grad(mu_A - mu_N + z_A * phi)
+            return grad(ln(y_A) - ln(1 - y_A - y_C) + z_A * phi)
         
         def J_C(y_A, y_C, phi, p):
-            g_C = (solvation + 1) * a2 * (p - 1) # g_Cref, but constant and take gradient
-            mu_C = g_C + ln(y_C)
-            g_N = a2 * (p - 1)
-            mu_N = g_N + ln(1 - y_A - y_C)
-            return grad(mu_C - mu_N + z_C * phi)
+            # g_C = (solvation + 1) * a2 * (p - 1) # g_Cref, but constant and take gradient
+            # mu_C = g_C + ln(y_C)
+            # g_N = a2 * (p - 1)
+            # mu_N = g_N + ln(1 - y_A - y_C)
+            # return grad(mu_C - mu_N + z_C * phi)
+            return grad(ln(y_C) - ln(1 - y_A - y_C) + z_C * phi)
         
         A = (
             inner(grad(phi), grad(v_1)) * dx
@@ -303,8 +305,8 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
         raise ValueError('Invalid return_type')
 
 if __name__ == '__main__':
-    phi_bias = 10
-    Bias_type = 'BackwardBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
+    phi_bias = 2
+    Bias_type = 'ForwardBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
     g_phi = 5
     y_fixed = 0.01
     z_A = -1.0

@@ -4,7 +4,7 @@ Jan.Habscheid@rwth-aachen.de
 
 This script is used to analyze the influence of the solvation on the charge of the system and the double-layer capacity.
 
-# ! This is not correct and needed to be checked, as it seems that something is wrong for kappa=0
+# ! This is not correctly implemented, yet.
 '''
 
 # import the src file needed to solve the system of equations

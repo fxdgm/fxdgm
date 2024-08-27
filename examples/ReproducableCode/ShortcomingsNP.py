@@ -54,47 +54,18 @@ labelsize = 30
 lw = 4
 legend_width = 8
 
-# fig, axs = plt.subplots(ncols=2, figsize=(30,20))
-
-# [axs[0].plot(x_NP[i], y_A_NP[i], lw=lw, label=f'$\delta \\varphi = {DeltaPhi[i]}$') for i in range(len(DeltaPhi))]
-# axs[0].set_xlim(0,xlim)
-# axs[0].set_ylim(10e-2, 1e+2)
-# axs[0].set_yscale('log')
-# axs[0].grid()
-# axs[0].set_xlabel('x [-]', fontsize=labelsize)
-# axs[0].set_ylabel('$y_A$ [-]', fontsize=labelsize)
-# axs[0].tick_params(axis='both', labelsize=labelsize)
-
-# [axs[1].plot(x_Dreyer[i], y_A_Dreyer[i], lw=lw) for i in range(len(DeltaPhi))]
-# axs[1].set_xlim(0,xlim)
-# axs[1].set_ylim(10e-2, 1e+2)
-# axs[1].set_yscale('log')
-# axs[1].grid()
-# axs[1].set_xlabel('x [-]', fontsize=labelsize)
-# axs[1].set_ylabel('$y_A$ [-]', fontsize=labelsize)
-# axs[1].tick_params(axis='both', labelsize=labelsize)
-
-# lgnd = fig.legend(bbox_to_anchor=(0.89, 1.05), fontsize=labelsize, ncol=6)
-# for line in lgnd.get_lines():
-#     line.set_linewidth(legend_width)
-
-# fig.tight_layout()
-# fig.savefig('../Figures/Shortcomings_NP.svg', bbox_inches='tight')
-# fig.show()
-
-
 # Nernst-Planck
 fig, axs = plt.subplots(figsize=(15,20))
-[axs.plot(x_NP[i], y_A_NP[i], lw=lw, label=f'$\delta \\varphi = {DeltaPhi[i]}$') for i in range(len(DeltaPhi))]
+[axs.plot(x_NP[i], y_A_NP[i], lw=lw*2, label=f'$\delta \\varphi = {DeltaPhi[i]}$') for i in range(len(DeltaPhi))]
 axs.set_xlim(0,xlim)
 axs.set_ylim(10e-2, 1e+2)
 axs.set_yscale('log')
 axs.grid()
-axs.set_xlabel('x [-]', fontsize=labelsize)
-axs.set_ylabel('$y_A$ [-]', fontsize=labelsize)
-axs.tick_params(axis='both', labelsize=labelsize)
+axs.set_xlabel('x [-]', fontsize=labelsize*2)
+axs.set_ylabel('$y_A$ [-]', fontsize=labelsize*2)
+axs.tick_params(axis='both', labelsize=labelsize*2)
 
-lgnd = fig.legend(bbox_to_anchor=(0.9, 0.97), fontsize=labelsize, ncol=3)
+lgnd = fig.legend(bbox_to_anchor=(0.97, 0.97), fontsize=labelsize, ncol=3)
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 
@@ -105,16 +76,16 @@ fig.show()
 
 # DGM
 fig, axs = plt.subplots(figsize=(15,10))
-[axs.plot(x_Dreyer[i], y_A_Dreyer[i], lw=lw, label=f'$\delta \\varphi = {DeltaPhi[i]}$') for i in range(len(DeltaPhi))]
+[axs.plot(x_Dreyer[i], y_A_Dreyer[i], lw=lw*2, label=f'$\delta \\varphi = {DeltaPhi[i]}$') for i in range(len(DeltaPhi))]
 axs.set_xlim(0,xlim)
-axs.set_ylim(10e-2, 1.05)#1e+2)
+axs.set_ylim(10e-2, 1.05)
 axs.set_yscale('log')
 axs.grid()
-axs.set_xlabel('x [-]', fontsize=labelsize)
-axs.set_ylabel('$y_A$ [-]', fontsize=labelsize)
-axs.tick_params(axis='both', labelsize=labelsize)
+axs.set_xlabel('x [-]', fontsize=labelsize*2)
+axs.set_ylabel('$y_A$ [-]', fontsize=labelsize*2)
+axs.tick_params(axis='both', labelsize=labelsize*2)
 
-lgnd = fig.legend(bbox_to_anchor=(0.9, 1.16), fontsize=labelsize, ncol=3)
+lgnd = fig.legend(bbox_to_anchor=(0.97, 1.16), fontsize=labelsize, ncol=3)
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 

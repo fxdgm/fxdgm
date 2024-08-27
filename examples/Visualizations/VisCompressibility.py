@@ -60,7 +60,7 @@ for i in range(len(K_vec)):
 axs[0,1].plot(0, 0.1, color='grey', linestyle='--', label='Solvent')
 a.set_xlim(0,xlim)
 a.grid()
-a.set_xlabel('$\delta \\varphi$ [-]', fontsize=labelsize)
+a.set_xlabel('$x [-]$', fontsize=labelsize)
 a.set_ylabel('$y_S$ [-]', fontsize=labelsize)
 a.tick_params(axis='both', labelsize=labelsize)
 
