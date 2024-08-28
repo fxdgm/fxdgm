@@ -101,7 +101,7 @@ phi_values, dphi_values = np.meshgrid(phi_range, dphi_range)
 initial_conditions = np.array([phi_values.ravel(), dphi_values.ravel()]).T
 
 # Points at which the solution is requested
-x_domain = np.linspace(0, 1.0e-1, 1024)
+x_domain = np.linspace(0, 1.2e-1, 1024)
 
 # Prepare storage for the results
 results = np.zeros((len(initial_conditions), len(x_domain), 2))
