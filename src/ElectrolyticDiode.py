@@ -128,6 +128,8 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
 
     # Define Finite Elements
     CG1_elem = element('Lagrange', msh.basix_cell(), 1)
+    # from ufl import FiniteElement
+    # CG1_elem = FiniteElement("Lagrange", msh.ufl_cell(), 1)
 
     # Define Mixed Function Space
     W_elem = mixed_element([CG1_elem, CG1_elem, CG1_elem, CG1_elem])
@@ -188,6 +190,8 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
 
     # Collect boundary conditions
     bcs = [bc_bottom_phi, bc_top_phi, bc_bottom_y_A, bc_top_y_A, bc_bottom_y_C, bc_top_y_C]
+    # bcs = [bc_bottom_phi, bc_top_phi, bc_bottom_y_A, bc_bottom_y_C]
+
 
     # def p_bottom_(x):
     #     return np.full_like(x[1], 0)
@@ -206,26 +210,55 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
 
     # Variational formulation
     if K == 'incompressible':
-        def nF(y_A, y_C):
-            # n = const = 1
-            return (z_C * y_C + z_A * y_A)
+        # def nF(y_A, y_C):
+        #     return (z_C * y_C + z_A * y_A) # n = 1
+    
+        # A = (
+        #     inner(grad(phi), grad(v_1)) * dx
+        #     - 1 / Lambda2 * nF(y_A, y_C) * v_1 * dx
+        # ) + (
+        #     inner(grad(p), grad(v_2)) * dx
+        #     + 1 / a2 * nF(y_A, y_C) * dot(grad(phi), grad(v_2)) * dx
+        # ) + (
+        #     inner(grad(ln(y_A) + a2 * solvation * p - ln(1-y_A-y_C) + z_A * phi), grad(v_A)) * dx
+        #     + inner(grad(ln(y_C) + a2 * solvation * p- ln(1-y_A-y_C) + z_C * phi), grad(v_C)) * dx
+        # )
+        # def nF(y_A, y_C):
+        #     # n = const = 1
+        #     return (z_C * y_C + z_A * y_A)
 
+        # def J_A(y_A, y_C, phi, p):
+        #     g_A = (solvation + 1) * a2 * (p - 1) # g_Aref, but constant and take gradient
+        #     mu_A = g_A + ln(y_A)
+        #     g_N = a2 * (p - 1) # solvation_N = 0, g_Sref, but constant and take gradient
+        #     mu_N = g_N + ln(1 - y_A - y_C)
+        #     return grad(mu_A - mu_N + z_A * phi)
+        #     # return grad(ln(y_A) - ln(1 - y_A - y_C) + z_A * phi)
+        
+        # def J_C(y_A, y_C, phi, p):
+        #     g_C = (solvation + 1) * a2 * (p - 1) # g_Cref, but constant and take gradient
+        #     mu_C = g_C + ln(y_C)
+        #     g_N = a2 * (p - 1)
+        #     mu_N = g_N + ln(1 - y_A - y_C)
+        #     return grad(mu_C - mu_N + z_C * phi)
+        #     # return grad(ln(y_C) - ln(1 - y_A - y_C) + z_C * phi)
+
+        def nF(y_A, y_C):
+            return (z_C * y_C + z_A * y_A)
+        
+        # Diffusion fluxes for species A and C
         def J_A(y_A, y_C, phi, p):
-            # g_A = (solvation + 1) * a2 * (p - 1) # g_Aref, but constant and take gradient
-            # mu_A = g_A + ln(y_A)
-            # g_N = a2 * (p - 1) # solvation_N = 0, g_Sref, but constant and take gradient
-            # mu_N = g_N + ln(1 - y_A - y_C)
-            # return grad(mu_A - mu_N + z_A * phi)
-            return grad(ln(y_A) - ln(1 - y_A - y_C) + z_A * phi)
+            return grad(ln(y_A) + a2 * (p - 1) * (solvation + 1) + z_A * phi)
         
         def J_C(y_A, y_C, phi, p):
-            # g_C = (solvation + 1) * a2 * (p - 1) # g_Cref, but constant and take gradient
-            # mu_C = g_C + ln(y_C)
-            # g_N = a2 * (p - 1)
-            # mu_N = g_N + ln(1 - y_A - y_C)
-            # return grad(mu_C - mu_N + z_C * phi)
-            return grad(ln(y_C) - ln(1 - y_A - y_C) + z_C * phi)
-        
+            return grad(ln(y_C) + a2 * (p - 1) * (solvation + 1) + z_C * phi)
+
+        # if PoissonBoltzmann:
+        #     def J_A(y_A, y_C, phi, p):
+        #         return grad(ln(y_A) + z_A * phi)
+        #     def J_C(y_A, y_C, phi, p):
+        #         return grad(ln(y_C) + z_C * phi)
+
         A = (
             inner(grad(phi), grad(v_1)) * dx
             - 1 / Lambda2 * nF(y_A, y_C) * v_1 * dx
@@ -305,23 +338,24 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
         raise ValueError('Invalid return_type')
 
 if __name__ == '__main__':
-    phi_bias = 2
-    Bias_type = 'ForwardBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
-    g_phi = 5
-    y_fixed = 0.01
+    phi_bias = 10#10
+    Bias_type = 'NoBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
+    g_phi = 5 #0.5#5
+    y_fixed = 0.01#0.01
     z_A = -1.0
     z_C = 1.0
     K = 'incompressible'
     Lambda2 = 8.553e-2 # ! Change back to 1e-6
     # g_phi *= np.sqrt(Lambda2) # ! Unsure about this scaling
+    # g_phi *= Lambda2
     a2 = 7.5412e-4
-    number_cells = [20, 100]
+    number_cells = [20,128]#[20, 100]
     Lx = 2
     Ly = 10
     x0 = np.array([0, 0])
     x1 = np.array([Lx, Ly])
     refinement_style = 'uniform'
-    solvation = 0
+    solvation = 3
     PoissonBoltzmann = False
     rtol = 1e-3 # ToDo: Change back to 1e-8, currently just for testing
     relax_param = 0.05
