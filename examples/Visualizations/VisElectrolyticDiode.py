@@ -45,14 +45,14 @@ y_packed = [y_Forward, y_NoBias, y_Backward]
 
 # Plot
 color_theme_potential = 'coolwarm'
-color_theme_concentration = 'viridis'
+color_theme_concentration = 'coolwarm'
 color_theme_pressure = 'cividis'
 
 fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(30, 30))
 labelsize = 30
 legend_width = 8
 levels_colorbar = 20
-levels_contour = 20
+levels_contour = 8#20
 
 vmap_concentrations = np.linspace(0, 1, levels_colorbar)
 vmap_potential = np.linspace(-20, 20, levels_colorbar)

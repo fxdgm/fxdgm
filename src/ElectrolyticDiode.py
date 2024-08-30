@@ -339,7 +339,7 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
 
 if __name__ == '__main__':
     phi_bias = 10#10
-    Bias_type = 'NoBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
+    Bias_type = 'ForwardBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
     g_phi = 5 #0.5#5
     y_fixed = 0.01#0.01
     z_A = -1.0

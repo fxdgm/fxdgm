@@ -15,7 +15,7 @@ import os
 src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..', 'src')
 sys.path.insert(0, src_path)
 
-from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_DL_dimless_ana, Q_DL_dim_ana
+from Helper_DoubleLayerCapacity import Phi_pot_center, C_dl, n, Q_num_, Q_num_dim
 from Eq04 import solve_System_4eq
 
 
@@ -50,28 +50,28 @@ phi_R = 0.0
 p_R = 0
 
 # Solver settings
-number_cells = 1024
+number_cells = 1024#*2
 relax_param = 0.3
-rtol = 1e-4 # ! Change to 1e-8
+rtol = 1e-3 # ! Change to 1e-8
 refinement_style = 'hard_log'
 max_iter = 10_000
 return_type = 'Vector'
 
 # phi^L domain
-Vol_start = 0 # ! -1.0
+Vol_start = -1.0
 Volt_end = 1.0
-n_Volts = 8
+n_Volts = 7 #303
 
 Phi_Pot_Diff_dim = np.linspace(Vol_start, Volt_end, n_Volts)
 Phi_Pot_Diff_dimless = Phi_Pot_Diff_dim * e0/(k*T)
 
-Phi_Pot_Diff_dim_PB = np.linspace(0., 0.25, n_Volts)
+Phi_Pot_Diff_dim_PB = np.linspace(-0.35, 0.35, 4)#!int(n_Volts/4))
 Phi_Pot_Diff_dimless_PB = Phi_Pot_Diff_dim_PB * e0/(k*T)
 
 
 # kappa
-kappa_vec = [0, 5]#, 10, 15])
-kappa_legend = ['PB', 0, 5]#, 10, 15]
+kappa_vec = [0, 5, 10, 15]
+kappa_legend = ['PB', 0, 5, 10, 15]
 # Solution vectors
 y_A, y_C, y_S, phi, p, x = [], [], [], [], [], []
 
@@ -89,7 +89,10 @@ for i, phi_bcs in enumerate(Phi_Pot_Diff_dimless_PB):
 for kappa_ in kappa_vec:
     phi_inner, y_A_inner, y_C_inner, y_S_inner, p_inner,x_inner = [], [], [], [], [], []
     for i, phi_bcs in enumerate(Phi_Pot_Diff_dimless):
-        y_A_, y_C_, phi_, p_, x_ = solve_System_4eq(phi_bcs, phi_R, p_R, z_A, z_C, y_R, y_R, K, Lambda2, a2, number_cells, solvation=kappa_, refinement_style='hard_log', rtol=rtol, max_iter=max_iter, return_type=return_type)
+        relax_param = 0.025
+        if kappa_ >= 10:
+            relax_param = 0.01
+        y_A_, y_C_, phi_, p_, x_ = solve_System_4eq(phi_bcs, phi_R, p_R, z_A, z_C, y_R, y_R, K, Lambda2, a2, number_cells, solvation=kappa_, refinement_style='hard_log', rtol=rtol, max_iter=max_iter, return_type=return_type, relax_param=relax_param)
         y_A_inner.append(y_A_)
         y_C_inner.append(y_C_)
         y_S_inner.append(1 - y_A_ - y_C_)
@@ -103,46 +106,59 @@ for kappa_ in kappa_vec:
     p.append(p_inner)
     x.append(x_inner)
 
-        
-Q = []
-Q_DL_dimless_PB = []
+
+# Charge
+Q_DL_dimless_PB_ = []
+Q_DL_dim_PB_ = []
 for j in range(len(Phi_Pot_Diff_dimless_PB)):
-    Q_DL_dimless_PB.append(Q_num_(y_A_PB[j], y_C_PB[j], n(p_PB[j], K), x_PB[j]))
-Q_DL_dimless_PB= np.array(Q_DL_dimless_PB)
+    Q_DL_dimless_PB_.append(Q_num_(y_A_PB[j], y_C_PB[j], n(p_PB[j], K), x_PB[j], z_A, z_C))
+    Q_DL_dim_PB_.append(Q_num_dim(y_A_PB[j], y_C_PB[j], n(p_PB[j], K), x_PB[j], z_A, z_C, nR_m, e0, LR))
+Q_DL_dimless_PB_ = np.array(Q_DL_dimless_PB_)
+Q_DL_dim_PB_ = np.array(Q_DL_dim_PB_)
+
+Q_DL_dimless_ = []
+Q_DL_dim_ = []
 for i in range(len(kappa_vec)):
-    Q_inner = []
+    Q_inner_dimless_ = []
+    Q_inner_dim_ = []
     for j in range(len(Phi_Pot_Diff_dimless)):
-        Q_inner.append(Q_num_(y_A[i][j], y_C[i][j], n(p[i][j], K), x[i][j]))
-    Q.append(Q_inner)
-Q_DL_dimless_ = np.array(Q)
+        Q_inner_dimless_.append(Q_num_(y_A[i][j], y_C[i][j], n(p[i][j], K), x[i][j], z_A, z_C))
+        Q_inner_dim_.append(Q_num_dim(y_A[i][j], y_C[i][j], n(p[i][j], K), x[i][j], z_A, z_C, nR_m, e0, LR))
+    Q_DL_dimless_.append(Q_inner_dimless_)
+    Q_DL_dim_.append(Q_inner_dim_)
+Q_DL_dimless_ = np.array(Q_DL_dimless_)
+Q_DL_dim_ = np.array(Q_DL_dim_)
 
     
-# C_DL_dim = [C_dl(q_dl, Phi_Pot_Diff_dim) for q_dl in Q_DL_dim_]
-C_DL_dimless_PB = C_dl(Q_DL_dimless_PB, Phi_Pot_Diff_dimless_PB)
+C_DL_dimless_PB = C_dl(Q_DL_dimless_PB_, Phi_Pot_Diff_dimless_PB)
 C_DL_dimless = [C_dl(q_dl, Phi_Pot_Diff_dimless) for q_dl in Q_DL_dimless_]
+
+C_DL_dim_PB = C_dl(Q_DL_dim_PB_, Phi_Pot_Diff_dim)
+C_DL_dim = [C_dl(q_dl, Phi_Pot_Diff_dim) for q_dl in Q_DL_dim_]
 
 
 
 # Plotting
 # Charge
 fig = plt.figure()
-colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:cyan']
+colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:cyan', 'tab:purple']
 color_dimless = 'tab:purple'
 color_dim = 'tab:red'
 ax = fig.add_subplot(111, label="1")
 ax2 = fig.add_subplot(111, label="2", frame_on=False)
 
-# # Plot dimensional data
-# for i, q_dl in enumerate(Q_DL_dim_):
-#     ax.plot(Phi_Pot_Diff_dim, q_dl, color=colors[i], label=f'$\kappa$: {kappa_vec[i]}')
-# ax.grid()
-# ax.set_xlabel('$\delta \\varphi [nm]$', color=color_dim)
-# ax.set_ylabel('$Q$ [\u03bc$F/cm^3]$', color=color_dim)
-# ax.tick_params(axis='x', colors=color_dim)
-# ax.tick_params(axis='y', colors=color_dim)
+# Plot dimensional data
+ax.plot(Phi_Pot_Diff_dim_PB, Q_DL_dim_PB_, color=colors[0])
+for i, q_dl in enumerate(Q_DL_dim_):
+    ax.plot(Phi_Pot_Diff_dim, q_dl, color=colors[i])
+ax.grid()
+ax.set_xlabel('$\delta \\varphi [nm]$', color=color_dim)
+ax.set_ylabel('$Q$ [\u03bc$F/cm^3]$', color=color_dim)
+ax.tick_params(axis='x', colors=color_dim)
+ax.tick_params(axis='y', colors=color_dim)
 
 
-ax2.plot(Phi_Pot_Diff_dimless_PB, Q_DL_dimless_PB, color=colors[0], label=f'$\kappa$: {kappa_legend[0]}')
+ax2.plot(Phi_Pot_Diff_dimless_PB, Q_DL_dimless_PB_, color=colors[0], label=f'$\kappa$: {kappa_legend[0]}')
 for i, q_dl in enumerate(Q_DL_dimless_):
     ax2.plot(Phi_Pot_Diff_dimless, q_dl, color=colors[i+1], label=f'$\kappa$: {kappa_legend[i+1]}')
 ax2.xaxis.tick_top()
@@ -161,6 +177,7 @@ fig.show()
 
 # Double Layer Capacity
 Phi_pot_center_array_dimless_PB = Phi_pot_center(Phi_Pot_Diff_dimless_PB)
+Phi_pot_center_array_dim_PB = Phi_pot_center(Phi_Pot_Diff_dim_PB)
 Phi_pot_center_array_dimless = Phi_pot_center(Phi_Pot_Diff_dimless)
 Phi_pot_center_array_dim = Phi_pot_center(Phi_Pot_Diff_dim)
 fig = plt.figure()
@@ -169,14 +186,15 @@ color_dim = 'tab:red'
 ax = fig.add_subplot(111, label="1")
 ax2 = fig.add_subplot(111, label="2", frame_on=False)
 
-# # Plot dimensional data
-# for i, c_dl in enumerate(C_DL_dim):
-#     ax.plot(Phi_pot_center_array_dim, c_dl, color=colors[i], label=f'$\kappa$: {kappa_vec[i]}')
-# ax.grid()
-# ax.set_xlabel('$\delta \\varphi [nm]$', color=color_dim)
-# ax.set_ylabel('$C_{dl}$ [\u03bc$F/cm^2]$', color=color_dim)
-# ax.tick_params(axis='x', colors=color_dim)
-# ax.tick_params(axis='y', colors=color_dim)
+# Plot dimensional data
+ax.plot(Phi_pot_center_array_dim_PB, C_DL_dim_PB, color=colors[0])
+for i, c_dl in enumerate(C_DL_dimless):
+    ax.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i])
+ax.grid()
+ax.set_xlabel('$\delta \\varphi [nm]$', color=color_dim)
+ax.set_ylabel('$C_{dl}$ [\u03bc$F/cm^2]$', color=color_dim)
+ax.tick_params(axis='x', colors=color_dim)
+ax.tick_params(axis='y', colors=color_dim)
 
 ax2.plot(Phi_pot_center_array_dimless_PB, C_DL_dimless_PB, color=colors[0], label=f'$\kappa$: {kappa_legend[0]}')
 for i, c_dl in enumerate(C_DL_dimless):
@@ -195,5 +213,5 @@ fig.legend()
 fig.tight_layout()
 fig.show()
 
-# # Save the results
-# np.savez('../../Data/DoubleLayerCapacity/Solvation.npz', Lambda2=Lambda2, a2=a2, K=K, kappa_vec=kappa_vec, z_A=z_A, z_C=z_C, phi_R=phi_R, p_R=p_R, Vol_start=Vol_start, Volt_end=Volt_end, n_Volts=n_Volts, Phi_pot_center_array_dim=Phi_pot_center_array_dim, Phi_pot_center_array_dimless=Phi_pot_center_array_dimless, Phi_Pot_Diff_dim=Phi_Pot_Diff_dim, Phi_Pot_Diff_dimless=Phi_Pot_Diff_dimless, C_DL_dim=C_DL_dim, C_DL_dimless=C_DL_dimless, Q_DL_dim_=Q_DL_dim_, Q_DL_dimless_=Q_DL_dimless_, Molarity=Molarity)
+# Save the results
+np.savez('../../Data/DoubleLayerCapacity/Solvation.npz', Lambda2=Lambda2, a2=a2, K=K, kappa_vec=kappa_vec, z_A=z_A, z_C=z_C, phi_R=phi_R, p_R=p_R, Vol_start=Vol_start, Volt_end=Volt_end, n_Volts=n_Volts, Phi_pot_center_array_dim=Phi_pot_center_array_dim, Phi_pot_center_array_dimless=Phi_pot_center_array_dimless, Phi_Pot_Diff_dim=Phi_Pot_Diff_dim, Phi_Pot_Diff_dimless=Phi_Pot_Diff_dimless, C_DL_dim=C_DL_dim, C_DL_dimless=C_DL_dimless, Q_DL_dim_=Q_DL_dim_, Q_DL_dimless_=Q_DL_dimless_, Molarity=Molarity, nR_mol=nR_mol, nR_m=nR_m, pR=pR, LR=LR, chi=chi, e0=e0, k=k, T=T, epsilon0=epsilon0, F=F, NA=NA, y_R=y_R, y_A=y_A, y_C=y_C, y_S=y_S, phi=phi, p=p, x=x, y_A_PB=y_A_PB, y_C_PB=y_C_PB, y_S_PB=y_S_PB, phi_PB=phi_PB, p_PB=p_PB, x_PB=x_PB, Q_DL_dim_PB_=Q_DL_dim_PB_, Q_DL_dimless_PB_=Q_DL_dimless_PB_, Phi_pot_center_array_dim_PB=Phi_pot_center_array_dim_PB, Phi_pot_center_array_dimless_PB=Phi_pot_center_array_dimless_PB, C_DL_dim_PB=C_DL_dim_PB, C_DL_dimless_PB=C_DL_dimless_PB, Phi_Pot_Diff_dim_PB=Phi_Pot_Diff_dim_PB, Phi_Pot_Diff_dimless_PB=Phi_Pot_Diff_dimless_PB)

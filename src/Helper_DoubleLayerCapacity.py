@@ -111,6 +111,44 @@ def Q_num_(y_A:np.ndarray, y_C:np.ndarray, n:np.ndarray, x:np.ndarray, z_A:float
     nF_int = -np.trapz(nF_dimensionless, x)
     return nF_int
 
+def Q_num_dim(y_A:np.ndarray, y_C:np.ndarray, n:np.ndarray, x:np.ndarray, z_A:float, z_C:float, nR_m:float, e0:float, LR:float) -> float:
+    '''
+    Calculates the charge of the system
+
+    Q = ∫_Ω n^F dΩ
+
+    Parameters
+    ----------
+    y_A : np.ndarray
+        Anion fraction
+    y_C : np.ndarray
+        Cation fraction
+    n : np.ndarray
+        Total number density
+    x : np.ndarray
+        Spatial discretization
+    z_A : float, optional
+        Charge number of anions, by default -1.0
+    z_C : float, optional
+        Charge number of cations, by default 1.0
+    nR_m : float
+        Reference number density in 1/m^3
+    e0 : float
+        Dielectric constant
+    LR : float
+        Reference length in m
+
+    Returns
+    -------
+    float
+        Charge of the system
+    '''
+    Q_DL = Q_num_(y_A, y_C, n, x, z_A, z_C)
+    Q_DL *= nR_m * e0 * LR
+    Q_DL *= 1e+6 
+    Q_DL *= 1/(1e+4)
+    return Q_DL
+
 def Q_DL_dimless_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float, phi_L:float, phi_R:float, p_R:float, K:str|float, Lambda2:float, a2:float, solvation:float) -> float:
     '''
     Calculates charge of the system using the analytical method in dimensionless units
