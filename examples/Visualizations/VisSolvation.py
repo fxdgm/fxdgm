@@ -19,11 +19,11 @@ p = data['p']
 Solvation_vec = data['Solvation_vec']
 
 # Visualize the results
-xlim = 0.25
+xlim = 0.15
 fig, axs = plt.subplots(ncols=2, figsize=(30, 10))
 labelsize = 30
 lw = 4
-legend_width = 8
+legend_width = 6
 markers = ['-', '-.', ':', '--']
 colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple']
 
@@ -59,13 +59,16 @@ axs2.set_ylabel('$y_C$ [-]', color=colors[4], fontsize=labelsize)
 axs2.tick_params(axis='y', labelcolor=colors[4], labelsize=labelsize)
 axs2.grid()
 
-[axs[1].plot(0, 0, markers[i], color='grey', label=f'$\kappa$ = {Solvation_vec[i]}', lw=lw) for i in range(len(Solvation_vec))]
+# Adding legend entries with explicit line styles
+for i in range(len(Solvation_vec)):
+    axs[1].plot(0, 0, markers[i], color='grey', label=f'$\kappa$ = {Solvation_vec[i]}', lw=lw)
 axs[1].plot(0, 0, color=colors[1], label='$y_A$')
 axs[1].plot(0, 0, color=colors[2], label='$y_S$')
+axs[1].plot(0, 0, color=colors[4], label='$y_C$')
 
-lgnd = fig.legend(bbox_to_anchor=(0.785, 1.1), fontsize=labelsize, ncol=6)
+lgnd = fig.legend(bbox_to_anchor=(0.83, 1.1), fontsize=labelsize, ncol=7)
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()
-fig.savefig('../Figures/Solvation.svg', bbox_inches='tight')
-fig.show()
+# fig.savefig('../Figures/Solvation.svg', bbox_inches='tight')
+# fig.show()

@@ -83,7 +83,7 @@ ax2_dim.tick_params(axis='y', colors=color_dim, labelsize=labelsize)
 
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
-fig.legend(lines, labels, bbox_to_anchor=(0.675,1.05), ncol=6, fontsize=labelsize)
+fig.legend(lines, labels, bbox_to_anchor=(0.675,1.03), ncol=6, fontsize=labelsize)
 fig.tight_layout()
 fig.savefig('../../Figures/DoubleLayerCapacity/DLKap_Molarity.svg', bbox_inches='tight')
 fig.show()
@@ -136,7 +136,7 @@ ax1_dimless.set_ylabel('$Q [-]$', color=color_dimless, fontsize=labelsize)
 ax1_dimless.tick_params(axis='x', colors=color_dimless, labelsize=labelsize)
 ax1_dimless.tick_params(axis='y', colors=color_dimless, labelsize=labelsize)
 # ax1_dimless.set_ylim(-0.025, 0.025)
-ax1_dimless.set_ylim(np.min(Q_DL_dimless_), np.max(Q_DL_dimless_))
+ax1_dimless.set_ylim(np.min(Q_DL_dimless_)*10/9, np.max(Q_DL_dimless_)*10/9)
 
 # Plot dimensional data
 ax1_dim.plot(Phi_Pot_Diff_dim_PB, Q_DL_dim_PB_, '--', color=colors[0], lw=lw)
@@ -151,7 +151,7 @@ ax1_dim.yaxis.set_label_position('right')
 ax1_dim.tick_params(axis='x', colors=color_dim, labelsize=labelsize)
 ax1_dim.tick_params(axis='y', colors=color_dim, labelsize=labelsize)
 plt.rc('font', size=30)
-ax1_dim.set_ylim(np.min(Q_DL_dim_), np.max(Q_DL_dim_))
+ax1_dim.set_ylim(np.min(Q_DL_dim_)*10/9, np.max(Q_DL_dim_)*10/9)
 
 # Double Layer Capacity
 ax2_dimless.plot(Phi_pot_center_array_dimless_PB, C_DL_dimless_PB, '--', color=colors[0], lw=lw)
@@ -163,9 +163,9 @@ ax2_dimless.set_ylabel('$C_{dl} [-]$', color=color_dimless, fontsize=labelsize)
 ax2_dimless.tick_params(axis='x', colors=color_dimless, labelsize=labelsize)
 ax2_dimless.tick_params(axis='y', colors=color_dimless, labelsize=labelsize)
 # ax2_dimless.set_ylim(-0.0001, 0.0015)
-ax2_dimless.set_ylim(np.min(C_DL_dimless), np.max(C_DL_dimless))
+ax2_dimless.set_ylim(np.min(C_DL_dimless)*(-10/9), np.max(C_DL_dimless)*10/9)
 
-ax2_dim.plot(Phi_pot_center_array_dim_PB, C_DL_dim_PB, '--', color=colors[0], lw=lw)
+# ax2_dim.plot(Phi_pot_center_array_dim_PB, C_DL_dim_PB, '--', color=colors[0], lw=lw) # commented, because hard to fit the y-scale
 for i, c_dl in enumerate(C_DL_dim):
     ax2_dim.plot(Phi_pot_center_array_dim, c_dl, color=colors[i+1], lw=lw)
 ax2_dim.xaxis.tick_top()
@@ -177,11 +177,11 @@ ax2_dim.yaxis.set_label_position('right')
 ax2_dim.tick_params(axis='x', colors=color_dim, labelsize=labelsize)
 ax2_dim.tick_params(axis='y', colors=color_dim, labelsize=labelsize)
 # ax2_dim.set_ylim(-25, 600)
-ax2_dim.set_ylim(np.min(C_DL_dim), np.max(C_DL_dim))
+ax2_dim.set_ylim(np.min(C_DL_dim)*(-10/9), np.max(C_DL_dim)*10/9)
 
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
-fig.legend(lines, labels, bbox_to_anchor=(0.675,1.05), ncol=6, fontsize=labelsize)
+fig.legend(lines, labels, bbox_to_anchor=(0.76,1.05), ncol=6, fontsize=labelsize)
 fig.tight_layout()
 fig.savefig('../../Figures/DoubleLayerCapacity/DLKap_Solvation.svg')
 fig.show()
@@ -259,7 +259,7 @@ ax2_dim.tick_params(axis='y', colors=color_dim, labelsize=labelsize)
 
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
-fig.legend(lines, labels, bbox_to_anchor=(0.705,1.05), ncol=6, fontsize=labelsize)
+fig.legend(lines, labels, bbox_to_anchor=(0.74,1.03), ncol=6, fontsize=labelsize)
 fig.tight_layout()
 fig.savefig('../../Figures/DoubleLayerCapacity/DLKap_Lambda.svg', bbox_inches='tight')
 fig.show()

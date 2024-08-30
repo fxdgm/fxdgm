@@ -59,7 +59,7 @@ Phi_Pot_Diff_dimless = Phi_Pot_Diff_dim * e0/(k*T)
 
 
 # Lambda2
-Lambda2_vec = np.array([1e-6, 1e-7, 1e-8])
+Lambda2_vec = np.array([8.553e-5, 8.553e-6, 8.553e-7])
 
 Q_DL_dim_ = []
 Q_DL_dimless_ = []

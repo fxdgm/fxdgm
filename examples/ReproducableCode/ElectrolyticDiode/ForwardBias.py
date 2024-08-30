@@ -32,7 +32,7 @@ z_C = 1.0
 K = 'incompressible'
 Lambda2 = 3e-2 # 8.553e-2 # ! e-6
 a2 = 7.5412e-4 # !e-4
-solvation = 7
+solvation = 5
 number_cells = [80, 512]#[20, 128] # ! [40, 400]
 Lx = 2
 Ly = 10
@@ -40,9 +40,9 @@ x0 = np.array([0, 0])
 x1 = np.array([Lx, Ly])
 
 # Solver parameters
-rtol = 1e-3 # ! e-8
-relax_param = 0.1 #0.05
-max_iter = 15_000    
+rtol = 1e-8
+relax_param = 0.1 # 0.05
+max_iter = 15_000        
 
 # Solve the system
 y_A, y_C, phi, p, X, u = ElectrolyticDiode(Bias_type, phi_bias, g_phi, z_A, z_C, y_fixed, y_fixed, K, Lambda2, a2, number_cells, relax_param=relax_param, Lx=Lx, Ly=Ly, rtol=rtol, solvation=solvation, max_iter=max_iter, return_type='Extended')

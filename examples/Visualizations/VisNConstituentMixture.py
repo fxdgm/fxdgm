@@ -8,13 +8,13 @@ import numpy as np
 
 
 # Load data
-data_4_1 = np.load('../Data/NConstituentsMixture/Mixture_4_1.npz')
-data_4_2 = np.load('../Data/NConstituentsMixture/Mixture_4_2.npz')
-data_5 = np.load('../Data/NConstituentsMixture/Mixture_5.npz')
-data_6 = np.load('../Data/NConstituentsMixture/Mixture_6.npz')
+data_A = np.load('../Data/NConstituentsMixture/Mixture_A.npz')
+data_B = np.load('../Data/NConstituentsMixture/Mixture_B.npz')
+data_C = np.load('../Data/NConstituentsMixture/Mixture_C.npz')
+data_D = np.load('../Data/NConstituentsMixture/Mixture_D.npz')
 
 x, phi, p, y, z = [], [], [], [], []
-for data in [data_4_1, data_4_2, data_5, data_6]:
+for data in [data_A, data_B, data_C, data_D]:
     x.append(data['x'])
     phi.append(data['phi'])
     p.append(data['p'])
@@ -25,8 +25,8 @@ xlim = 0.05
 labelsize = 30
 lw = 4
 legend_width = 8
-subtitles_long = ['Mixture $4_1$', 'Mixture $4_2$', 'Mixture $5$', 'Mixture $6$']
-subtitles_short = ['$4_1$', '$4_2$', '$5$', '$6$']
+subtitles_long = ['Mixture $A$', 'Mixture $B$', 'Mixture $C$', 'Mixture $D$']
+subtitles_short = ['$A$', '$B$', '$C$', '$D$']
 # Visualize the concentrations and pressure
 fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(30,20))
 plotting_index = 0
@@ -73,10 +73,10 @@ fig, axs = plt.subplots(layout='constrained', figsize=(15, 10))
 
 for i in range(4):
     axs.plot(x[i], phi[i], label=subtitles_short[i], lw=lw)
-# axs.plot(x[0], phi[0], label='$4_1$', lw=lw)
-# axs.plot(x[1], phi[1], label='$4_2$', lw=lw)
-# axs.plot(x[2], phi[2], label='$5$', lw=lw)
-# axs.plot(x[3], phi[3], label='$6$', lw=lw)
+# axs.plot(x[0], phi[0], label='$A$', lw=lw)
+# axs.plot(x[1], phi[1], label='$B$', lw=lw)
+# axs.plot(x[2], phi[2], label='$C$', lw=lw)
+# axs.plot(x[3], phi[3], label='$D$', lw=lw)
 axs.set_xlim(0,xlim)
 axs.set_xlabel('x [-]', fontsize=labelsize)
 axs.set_ylabel('$\\varphi$ [-]', fontsize=labelsize)

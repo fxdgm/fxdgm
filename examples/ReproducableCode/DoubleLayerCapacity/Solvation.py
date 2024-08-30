@@ -52,7 +52,7 @@ p_R = 0
 # Solver settings
 number_cells = 1024#*2
 relax_param = 0.3
-rtol = 1e-3 # ! Change to 1e-8
+rtol = 1e-8
 refinement_style = 'hard_log'
 max_iter = 10_000
 return_type = 'Vector'
@@ -60,12 +60,12 @@ return_type = 'Vector'
 # phi^L domain
 Vol_start = -1.0
 Volt_end = 1.0
-n_Volts = 7 #303
+n_Volts = 303
 
 Phi_Pot_Diff_dim = np.linspace(Vol_start, Volt_end, n_Volts)
 Phi_Pot_Diff_dimless = Phi_Pot_Diff_dim * e0/(k*T)
 
-Phi_Pot_Diff_dim_PB = np.linspace(-0.35, 0.35, 4)#!int(n_Volts/4))
+Phi_Pot_Diff_dim_PB = np.linspace(-0.35, 0.35, int(n_Volts/4))
 Phi_Pot_Diff_dimless_PB = Phi_Pot_Diff_dim_PB * e0/(k*T)
 
 

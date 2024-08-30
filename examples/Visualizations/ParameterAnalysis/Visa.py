@@ -24,7 +24,7 @@ plt.figure(figsize=(15,10))
 labelsize = 30
 lw = 4
 for j in range(len(a2_vec)):
-    plt.plot(x[-1][j], p[-1][j], label='$a^2$ = {}'.format(a2_vec[j]), lw=lw)
+    plt.plot(x[-1][j], p[-1][j], label='$a^2 = {:.4e}$'.format(a2_vec[j]), lw=lw)
 plt.grid()
 plt.ylim(0.0, np.max(p[-1][0]))
 plt.xlim(0,xlim)

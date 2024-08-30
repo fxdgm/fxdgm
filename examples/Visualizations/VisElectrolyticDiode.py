@@ -45,8 +45,8 @@ y_packed = [y_Forward, y_NoBias, y_Backward]
 
 # Plot
 color_theme_potential = 'coolwarm'
-color_theme_concentration = 'coolwarm'
-color_theme_pressure = 'cividis'
+color_theme_concentration = 'rainbow' # cool, spring, PuBuGn, YlGnBu, GnBu
+color_theme_pressure = 'autumn'
 
 fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(30, 30))
 labelsize = 30
@@ -110,3 +110,35 @@ print('np.max(y_A_Backward):', np.max(y_A_Backward))
 print('np.max(y_C_Forward):', np.max(y_C_Forward))
 print('np.max(y_C_NoBias):', np.max(y_C_NoBias))
 print('np.max(y_C_Backward):', np.max(y_C_Backward))
+
+print('np.max(y_S_Forward):', np.max(y_S_Forward))
+print('np.max(y_S_NoBias):', np.max(y_S_NoBias))
+print('np.max(y_S_Backward):', np.max(y_S_Backward))
+
+print('np.max(phi_Forward):', np.max(phi_Forward))
+print('np.max(phi_NoBias):', np.max(phi_NoBias))
+print('np.max(phi_Backward):', np.max(phi_Backward))
+
+print('np.max(p_Forward):', np.max(p_Forward))
+print('np.max(p_NoBias):', np.max(p_NoBias))
+print('np.max(p_Backward):', np.max(p_Backward))
+
+print('np.min(y_A_Forward):', np.min(y_A_Forward))
+print('np.min(y_A_NoBias):', np.min(y_A_NoBias))
+print('np.min(y_A_Backward):', np.min(y_A_Backward))
+
+print('np.min(y_C_Forward):', np.min(y_C_Forward))
+print('np.min(y_C_NoBias):', np.min(y_C_NoBias))
+print('np.min(y_C_Backward):', np.min(y_C_Backward))
+
+print('np.min(y_S_Forward):', np.min(y_S_Forward))
+print('np.min(y_S_NoBias):', np.min(y_S_NoBias))
+print('np.min(y_S_Backward):', np.min(y_S_Backward))
+
+print('np.min(phi_Forward):', np.min(phi_Forward))
+print('np.min(phi_NoBias):', np.min(phi_NoBias))
+print('np.min(phi_Backward):', np.min(phi_Backward))
+
+print('np.min(p_Forward):', np.min(p_Forward))
+print('np.min(p_NoBias):', np.min(p_NoBias))
+print('np.min(p_Backward):', np.min(p_Backward))
