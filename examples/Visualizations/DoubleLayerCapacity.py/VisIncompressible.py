@@ -31,7 +31,7 @@ fig = plt.figure(figsize=(30, 20))
 labelsize = 30
 lw = 6
 legend_width = 8
-colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple']
+colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:cyan']
 color_dimless = 'tab:purple'
 color_dim = 'tab:red'
 ax1_dimless = fig.add_subplot(2, 2, 1, label="1")
@@ -83,7 +83,7 @@ ax2_dim.tick_params(axis='y', colors=color_dim, labelsize=labelsize)
 
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
-fig.legend(lines, labels, bbox_to_anchor=(0.675,1.03), ncol=6, fontsize=labelsize)
+fig.legend(lines, labels, bbox_to_anchor=(0.735,1.03), ncol=6, fontsize=labelsize)
 fig.tight_layout()
 fig.savefig('../../Figures/DoubleLayerCapacity/DLKap_Molarity.svg', bbox_inches='tight')
 fig.show()
@@ -183,7 +183,7 @@ lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 fig.legend(lines, labels, bbox_to_anchor=(0.76,1.05), ncol=6, fontsize=labelsize)
 fig.tight_layout()
-fig.savefig('../../Figures/DoubleLayerCapacity/DLKap_Solvation.svg')
+fig.savefig('../../Figures/DoubleLayerCapacity/DLKap_Solvation.svg', bbox_inches='tight')
 fig.show()
 
 

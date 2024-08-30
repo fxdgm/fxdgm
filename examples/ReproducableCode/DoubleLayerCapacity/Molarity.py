@@ -32,7 +32,7 @@ NA = 6.022e+23 # [1/mol] - Avogadro constant
 nR_mol = 55 # [mol/m^3]
 nR_m = nR_mol * NA * 1/(1e-3)# [1/m^3]
 pR = 1.01325 * 1e+5 # [Pa]
-LR = 20e-8
+LR = 20e-9
 chi = 80 # [-]
 
 # Parameter and bcs for the electrolyte
@@ -56,7 +56,7 @@ Phi_Pot_Diff_dimless = Phi_Pot_Diff_dim * e0/(k*T)
 
 
 # Molarity
-Molarity = np.array([0.01, 0.1, 1]) # [mol/m^3]
+Molarity = np.array([0.01, 0.1, 1, 10]) # [mol/m^3]
 
 Q_DL_dim_ = []
 Q_DL_dimless_ = []
@@ -74,7 +74,7 @@ C_DL_dimless = [C_dl(q_dl, Phi_Pot_Diff_dimless) for q_dl in Q_DL_dimless_]
 
 # Charge
 fig = plt.figure()
-colors = ['tab:blue', 'tab:orange', 'tab:green']
+colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:cyan']
 color_dimless = 'tab:purple'
 color_dim = 'tab:red'
 ax = fig.add_subplot(111, label="1")
