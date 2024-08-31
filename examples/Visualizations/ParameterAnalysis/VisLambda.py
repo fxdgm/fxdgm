@@ -26,7 +26,7 @@ xlim = 0.08
 fig, axs = plt.subplots(2, 2, figsize=(30,20))
 labelsize = 30
 lw = 4
-legend_width = 8
+legend_width = 5
 markers = ['--', '-', ':']
 colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple']
 for i in range(len(phi_left_vec)):

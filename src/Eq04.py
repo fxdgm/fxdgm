@@ -207,9 +207,11 @@ def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         # Diffusion fluxes for species A and C
         def J_A(y_A, y_C, phi, p):
             return grad(ln(y_A) + a2 * (p - 1) * (solvation + 1) + z_A * phi)
+            # return grad(ln(y_A) + a2 * (p - 1) - solvation * ln(1-y_A-y_C) + z_A * phi)
         
         def J_C(y_A, y_C, phi, p):
             return grad(ln(y_C) + a2 * (p - 1) * (solvation + 1) + z_C * phi)
+            # return grad(ln(y_C) + a2 * (p - 1) - solvation * ln(1-y_A-y_C) + z_C * phi)
         
         # Variational Form
         A = (

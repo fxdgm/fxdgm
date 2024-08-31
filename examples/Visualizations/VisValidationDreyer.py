@@ -19,7 +19,7 @@ p = df['p_dim']
 # Plotting
 
 # Options
-markers = ['-', '-.', ':', '--']
+markers = [':', '-.', '-'] #['-', '-.', ':', '--']
 colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple']
 labelsize = 15
 lw = 2

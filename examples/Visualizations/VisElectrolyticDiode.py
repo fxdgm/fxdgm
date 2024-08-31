@@ -50,8 +50,9 @@ color_theme_pressure = 'autumn'
 
 fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(30, 30))
 labelsize = 30
+titlesize = 25
 legend_width = 8
-levels_colorbar = 20
+levels_colorbar = 100
 levels_contour = 8#20
 
 vmap_concentrations = np.linspace(0, 1, levels_colorbar)
@@ -66,6 +67,7 @@ for bias, (y_A, y_C, y_S, phi, p, x, y) in enumerate(zip(y_A_packed, y_C_packed,
     cbar.ax.tick_params(labelsize=labelsize)
     axs[bias,0].tricontour(x, y, phi, colors='black', levels=levels_contour)
     axs[bias,0].tick_params(axis='both', labelsize=labelsize)
+    axs[bias,0].set_title(f'$\\varphi \in ({round(np.min(phi),2)},{round(np.max(phi), 2)})$',  fontsize=titlesize)
 
     c = axs[bias,1].tricontourf(x, y, y_A, cmap=color_theme_concentration, vmin=np.min(y_A), vmax=np.max(y_A), levels=vmap_concentrations)#, extend='both')
     # cbar = fig.colorbar(c, ax=axs[bias,1], boundaries=np.linspace(0,1,5))
@@ -73,12 +75,14 @@ for bias, (y_A, y_C, y_S, phi, p, x, y) in enumerate(zip(y_A_packed, y_C_packed,
     # cbar.ax.tick_params(labelsize=labelsize)
     axs[bias,1].tricontour(x, y, y_A, colors='black', levels=levels_contour)
     axs[bias,1].tick_params(axis='both', labelsize=labelsize)
+    axs[bias,1].set_title(f'$y_A \in ({round(np.min(y_A),2)},{round(np.max(y_A), 2)})$',  fontsize=titlesize)
 
     c = axs[bias,2].tricontourf(x, y, y_C, cmap=color_theme_concentration, levels=vmap_concentrations)
     # cbar = fig.colorbar(c, ax=axs[bias,2])
     # cbar.ax.tick_params(labelsize=labelsize)
     axs[bias,2].tricontour(x, y, y_C, colors='black', levels=levels_contour)
     axs[bias,2].tick_params(axis='both', labelsize=labelsize)
+    axs[bias,2].set_title(f'$y_C \in ({round(np.min(y_C),2)},{round(np.max(y_C), 2)})$',  fontsize=titlesize)
 
     c = axs[bias,3].tricontourf(x, y, y_S, cmap=color_theme_concentration, levels=vmap_concentrations)
     c.set_clim(0, 1)
@@ -86,6 +90,7 @@ for bias, (y_A, y_C, y_S, phi, p, x, y) in enumerate(zip(y_A_packed, y_C_packed,
     cbar.ax.tick_params(labelsize=labelsize)
     axs[bias,3].tricontour(x, y, y_S, colors='black', levels=levels_contour)
     axs[bias,3].tick_params(axis='both', labelsize=labelsize)
+    axs[bias,3].set_title(f'$y_S \in ({round(np.min(y_S),2)},{round(np.max(y_S), 2)})$',  fontsize=titlesize)
 
     c = axs[bias,4].tricontourf(x, y, p, cmap=color_theme_pressure, levels=vmap_pressure)
     c.set_clim(np.min(p_packed), np.max(p_packed))
@@ -93,12 +98,13 @@ for bias, (y_A, y_C, y_S, phi, p, x, y) in enumerate(zip(y_A_packed, y_C_packed,
     cbar.ax.tick_params(labelsize=labelsize)
     axs[bias,4].tricontour(x, y, p, colors='black', levels=levels_contour)
     axs[bias,4].tick_params(axis='both', labelsize=labelsize)
+    axs[bias,4].set_title(f'$p \in ({int(round(np.min(p),0))},{int(round(np.max(p), 0))})$',  fontsize=titlesize)
 
-axs[0,0].set_title('$\\varphi [-]$', fontsize=labelsize)
-axs[0,1].set_title('$y_A [-]$', fontsize=labelsize)
-axs[0,2].set_title('$y_C [-]$', fontsize=labelsize)
-axs[0,3].set_title('$y_S [-]$', fontsize=labelsize)
-axs[0,4].set_title('$p [-]$', fontsize=labelsize)
+# axs[0,0].set_title('$\\varphi [-]$', fontsize=labelsize)
+# axs[0,1].set_title('$y_A [-]$', fontsize=labelsize)
+# axs[0,2].set_title('$y_C [-]$', fontsize=labelsize)
+# axs[0,3].set_title('$y_S [-]$', fontsize=labelsize)
+# axs[0,4].set_title('$p [-]$', fontsize=labelsize)
 fig.tight_layout()
 fig.savefig('../Figures/ElectrolyticDiode.svg')
 fig.show()

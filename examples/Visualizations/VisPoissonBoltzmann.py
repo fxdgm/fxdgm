@@ -50,18 +50,13 @@ legend_width = 8
 markers = ['-', '--', '-.', ':']
 colors = ['tab:blue', 'tab:orange', 'tab:green']
 
-axs[0,1].set_title('$\delta \\varphi = 10$', fontsize=labelsize)
-axs[0,1].plot(x_DGM_10, y_A_DGM_10, markers[0], color=colors[0], lw=lw)
-axs[0,1].plot(x_PB_10, y_A_PB_10, markers[1], color=colors[0], lw=lw)
-axs[0,1].plot(x_DGM_10, y_C_DGM_10, markers[0], color=colors[1], lw=lw)
-axs[0,1].plot(x_PB_10, y_C_PB_10, markers[1], color=colors[1], lw=lw)
-axs[0,1].plot(x_DGM_10, y_S_DGM_10, markers[0], color=colors[2], lw=lw)
-axs[0,1].plot(x_PB_10, y_S_PB_10, markers[1], color=colors[2], lw=lw)
-dummy, = axs[0,1].plot(10, 0.1, color=colors[0], linestyle='-', label='$y_A$')
-dummy, = axs[0,1].plot(10, 0.1, color=colors[1], linestyle='-', label='$y_C$')
-dummy, = axs[0,1].plot(10, 0.1, color=colors[2], linestyle='-', label='$y_S$')
-dummy, = axs[0,1].plot(10, 0.1, color='grey', linestyle=markers[0], label='DGM')
-dummy, = axs[0,1].plot(10, 0.1, color='grey', linestyle=markers[1], label='PB')
+axs[0,1].set_title('$\delta \\varphi = 1$', fontsize=labelsize)
+axs[0,1].plot(x_DGM_1, y_A_DGM_1, markers[0], color=colors[0], lw=lw)
+axs[0,1].plot(x_PB_1, y_A_PB_1, markers[1], color=colors[0], lw=lw)
+axs[0,1].plot(x_DGM_1, y_C_DGM_1, markers[0], color=colors[1], lw=lw)
+axs[0,1].plot(x_PB_1, y_C_PB_1, markers[1], color=colors[1], lw=lw)
+axs[0,1].plot(x_DGM_1, y_S_DGM_1, markers[0], color=colors[2], lw=lw)
+axs[0,1].plot(x_PB_1, y_S_PB_1, markers[1], color=colors[2], lw=lw)
 axs[0,1].set_xlim(0,xlim)
 axs[0,1].set_ylim(-0.02, 1.02)
 axs[0,1].grid()
@@ -69,13 +64,19 @@ axs[0,1].set_xlabel('x [-]', fontsize=labelsize)
 axs[0,1].set_ylabel('$y_\\alpha$ [-]', fontsize=labelsize)
 axs[0,1].tick_params(axis='both', labelsize=labelsize)
 
-axs[1,1].set_title('$\delta \\varphi = 1$', fontsize=labelsize)
-axs[1,1].plot(x_DGM_1, y_A_DGM_1, markers[0], color=colors[0], lw=lw)
-axs[1,1].plot(x_PB_1, y_A_PB_1, markers[1], color=colors[0], lw=lw)
-axs[1,1].plot(x_DGM_1, y_C_DGM_1, markers[0], color=colors[1], lw=lw)
-axs[1,1].plot(x_PB_1, y_C_PB_1, markers[1], color=colors[1], lw=lw)
-axs[1,1].plot(x_DGM_1, y_S_DGM_1, markers[0], color=colors[2], lw=lw)
-axs[1,1].plot(x_PB_1, y_S_PB_1, markers[1], color=colors[2], lw=lw)
+
+axs[1,1].set_title('$\delta \\varphi = 10$', fontsize=labelsize)
+axs[1,1].plot(x_DGM_10, y_A_DGM_10, markers[0], color=colors[0], lw=lw)
+axs[1,1].plot(x_PB_10, y_A_PB_10, markers[1], color=colors[0], lw=lw)
+axs[1,1].plot(x_DGM_10, y_C_DGM_10, markers[0], color=colors[1], lw=lw)
+axs[1,1].plot(x_PB_10, y_C_PB_10, markers[1], color=colors[1], lw=lw)
+axs[1,1].plot(x_DGM_10, y_S_DGM_10, markers[0], color=colors[2], lw=lw)
+axs[1,1].plot(x_PB_10, y_S_PB_10, markers[1], color=colors[2], lw=lw)
+dummy, = axs[1,1].plot(10, 0.1, color=colors[0], linestyle='-', label='$y_A$')
+dummy, = axs[1,1].plot(10, 0.1, color=colors[1], linestyle='-', label='$y_C$')
+dummy, = axs[1,1].plot(10, 0.1, color=colors[2], linestyle='-', label='$y_S$')
+dummy, = axs[1,1].plot(10, 0.1, color='grey', linestyle=markers[0], label='DGM')
+dummy, = axs[1,1].plot(10, 0.1, color='grey', linestyle=markers[1], label='PB')
 axs[1,1].set_xlim(0,xlim)
 axs[1,1].set_ylim(-0.02, 1.02)
 axs[1,1].grid()
@@ -88,7 +89,7 @@ axs[1,1].tick_params(axis='both', labelsize=labelsize)
 # Plot phi
 color_phi = 'tab:blue'
 color_p = 'tab:red'
-ax1 = axs[0,0]
+ax1 = axs[1,0]
 ax1.set_title('$\delta \\varphi = 10$', fontsize=labelsize)
 ax1.tick_params(axis='y')#, labelcolor=color)
 ax1.plot(x_DGM_10, phi_DGM_10, markers[0], color=color_phi, lw=lw)
@@ -121,7 +122,7 @@ ax2.tick_params(axis='y', labelcolor=color_p, labelsize=labelsize)
 # Plot phi
 color_phi = 'tab:blue'
 color_p = 'tab:red'
-ax1 = axs[1,0]
+ax1 = axs[0,0]
 ax1.set_title('$\delta \\varphi = 1$', fontsize=labelsize)
 ax1.tick_params(axis='y')#, labelcolor=color)
 ax1.plot(x_DGM_1, phi_DGM_1, markers[0], color=color_phi, lw=lw)

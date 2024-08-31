@@ -70,5 +70,5 @@ lgnd = fig.legend(bbox_to_anchor=(0.83, 1.1), fontsize=labelsize, ncol=7)
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()
-# fig.savefig('../Figures/Solvation.svg', bbox_inches='tight')
-# fig.show()
+fig.savefig('../Figures/Solvation.svg', bbox_inches='tight')
+fig.show()
