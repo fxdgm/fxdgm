@@ -21,10 +21,9 @@ del sys.path[0]
 # Further imports
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 
 # Define the parameters and boundary conditions
-phi_left = 4.0
+phi_left = 8.0
 phi_right = 0.0
 p_right = 0.0
 y_A_R = 1/3
