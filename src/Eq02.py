@@ -59,14 +59,17 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
 
     System of equations:
         λ²Δ φ =−L²n^F
+        
         a²∇p=−n^F∇ φ
         
-        with:
-            n^F = z_A y_A(φ, p) + z_C y_C(φ ,p)
-            if compressible:
-                y_alpha = C_alpha * (K+p−1)⁽−κ+1)a²K exp(−z_α φ)
-            if incompressible:
-                y_alpha = D_alpha * exp(−(κ+1)a²p−z_α φ)
+    with the space charge
+        n^F = z_A y_A(φ, p) + z_C y_C(φ ,p)
+
+    if the mixture is compressible: 
+        y_alpha = C_alpha * (K+p−1)^(−κ+1)a²K exp(−z_α φ)
+
+    if the mixture is incompressible: 
+        y_alpha = D_alpha * exp(−(κ+1)a²p−z_α φ)
 
     with φ the electric potential, p the pressure, n^F the total free charge density, J_α the diffusion fluxes of species α, λ² a dimensionless parameter, L²=1, a² a dimensionless parameter, N the number of species, and α the species index.
 

@@ -8,7 +8,11 @@ Find the thesis at:
 
 ### Abstract
 
-- Insert Abstract from thesis
+Batteries play a crucial role in the energy transition. The production of green energy depends on external factors. Storing energy in batteries is necessary to access green energy at any time.
+
+Better optimized batteries are essential for the future. Lifetime, loading time, and energy loss are just some aspects that must be improved to prepare for a greener future. Numerical simulations are crucial to understanding and optimizing batteries' behavior. Those simulations enable researchers to test many different materials without considerable additional expenses to, for example, find the best combination of anions and cations.
+
+The classical Nernst-Planck model for the ion transport in an electrolyte fails to predict the correct concentration in the boundaries of the electrolyte. This work will present and analyze a thermodynamically consistent electrolyte model with dimensionless units under isothermal conditions. A simplified version of the system for the one-dimensional equilibrium of an ideal mixture and the incompressible limit will be considered. The numerical implementation of the model with the open-source software FEniCSx will be discussed. Furthermore, the influence of different boundary conditions, material parameters, solvation, and compressibility on the electric potential, pressure, and ion concentration will be investigated, and the model will be compared with the classical Nernst-Planck model. Examples of the double layer capacity and electrolytic diode will be considered.
 
 ## Installation
 
