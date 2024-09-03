@@ -3,8 +3,6 @@ Jan Habscheid
 Jan.Habscheid@rwth-aachen.de
 
 This script is used to analyze the influence of the solvation on the charge of the system and the double-layer capacity.
-
-# ! This is not correctly implemented, yet.
 '''
 
 # import the src file needed to solve the system of equations
@@ -129,11 +127,12 @@ for i in range(len(kappa_vec)):
 Q_DL_dimless_ = np.array(Q_DL_dimless_)
 Q_DL_dim_ = np.array(Q_DL_dim_)
 
-    
+
+# Double Layer Capacity
 C_DL_dimless_PB = C_dl(Q_DL_dimless_PB_, Phi_Pot_Diff_dimless_PB)
 C_DL_dimless = [C_dl(q_dl, Phi_Pot_Diff_dimless) for q_dl in Q_DL_dimless_]
 
-C_DL_dim_PB = C_dl(Q_DL_dim_PB_, Phi_Pot_Diff_dim)
+C_DL_dim_PB = C_dl(Q_DL_dim_PB_, Phi_Pot_Diff_dim_PB)
 C_DL_dim = [C_dl(q_dl, Phi_Pot_Diff_dim) for q_dl in Q_DL_dim_]
 
 

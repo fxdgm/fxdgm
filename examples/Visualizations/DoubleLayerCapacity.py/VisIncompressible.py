@@ -24,6 +24,17 @@ Phi_pot_center_array_dimless = data_Molarity['Phi_pot_center_array_dimless']
 Phi_pot_center_array_dim = data_Molarity['Phi_pot_center_array_dim']
 C_DL_dimless = data_Molarity['C_DL_dimless']
 
+data_PB = np.load('../../Data/DoubleLayerCapacity/PB.npz')
+Q_DL_dim_PB_ = data_PB['Q_DL_dim_PB_']
+Phi_Pot_Diff_dim_PB = data_PB['Phi_Pot_Diff_dim_PB']
+Q_DL_dimless_PB_ = data_PB['Q_DL_dimless_PB_']
+Phi_Pot_Diff_dimless_PB = data_PB['Phi_Pot_Diff_dimless_PB']
+C_DL_dim_PB = data_PB['C_DL_dim_PB']
+Phi_pot_center_array_dim_PB = data_PB['Phi_pot_center_array_dim_PB']
+Phi_pot_center_array_dimless_PB = data_PB['Phi_pot_center_array_dimless_PB']
+C_DL_dimless_PB = data_PB['C_DL_dimless_PB']
+Molarity_PB = data_PB['Molarity']
+
 
 # Plotting
 # Charge
@@ -32,6 +43,7 @@ labelsize = 30
 lw = 6
 legend_width = 8
 colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:cyan']
+color_PB = 'tab:grey'
 color_dimless = 'tab:purple'
 color_dim = 'tab:red'
 ax1_dimless = fig.add_subplot(2, 2, 1, label="1")
@@ -40,6 +52,7 @@ ax2_dimless = fig.add_subplot(2, 2, 2, label="1")
 ax2_dim = fig.add_subplot(2, 2, 2, label="2", frame_on=False)
 
 # Plot dimensionless data
+ax1_dimless.plot(Phi_Pot_Diff_dimless_PB, Q_DL_dimless_PB_, '--', color=color_PB, label=f'PB(M={Molarity_PB})', lw=lw, alpha=0.5)
 for i, q_dl in enumerate(Q_DL_dimless_):
     ax1_dimless.plot(Phi_Pot_Diff_dimless, q_dl, color=colors[i], label=f'M: {Molarity[i]}', lw=lw)
 ax1_dimless.grid()
@@ -47,6 +60,7 @@ ax1_dimless.set_xlabel('$\delta \\varphi [-]$', color=color_dimless, fontsize=la
 ax1_dimless.set_ylabel('$Q [-]$', color=color_dimless, fontsize=labelsize)
 ax1_dimless.tick_params(axis='x', colors=color_dimless, labelsize=labelsize)
 ax1_dimless.tick_params(axis='y', colors=color_dimless, labelsize=labelsize)
+ax1_dimless.set_ylim(np.min(Q_DL_dimless_)*10/9, np.max(Q_DL_dimless_)*10/9)
 
 # Plot dimensional data
 for i, q_dl in enumerate(Q_DL_dim_):
@@ -59,9 +73,11 @@ ax1_dim.xaxis.set_label_position('top')
 ax1_dim.yaxis.set_label_position('right') 
 ax1_dim.tick_params(axis='x', colors=color_dim, labelsize=labelsize)
 ax1_dim.tick_params(axis='y', colors=color_dim, labelsize=labelsize)
+ax1_dim.set_ylim(np.min(Q_DL_dim_)*10/9, np.max(Q_DL_dim_)*10/9)
 
 
 # Double Layer Capacity
+ax2_dimless.plot(Phi_pot_center_array_dimless_PB, C_DL_dimless_PB, '--', color=color_PB, lw=lw, alpha=0.5)
 for i, c_dl in enumerate(C_DL_dimless):
     ax2_dimless.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i], lw=lw)
 ax2_dimless.grid()
@@ -69,6 +85,7 @@ ax2_dimless.set_xlabel('$\delta \\varphi [-]$', color=color_dimless, fontsize=la
 ax2_dimless.set_ylabel('$C_{dl} [-]$', color=color_dimless, fontsize=labelsize)
 ax2_dimless.tick_params(axis='x', colors=color_dimless, labelsize=labelsize)
 ax2_dimless.tick_params(axis='y', colors=color_dimless, labelsize=labelsize)
+ax2_dimless.set_ylim(np.min(C_DL_dimless)*(-10/9), np.max(C_DL_dimless)*10/9)
 
 for i, c_dl in enumerate(C_DL_dim):
     ax2_dim.plot(Phi_pot_center_array_dim, c_dl, color=colors[i], lw=lw)
@@ -80,6 +97,7 @@ ax2_dim.xaxis.set_label_position('top')
 ax2_dim.yaxis.set_label_position('right') 
 ax2_dim.tick_params(axis='x', colors=color_dim, labelsize=labelsize)
 ax2_dim.tick_params(axis='y', colors=color_dim, labelsize=labelsize)
+ax2_dim.set_ylim(np.min(C_DL_dim)*(-10/9), np.max(C_DL_dim)*10/9)
 
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
