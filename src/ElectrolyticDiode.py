@@ -88,6 +88,7 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
         case 'ForwardBias': phi_bias = phi_bias
         case 'NoBias': phi_bias = 0
         case 'BackwardBias': phi_bias = -phi_bias
+        case _: raise ValueError('Invalid Bias_type')
 
     # Define boundaries
     geom_tol = 1E-4 # ! Geometric tolerance, may need to be adjusted
@@ -339,26 +340,27 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
 
 if __name__ == '__main__':
     phi_bias = 10#10
-    Bias_type = 'ForwardBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
-    g_phi = 5 #0.5#5
+    Bias_type = 'BackwardBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
+    g_phi = 500#5
     y_fixed = 0.01#0.01
     z_A = -1.0
     z_C = 1.0
     K = 'incompressible'
-    Lambda2 = 8.553e-2 # ! Change back to 1e-6
+    Lambda2 = 8.553e-6 # ! Change back to 1e-6
     # g_phi *= np.sqrt(Lambda2) # ! Unsure about this scaling
     # g_phi *= Lambda2
+    # g_phi = g_phi / np.sqrt(Lambda2)
     a2 = 7.5412e-4
-    number_cells = [20,128]#[20, 100]
-    Lx = 2
-    Ly = 10
+    number_cells = [20, 128]#[20, 100]
+    Lx = 0.02
+    Ly = 0.1
     x0 = np.array([0, 0])
     x1 = np.array([Lx, Ly])
     refinement_style = 'uniform'
-    solvation = 3
+    solvation = 5
     PoissonBoltzmann = False
     rtol = 1e-3 # ToDo: Change back to 1e-8, currently just for testing
-    relax_param = 0.05
+    relax_param = 0.15 # 0.1
     max_iter = 15_000
 
     # Solve the system

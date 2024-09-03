@@ -25,17 +25,17 @@ import numpy as np
 # Parameter
 phi_bias = 10 # Doesn't matter, as set to zero in the function
 Bias_type = 'NoBias'
-g_phi = 5
+g_phi = 600#5
 y_fixed = 0.01
 z_A = -1.0
 z_C = 1.0
 K = 'incompressible'
-Lambda2 = 3e-2 # 8.553e-2 # ! e-6
+Lambda2 = 8.553e-6#3e-2 # 8.553e-2 # ! e-6
 a2 = 7.5412e-4 # !e-4
 solvation = 5
 number_cells = [80, 512]#[20, 128] # ! [40, 400]
-Lx = 2
-Ly = 10
+Lx = 0.02#2
+Ly = 0.1#10
 x0 = np.array([0, 0])
 x1 = np.array([Lx, Ly])
 

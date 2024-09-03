@@ -69,7 +69,7 @@ for bias, (y_A, y_C, y_S, phi, p, x, y) in enumerate(zip(y_A_packed, y_C_packed,
     axs[bias,0].tick_params(axis='both', labelsize=labelsize)
     axs[bias,0].set_title(f'$\\varphi \in ({round(np.min(phi),2)},{round(np.max(phi), 2)})$',  fontsize=titlesize)
 
-    c = axs[bias,1].tricontourf(x, y, y_A, cmap=color_theme_concentration, vmin=np.min(y_A), vmax=np.max(y_A), levels=vmap_concentrations)#, extend='both')
+    c = axs[bias,1].tricontourf(x, y, y_A, cmap=color_theme_concentration, levels=vmap_concentrations)#, extend='both')
     # cbar = fig.colorbar(c, ax=axs[bias,1], boundaries=np.linspace(0,1,5))
     # cbar.solids.set_edgecolor("face")
     # cbar.ax.tick_params(labelsize=labelsize)
