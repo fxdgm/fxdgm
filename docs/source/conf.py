@@ -1,0 +1,46 @@
+# Configuration file for the Sphinx documentation builder.
+#
+# For the full list of built-in configuration values, see the documentation:
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
+
+# -- Project information -----------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+
+project = 'Reproducibility Repository for: Numerical Treatment of a Thermodynamically Consistent Electrolyte Model'
+copyright = '2024, Jan Habscheid'
+author = 'Jan Habscheid'
+release = 'September, 2024'
+
+# Add src folder to path
+import os
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join("..", "../src")))
+# sys.path.insert(0, os.path.abspath('../src'))
+
+# -- General configuration ---------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+
+extensions = [
+              'sphinx.ext.napoleon',
+              'sphinx.ext.autodoc', 
+              'myst_parser',
+              'sphinx_copybutton',
+              'sphinx.ext.coverage',
+              'sphinx.ext.autosectionlabel',
+              ]
+
+templates_path = ['_templates']
+exclude_patterns = []
+
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.txt': 'markdown',
+    '.md': 'markdown',
+}
+
+autosummary_generate = False
+# autoclass_content = 'both'
+# -- Options for HTML output -------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+
+html_theme = 'sphinx_rtd_theme'

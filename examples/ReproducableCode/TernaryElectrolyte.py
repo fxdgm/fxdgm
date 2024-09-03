@@ -41,7 +41,7 @@ rtol = 1e-8
 y_A, y_C, phi, p, x = solve_System_4eq(phi_left, phi_right, p_right, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, relax_param=0.05, x0=0, x1=1, 
 refinement_style='hard_log', return_type='Vector', max_iter=1_000, rtol=rtol)
 
-# Fine point, where space charge starts to diverge from zero
+# Find point, where space charge starts to diverge from zero
 index = 0
 nF = z_C * y_C + z_A * y_A
 for i, nF_ in enumerate(nF):
