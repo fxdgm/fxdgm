@@ -17,7 +17,7 @@ sys.path.insert(0, src_path)
 
 from Eq04 import solve_System_4eq
 from Eq02 import solve_System_2eq
-from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_DL_dimless_ana, Q_DL_dim_ana
+from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_num_dim, Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
 
 
 # Remove the src directory from sys.path after import
@@ -26,42 +26,6 @@ del sys.path[0]
 # Import plotting library
 import matplotlib.pyplot as plt
 import numpy as np
-
-# # Define Parameter
-# e0 = 1.602e-19 # [As]
-# k = 1.381e-23 # [J/K]
-# T = 293.75 # [K]
-
-# # Load numerical data
-# data_numerical = np.load('../../Data/DoubleLayerCapacity/Compressibility.npz')
-# Lambda2 = data_numerical['Lambda2']
-# a2 = data_numerical['a2']
-# K_vec = data_numerical['K_vec']
-# temp = K_vec[1:].astype(np.float64)
-# K_vec_converted = [K_vec[0]]
-# [K_vec_converted.append(temp_) for temp_ in temp]
-# K_vec = K_vec_converted
-# kappa = data_numerical['kappa']
-# Molarity = data_numerical['Molarity']
-# y_R = data_numerical['y_R']
-# z_A = data_numerical['z_A']
-# z_C = data_numerical['z_C']
-# p_right = data_numerical['p_right']
-# Volt_start = data_numerical['Volt_start']
-# Volt_end = data_numerical['Volt_end']
-# n_Volts = data_numerical['n_Volts']
-# phi_left_dim = data_numerical['phi_left_dim']
-# phi_left_dimless = data_numerical['phi_left_dimless']
-# phi_right = data_numerical['phi_right']
-# y_A_num = data_numerical['y_A']
-# y_C_num = data_numerical['y_C']
-# y_S_num = data_numerical['y_S']
-# phi_num = data_numerical['phi']
-# p_num = data_numerical['p']
-# x_num = data_numerical['x']
-# Q_num = data_numerical['Q']
-# C_DL_num = data_numerical['C_DL']
-# phi_left_center = data_numerical['phi_left_center']
 
 # Define Parameter
 e0 = 1.602e-19 # [As]
@@ -97,9 +61,10 @@ p_right = 0
 # phi^L domain
 Vol_start = 0
 Volt_end = 0.75
-n_Volts = 10#0
+n_Volts = 25#0
 
-phi_left_dimless = np.linspace(Vol_start, Volt_end, n_Volts) * e0/(k*T)
+phi_left_dim = np.linspace(Vol_start, Volt_end, n_Volts) 
+phi_left_dimless = phi_left_dim * e0/(k*T)
 
 
 # Numerical calculations
@@ -116,46 +81,75 @@ for i, phi_bcs in enumerate(phi_left_dimless):
     x_num.append(x_)
     
 Q_num = []
+Q_num_dim_ = []
 for j in range(len(phi_left_dimless)):
     Q_num.append(Q_num_(y_A_num[j], y_C_num[j], n(p_num[j], K), x_num[j]))
+    Q_num_dim_.append(Q_num_dim(y_A_num[j], y_C_num[j], n(p_num[j], K), x_num[j], z_A, z_C, nR_m, e0, LR))
 Q_num = np.array(Q_num)
+Q_num_dim_ = np.array(Q_num_dim_)
 
 dx_ = phi_left_dimless[1] - phi_left_dimless[0] # [1/V], Assumption: phi^L is uniformly distributed
-C_DL_num = (Q_num[1:] - Q_num[:-1])/dx_ # [µAs/cm³]
-C_DL_num = np.array(C_DL_num)
 C_dl_num = C_dl(Q_num, phi_left_dimless)
 
+dx_dim = phi_left_dim[1] - phi_left_dim[0] 
+C_dl_num_dim_ = C_dl(Q_num_dim_, phi_left_dim)
+
 # Analytical calculations
-# K = K_vec[0]
-# print(K)
-# print(phi_left_dimless)
 Q_ana = Q_DL_dimless_ana(y_R, y_R, 1-2*y_R, z_A, z_C, phi_left_dimless, phi_right, p_right, K, Lambda2, a2, kappa)
-C_DL_ana = C_dl(Q_ana, phi_left_dimless)
+Q_ana_dim_ = Q_DL_dim_ana(y_R, y_R, 1-2*y_R, z_A, z_C, phi_left_dimless, phi_right, p_right, K, Lambda2, a2, nR_m, e0, LR, kappa)
+C_dl_ana = C_DL_dimless_ana(y_R, y_R, 1-2*y_R, z_A, z_C, Phi_pot_center(phi_left_dimless), phi_right, p_right, K, Lambda2, a2, kappa)
+C_dl_ana_dim = C_DL_dim_ana(y_R, y_R, 1-2*y_R, z_A, z_C, Phi_pot_center(phi_left_dimless), phi_right, p_right, K, Lambda2, a2, nR_m, e0, LR, k, T, kappa)
 
 
 # Plotting
 plt.figure()
-# plt.plot(phi_left, Q_num[1] - Q_ana, label='Difference')
-# plt.plot(phi_left_dimless, Q_num - Q_ana, label='Difference')
-# plt.plot(phi_left_dimless, Q_num[1], label='Numerical')
+# plt.plot(phi_left, Q_num - Q_ana, label='Difference')
+plt.title('Charge (dimensionless)')
 plt.plot(phi_left_dimless, Q_num, label='Numerical')
 plt.plot(phi_left_dimless, Q_ana, label='Analytical')
 plt.grid()
 plt.legend()
 plt.xlabel('$\delta \\varphi$ [-]')
-plt.ylabel('$Q_{num} - Q_{ana} [-]$')
+# plt.ylabel('$Q_{num} - Q_{ana} [-]$')
+plt.ylabel('$Q[-]$')
 plt.tight_layout()
 plt.show()   
 
 plt.figure()
-# plt.plot(Phi_pot_center(phi_left), C_DL_num[1] - C_DL_ana, label='Difference')
-# plt.plot(Phi_pot_center(phi_left_dimless), C_DL_num - C_DL_ana, label='Difference')
-# plt.plot(Phi_pot_center(phi_left_dimless), C_DL_num[1], label='Numerical')
-plt.plot(Phi_pot_center(phi_left_dimless), C_DL_num, label='Numerical')
-plt.plot(Phi_pot_center(phi_left_dimless), C_DL_ana, label='Analytical')
+# plt.plot(phi_left, Q_num - Q_ana, label='Difference')
+plt.title('Charge (diomensions)')
+plt.plot(phi_left_dim, Q_num_dim_, label='Numerical')
+plt.plot(phi_left_dim, Q_ana_dim_, label='Analytical')
 plt.grid()
 plt.legend()
 plt.xlabel('$\delta \\varphi$ [-]')
-plt.ylabel('$C_{dl,num} - C_{dl,ana} [-]$')
+# plt.ylabel('$Q_{num} - Q_{ana} [-]$')
+plt.ylabel('$Q[µAs/cm³]$')
+plt.tight_layout()
+plt.show()   
+
+plt.figure()
+# Use Center points to evaluate on same x-points
+plt.title('Charge (dimensionless)')
+plt.plot(Phi_pot_center(phi_left_dimless), C_dl_num, label='Numerical')
+plt.plot(Phi_pot_center(phi_left_dimless), C_dl_ana, label='Analytical')
+plt.grid()
+plt.legend()
+plt.xlabel('$\delta \\varphi$ [-]')
+# plt.ylabel('$C_{dl,num} - C_{dl,ana} [-]$')
+plt.ylabel('$C_{dl}[-]$')
+plt.tight_layout()
+plt.show()
+
+plt.figure()
+# Use Center points to evaluate on same x-points
+plt.title('Charge (dimensionless)')
+plt.plot(Phi_pot_center(phi_left_dim), C_dl_num_dim_, label='Numerical')
+plt.plot(Phi_pot_center(phi_left_dim), C_dl_ana_dim, label='Analytical')
+plt.grid()
+plt.legend()
+plt.xlabel('$\delta \\varphi$ [-]')
+# plt.ylabel('$C_{dl,num} - C_{dl,ana} [-]$')
+plt.ylabel('$C_{dl}[µAs/cm²]$')
 plt.tight_layout()
 plt.show()

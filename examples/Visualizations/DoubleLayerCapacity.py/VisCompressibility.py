@@ -20,8 +20,6 @@ C_DL_dim = data['C_DL_dim']
 C_DL_dimless = data['C_DL_dimless']
 Phi_Pot_Diff_dim = data['Phi_Pot_Diff_dim']
 Phi_Pot_Diff_dimless = data['Phi_Pot_Diff_dimless']
-Phi_pot_center_array_dim = data['Phi_pot_center_array_dim']
-Phi_pot_center_array_dimless = data['Phi_pot_center_array_dimless']
 K_vec = data['K_vec']
 
 
@@ -57,7 +55,7 @@ for i, q_dl in enumerate(Q_DL_dim_):
 ax1_dim.xaxis.tick_top()
 ax1_dim.yaxis.tick_right()
 ax1_dim.set_xlabel('$\delta \\varphi [V]$', color=color_dim, fontsize=labelsize) 
-ax1_dim.set_ylabel('$Q$ [\u03bc$F/cm^3]$', color=color_dim, fontsize=labelsize)  
+ax1_dim.set_ylabel('$Q$ [\u03bc$C/cm^3]$', color=color_dim, fontsize=labelsize)  
 ax1_dim.xaxis.set_label_position('top') 
 ax1_dim.yaxis.set_label_position('right') 
 ax1_dim.tick_params(axis='x', colors=color_dim, labelsize=labelsize)
@@ -66,7 +64,7 @@ ax1_dim.tick_params(axis='y', colors=color_dim, labelsize=labelsize)
 # Double Layer Capacity
 # Plot dimensional data
 for i, c_dl in enumerate(C_DL_dimless):
-    ax2_dimless.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i], lw=lw)
+    ax2_dimless.plot(Phi_Pot_Diff_dimless, c_dl, color=colors[i], lw=lw)
 ax2_dimless.grid()
 ax2_dimless.set_xlabel('$\delta \\varphi [-]$', color=color_dimless, fontsize=labelsize)
 ax2_dimless.set_ylabel('$C_{dl} [-]$', color=color_dimless, fontsize=labelsize)
@@ -74,7 +72,7 @@ ax2_dimless.tick_params(axis='x', colors=color_dimless, labelsize=labelsize)
 ax2_dimless.tick_params(axis='y', colors=color_dimless, labelsize=labelsize)
 
 for i, c_dl in enumerate(C_DL_dim):
-    ax2_dim.plot(Phi_pot_center_array_dim, c_dl, color=colors[i], lw=lw)
+    ax2_dim.plot(Phi_Pot_Diff_dim, c_dl, color=colors[i], lw=lw)
 ax2_dim.xaxis.tick_top()
 ax2_dim.yaxis.tick_right()
 ax2_dim.set_xlabel('$\delta \\varphi [V]$', color=color_dim, fontsize=labelsize) 

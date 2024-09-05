@@ -13,7 +13,7 @@ import os
 src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..', 'src')
 sys.path.insert(0, src_path)
 
-from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_DL_dimless_ana, Q_DL_dim_ana
+from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
 
 # Remove the src directory from sys.path after import
 del sys.path[0]
@@ -66,8 +66,14 @@ for mol in Molarity:
     Q_DL_dimless_.append(Q_DL_dimless_ana(y_A_R, y_C_R, y_N_R, z_A, z_C, Phi_Pot_Diff_dimless, phi_R, p_R, K, Lambda2, a2, kappa))
     Q_DL_dim_.append(Q_DL_dim_ana(y_A_R, y_C_R, y_N_R, z_A, z_C, Phi_Pot_Diff_dimless, phi_R, p_R, K, Lambda2, a2, nR_m, e0, LR, kappa))
     
-C_DL_dim = [C_dl(q_dl, Phi_Pot_Diff_dim) for q_dl in Q_DL_dim_]
-C_DL_dimless = [C_dl(q_dl, Phi_Pot_Diff_dimless) for q_dl in Q_DL_dimless_]
+# Double layer capacity
+C_DL_dim_ = []
+C_DL_dimless_ = []
+for mol in Molarity:
+    y_A_R, y_C_R = mol / nR_mol, mol / nR_mol
+    y_N_R = 1 - y_A_R - y_C_R
+    C_DL_dim_.append(C_DL_dim_ana(y_A_R, y_C_R, 1-y_A_R-y_C_R, z_A, z_C, Phi_Pot_Diff_dimless, phi_R, p_R, K, Lambda2, a2, nR_m, e0, LR, k, T, kappa))
+    C_DL_dimless_.append(C_DL_dimless_ana(y_A_R, y_C_R, 1-y_A_R-y_C_R, z_A, z_C, Phi_Pot_Diff_dimless, phi_R, p_R, K, Lambda2, a2, kappa))
 
 
 
@@ -106,8 +112,6 @@ fig.show()
 
 
 # Double Layer Capacity
-Phi_pot_center_array_dimless = Phi_pot_center(Phi_Pot_Diff_dimless)
-Phi_pot_center_array_dim = Phi_pot_center(Phi_Pot_Diff_dim)
 fig = plt.figure()
 color_dimless = 'tab:purple'
 color_dim = 'tab:red'
@@ -115,16 +119,16 @@ ax = fig.add_subplot(111, label="1")
 ax2 = fig.add_subplot(111, label="2", frame_on=False)
 
 # Plot dimensional data
-for i, c_dl in enumerate(C_DL_dim):
-    ax.plot(Phi_pot_center_array_dim, c_dl, color=colors[i], label=f'M: {Molarity[i]}')
+for i, c_dl in enumerate(C_DL_dim_):
+    ax.plot(Phi_Pot_Diff_dim, c_dl, color=colors[i], label=f'M: {Molarity[i]}')
 ax.grid()
 ax.set_xlabel('$\delta \\varphi [nm]$', color=color_dim)
 ax.set_ylabel('$C_{dl}$ [\u03bc$F/cm^2]$', color=color_dim)
 ax.tick_params(axis='x', colors=color_dim)
 ax.tick_params(axis='y', colors=color_dim)
 
-for i, c_dl in enumerate(C_DL_dimless):
-    ax2.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i])
+for i, c_dl in enumerate(C_DL_dimless_):
+    ax2.plot(Phi_Pot_Diff_dimless, c_dl, color=colors[i])
 # ax2.grid()
 ax2.xaxis.tick_top()
 ax2.yaxis.tick_right()
@@ -140,4 +144,4 @@ fig.tight_layout()
 fig.show()
 
 # Save the results
-np.savez('../../Data/DoubleLayerCapacity/Molarity.npz', Lambda2=Lambda2, a2=a2, K=K, kappa=kappa, z_A=z_A, z_C=z_C, phi_R=phi_R, p_R=p_R, Vol_start=Vol_start, Phi_pot_center_array_dimless=Phi_pot_center_array_dimless, Phi_pot_center_array_dim=Phi_pot_center_array_dim, Volt_end=Volt_end, n_Volts=n_Volts, Phi_Pot_Diff_dim=Phi_Pot_Diff_dim, Phi_Pot_Diff_dimless=Phi_Pot_Diff_dimless, C_DL_dim=C_DL_dim, C_DL_dimless=C_DL_dimless, Q_DL_dim_=Q_DL_dim_, Q_DL_dimless_=Q_DL_dimless_, Molarity=Molarity)
+np.savez('../../Data/DoubleLayerCapacity/Molarity.npz', Lambda2=Lambda2, a2=a2, K=K, kappa=kappa, z_A=z_A, z_C=z_C, phi_R=phi_R, p_R=p_R, Vol_start=Vol_start, Volt_end=Volt_end, n_Volts=n_Volts, Phi_Pot_Diff_dim=Phi_Pot_Diff_dim, Phi_Pot_Diff_dimless=Phi_Pot_Diff_dimless, C_DL_dim=C_DL_dim_, C_DL_dimless=C_DL_dimless_, Q_DL_dim_=Q_DL_dim_, Q_DL_dimless_=Q_DL_dimless_, Molarity=Molarity)

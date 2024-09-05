@@ -20,8 +20,6 @@ Molarity = data_Molarity['Molarity']
 Q_DL_dimless_ = data_Molarity['Q_DL_dimless_']
 Phi_Pot_Diff_dimless = data_Molarity['Phi_Pot_Diff_dimless']
 C_DL_dim = data_Molarity['C_DL_dim']
-Phi_pot_center_array_dimless = data_Molarity['Phi_pot_center_array_dimless']
-Phi_pot_center_array_dim = data_Molarity['Phi_pot_center_array_dim']
 C_DL_dimless = data_Molarity['C_DL_dimless']
 
 data_PB = np.load('../../Data/DoubleLayerCapacity/PB.npz')
@@ -68,7 +66,7 @@ for i, q_dl in enumerate(Q_DL_dim_):
 ax1_dim.xaxis.tick_top()
 ax1_dim.yaxis.tick_right()
 ax1_dim.set_xlabel('$\delta \\varphi [V]$', color=color_dim, fontsize=labelsize) 
-ax1_dim.set_ylabel('$Q$ [\u03bc$F/cm^3]$', color=color_dim, fontsize=labelsize)       
+ax1_dim.set_ylabel('$Q$ [\u03bc$C/cm^3]$', color=color_dim, fontsize=labelsize)       
 ax1_dim.xaxis.set_label_position('top') 
 ax1_dim.yaxis.set_label_position('right') 
 ax1_dim.tick_params(axis='x', colors=color_dim, labelsize=labelsize)
@@ -79,7 +77,7 @@ ax1_dim.set_ylim(np.min(Q_DL_dim_)*10/9, np.max(Q_DL_dim_)*10/9)
 # Double Layer Capacity
 ax2_dimless.plot(Phi_pot_center_array_dimless_PB, C_DL_dimless_PB, '--', color=color_PB, lw=lw, alpha=0.5)
 for i, c_dl in enumerate(C_DL_dimless):
-    ax2_dimless.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i], lw=lw)
+    ax2_dimless.plot(Phi_Pot_Diff_dimless, c_dl, color=colors[i], lw=lw)
 ax2_dimless.grid()
 ax2_dimless.set_xlabel('$\delta \\varphi [-]$', color=color_dimless, fontsize=labelsize)
 ax2_dimless.set_ylabel('$C_{dl} [-]$', color=color_dimless, fontsize=labelsize)
@@ -88,7 +86,7 @@ ax2_dimless.tick_params(axis='y', colors=color_dimless, labelsize=labelsize)
 ax2_dimless.set_ylim(np.min(C_DL_dimless)*(-10/9), np.max(C_DL_dimless)*10/9)
 
 for i, c_dl in enumerate(C_DL_dim):
-    ax2_dim.plot(Phi_pot_center_array_dim, c_dl, color=colors[i], lw=lw)
+    ax2_dim.plot(Phi_Pot_Diff_dim, c_dl, color=colors[i], lw=lw)
 ax2_dim.xaxis.tick_top()
 ax2_dim.yaxis.tick_right()
 ax2_dim.set_xlabel('$\delta \\varphi [V]$', color=color_dim, fontsize=labelsize) 
@@ -101,7 +99,7 @@ ax2_dim.set_ylim(np.min(C_DL_dim)*(-10/9), np.max(C_DL_dim)*10/9)
 
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
-fig.legend(lines, labels, bbox_to_anchor=(0.735,1.03), ncol=6, fontsize=labelsize)
+fig.legend(lines, labels, bbox_to_anchor=(0.81,1.03), ncol=6, fontsize=labelsize)
 fig.tight_layout()
 fig.savefig('../../Figures/DoubleLayerCapacity/DLKap_Molarity.svg', bbox_inches='tight')
 fig.show()
@@ -163,7 +161,7 @@ for i, q_dl in enumerate(Q_DL_dim_):
 ax1_dim.xaxis.tick_top()
 ax1_dim.yaxis.tick_right()
 ax1_dim.set_xlabel('$\delta \\varphi [V]$', color=color_dim, fontsize=labelsize) 
-ax1_dim.set_ylabel('$Q$ [\u03bc$F/cm^3]$', color=color_dim, fontsize=labelsize)       
+ax1_dim.set_ylabel('$Q$ [\u03bc$C/cm^3]$', color=color_dim, fontsize=labelsize)       
 ax1_dim.xaxis.set_label_position('top') 
 ax1_dim.yaxis.set_label_position('right') 
 ax1_dim.tick_params(axis='x', colors=color_dim, labelsize=labelsize)
@@ -216,8 +214,6 @@ Lambda2_vec = data_Lambda['Lambda2_vec']
 Q_DL_dimless_ = data_Lambda['Q_DL_dimless_']
 Phi_Pot_Diff_dimless = data_Lambda['Phi_Pot_Diff_dimless']
 C_DL_dim = data_Lambda['C_DL_dim']
-Phi_pot_center_array_dim = data_Lambda['Phi_pot_center_array_dim']
-Phi_pot_center_array_dimless = data_Lambda['Phi_pot_center_array_dimless']
 C_DL_dimless = data_Lambda['C_DL_dimless']
 
 # Plotting
@@ -249,7 +245,7 @@ for i, q_dl in enumerate(Q_DL_dim_):
 ax1_dim.xaxis.tick_top()
 ax1_dim.yaxis.tick_right()
 ax1_dim.set_xlabel('$\delta \\varphi [V]$', color=color_dim, fontsize=labelsize) 
-ax1_dim.set_ylabel('$Q$ [\u03bc$F/cm^3]$', color=color_dim, fontsize=labelsize)
+ax1_dim.set_ylabel('$Q$ [\u03bc$C/cm^3]$', color=color_dim, fontsize=labelsize)
 ax1_dim.xaxis.set_label_position('top') 
 ax1_dim.yaxis.set_label_position('right') 
 ax1_dim.tick_params(axis='x', colors=color_dim, labelsize=labelsize)
@@ -257,7 +253,7 @@ ax1_dim.tick_params(axis='y', colors=color_dim, labelsize=labelsize)
 
 # Double Layer Capacity
 for i, c_dl in enumerate(C_DL_dimless):
-    ax2_dimless.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i], lw=lw)
+    ax2_dimless.plot(Phi_Pot_Diff_dimless, c_dl, color=colors[i], lw=lw)
 ax2_dimless.grid()
 ax2_dimless.set_xlabel('$\delta \\varphi [-]$', color=color_dimless, fontsize=labelsize)
 ax2_dimless.set_ylabel('$C_{dl} [-]$', color=color_dimless, fontsize=labelsize)
@@ -265,7 +261,7 @@ ax2_dimless.tick_params(axis='x', colors=color_dimless, labelsize=labelsize)
 ax2_dimless.tick_params(axis='y', colors=color_dimless, labelsize=labelsize)
 
 for i, c_dl in enumerate(C_DL_dim):
-    ax2_dim.plot(Phi_pot_center_array_dim, c_dl, color=colors[i], lw=lw)
+    ax2_dim.plot(Phi_Pot_Diff_dim, c_dl, color=colors[i], lw=lw)
 ax2_dim.xaxis.tick_top()
 ax2_dim.yaxis.tick_right()
 ax2_dim.set_xlabel('$\delta \\varphi [V]$', color=color_dim, fontsize=labelsize) 

@@ -16,7 +16,7 @@ src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..', 
 sys.path.insert(0, src_path)
 
 from Eq02 import solve_System_2eq
-from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_DL_dimless_ana, Q_DL_dim_ana
+from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
 
 
 # Remove the src directory from sys.path after import
@@ -66,6 +66,7 @@ Phi_Pot_Diff_dimless = Phi_Pot_Diff_dim * e0/(k*T)
 # K
 K_vec = ['incompressible', 50_000, 40_000, 30_000, 20_000]
 
+# Charge
 Q_DL_dim_ = []
 Q_DL_dimless_ = []
 for K in K_vec:
@@ -75,11 +76,11 @@ for K in K_vec:
     Q_DL_dim_.append(Q_DL_dim_ana(y_A_R, y_C_R, y_N_R, z_A, z_C, Phi_Pot_Diff_dimless, phi_R, p_R, K, Lambda2, a2, nR_m, e0, LR, kappa))
 
 # Double layer capacity
-C_DL_dim = [C_dl(q_dl, Phi_Pot_Diff_dim) for q_dl in Q_DL_dim_]
-C_DL_dimless = [C_dl(q_dl, Phi_Pot_Diff_dimless) for q_dl in Q_DL_dimless_]
-
-Phi_pot_center_array_dimless = Phi_pot_center(Phi_Pot_Diff_dimless)
-Phi_pot_center_array_dim = Phi_pot_center(Phi_Pot_Diff_dim)
+C_DL_dim_ = []
+C_DL_dimless_ = []
+for K in K_vec:
+    C_DL_dim_.append(C_DL_dim_ana(y_A_R, y_C_R, 1-y_A_R-y_C_R, z_A, z_C, Phi_Pot_Diff_dimless, phi_R, p_R, K, Lambda2, a2, nR_m, e0, LR, k, T, kappa))
+    C_DL_dimless_.append(C_DL_dimless_ana(y_A_R, y_C_R, 1-y_A_R-y_C_R, z_A, z_C, Phi_Pot_Diff_dimless, phi_R, p_R, K, Lambda2, a2, kappa))
 
 
 # Plotting
@@ -117,8 +118,6 @@ fig.show()
 
 
 # Double Layer Capacity
-Phi_pot_center_array_dimless = Phi_pot_center(Phi_Pot_Diff_dimless)
-Phi_pot_center_array_dim = Phi_pot_center(Phi_Pot_Diff_dim)
 fig = plt.figure()
 color_dimless = 'tab:purple'
 color_dim = 'tab:red'
@@ -126,16 +125,16 @@ ax = fig.add_subplot(111, label="1")
 ax2 = fig.add_subplot(111, label="2", frame_on=False)
 
 # Plot dimensional data
-for i, c_dl in enumerate(C_DL_dim):
-    ax.plot(Phi_pot_center_array_dim, c_dl, color=colors[i], label=f'$K$: {K_vec[i]}')
+for i, c_dl in enumerate(C_DL_dim_):
+    ax.plot(Phi_Pot_Diff_dim, c_dl, color=colors[i], label=f'$K$: {K_vec[i]}')
 ax.grid()
 ax.set_xlabel('$\delta \\varphi [nm]$', color=color_dim)
 ax.set_ylabel('$C_{dl}$ [\u03bc$F/cm^2]$', color=color_dim)
 ax.tick_params(axis='x', colors=color_dim)
 ax.tick_params(axis='y', colors=color_dim)
 
-for i, c_dl in enumerate(C_DL_dimless):
-    ax2.plot(Phi_pot_center_array_dimless, c_dl, color=colors[i])
+for i, c_dl in enumerate(C_DL_dimless_):
+    ax2.plot(Phi_Pot_Diff_dimless, c_dl, color=colors[i])
 # ax2.grid()
 ax2.xaxis.tick_top()
 ax2.yaxis.tick_right()
@@ -150,49 +149,6 @@ fig.legend()
 fig.tight_layout()
 fig.show()
 
-# # y_alpha_L
-# y_A_np, y_C_np, y_S_np = np.array(y_A), np.array(y_C), np.array(y_S)
-# markers = ['--', '-', ':']
-# colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple']
-# plt.figure()
-# for i in range(len(K_vec)):
-#     clr = colors[i]
-#     plt.plot(Phi_Pot_Diff_dimless, y_A_np[i,:,0], '--', color=clr)
-#     plt.plot(Phi_Pot_Diff_dimless, y_C_np[i,:,0], '-', color=clr)
-#     plt.plot(Phi_Pot_Diff_dimless, y_S_np[i,:,0], ':', color=clr)
-# dummy, = plt.plot(0, 0, color='grey', linestyle='--', label='$y_A$')
-# dummy, = plt.plot(0, 0, color='grey', linestyle='-', label='$y_C$')
-# dummy, = plt.plot(0, 0, color='grey', linestyle=':', label='$y_S$')
-# for index, K_ in enumerate(K_vec):
-#     dummy, = plt.plot(0, 0, color=colors[index], linestyle='-', label=f'K = {K_}')
-# plt.grid()
-# plt.legend()
-# plt.xlabel('$\delta \\varphi$ [-]')
-# plt.ylabel('$y_\\alpha^L$')
-# plt.tight_layout()
-# plt.show()
-
-# n_sol_np = np.array(n_sol)
-# n_A_np, n_C_np, n_S_np = y_A_np * n_sol_np, y_C_np * n_sol_np, y_S_np * n_sol_np
-# plt.figure()
-# clr = colors[0]
-# for i in range(len(K_vec)):
-#     clr = colors[i]
-#     plt.plot(Phi_Pot_Diff_dimless, n_A_np[i,:,0], '--', color=clr)
-#     plt.plot(Phi_Pot_Diff_dimless, n_C_np[i,:,0], '-', color=clr)
-#     plt.plot(Phi_Pot_Diff_dimless, n_S_np[i,:,0], ':', color=clr)
-# dummy, = plt.plot(0, 0, color='grey', linestyle='--', label='$n_A$')
-# dummy, = plt.plot(0, 0, color='grey', linestyle='-', label='$n_C$')
-# dummy, = plt.plot(0, 0, color='grey', linestyle=':', label='$n_S$')
-# for index, K_ in enumerate(K_vec):
-#     dummy, = plt.plot(0, 0, color=colors[index], linestyle='-', label=f'K = {K_}')
-# plt.grid()
-# plt.legend()
-# plt.xlabel('$\delta \\varphi$ [-]')
-# plt.ylabel('$n_\\alpha^L [-]$')
-# plt.tight_layout()
-# plt.show()
-
 
 # Store data
-np.savez('../../Data/DoubleLayerCapacity/DLKap_Compressibility.npz', Lambda2=Lambda2, a2=a2, K_vec=K_vec, kappa=kappa, Molarity=Molarity, y_A_R=y_A_R, y_C_R=y_C_R, z_A=z_A, z_C=z_C, p_R=p_R, phi_R=phi_R, Volt_start=Volt_start, Volt_end=Volt_end, n_Volts=n_Volts, Phi_Pot_Diff_dimless=Phi_Pot_Diff_dimless, Phi_Pot_Diff_dim=Phi_Pot_Diff_dim, Phi_pot_center_array_dim=Phi_pot_center_array_dim, Phi_pot_center_array_dimless=Phi_pot_center_array_dimless, Q_DL_dimless_=Q_DL_dimless_, Q_DL_dim_ =Q_DL_dim_, C_DL_dimless=C_DL_dimless, C_DL_dim=C_DL_dim)
+np.savez('../../Data/DoubleLayerCapacity/DLKap_Compressibility.npz', Lambda2=Lambda2, a2=a2, K_vec=K_vec, kappa=kappa, Molarity=Molarity, y_A_R=y_A_R, y_C_R=y_C_R, z_A=z_A, z_C=z_C, p_R=p_R, phi_R=phi_R, Volt_start=Volt_start, Volt_end=Volt_end, n_Volts=n_Volts, Phi_Pot_Diff_dimless=Phi_Pot_Diff_dimless, Phi_Pot_Diff_dim=Phi_Pot_Diff_dim, Q_DL_dimless_=Q_DL_dimless_, Q_DL_dim_ =Q_DL_dim_, C_DL_dimless=C_DL_dimless_, C_DL_dim=C_DL_dim_)
