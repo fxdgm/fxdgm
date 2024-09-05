@@ -46,6 +46,7 @@ y_packed = [y_Forward, y_NoBias, y_Backward]
 # Plot
 color_theme_potential = 'coolwarm'
 color_theme_concentration = 'rainbow' # cool, spring, PuBuGn, YlGnBu, GnBu
+color_theme_solvent = 'spring'
 color_theme_pressure = 'autumn'
 
 fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(30, 30))
@@ -55,14 +56,15 @@ legend_width = 8
 levels_colorbar = 100
 levels_contour = 8#20
 
-vmap_concentrations = np.linspace(0, 1, levels_colorbar)
-vmap_potential = np.linspace(-20, 20, levels_colorbar)
+vmap_concentrations = np.linspace(np.min(np.array([y_A_packed, y_C_packed])), np.max(np.array([y_A_packed, y_C_packed])), levels_colorbar)
+vmap_solvent = np.linspace(np.min(y_S_packed), np.max(y_S_packed), levels_colorbar)
+vmap_potential = np.linspace(np.min(phi_packed), np.max(phi_packed), levels_colorbar)
 vmap_pressure = np.linspace(np.min(p_packed), np.max(p_packed), levels_colorbar)
 
 for bias, (y_A, y_C, y_S, phi, p, x, y) in enumerate(zip(y_A_packed, y_C_packed, y_S_packed, phi_packed, p_packed, x_packed, y_packed)): 
     c = axs[bias,0].tricontourf(x, y, phi, cmap=color_theme_potential, levels=vmap_potential)#, extend="both")
     # c.cmap.set_under('k')
-    c.set_clim(-20, 20)
+    # c.set_clim(-20, 20)
     cbar = fig.colorbar(c, ax=axs[bias,0])
     cbar.ax.tick_params(labelsize=labelsize)
     axs[bias,0].tricontour(x, y, phi, colors='black', levels=levels_contour)
@@ -84,7 +86,7 @@ for bias, (y_A, y_C, y_S, phi, p, x, y) in enumerate(zip(y_A_packed, y_C_packed,
     axs[bias,2].tick_params(axis='both', labelsize=labelsize)
     axs[bias,2].set_title(f'$y_C \in ({round(np.min(y_C),2)},{round(np.max(y_C), 2)})$',  fontsize=titlesize)
 
-    c = axs[bias,3].tricontourf(x, y, y_S, cmap=color_theme_concentration, levels=vmap_concentrations)
+    c = axs[bias,3].tricontourf(x, y, y_S, cmap=color_theme_solvent, levels=vmap_solvent)
     c.set_clim(0, 1)
     cbar = fig.colorbar(c, ax=axs[bias,3])
     cbar.ax.tick_params(labelsize=labelsize)

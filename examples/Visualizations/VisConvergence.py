@@ -38,7 +38,7 @@ Ref_Ord_marker = ['--', ':', '-.']
 fig, axs = plt.subplots(ncols=2, figsize=(30, 10))
 labelsize = 30
 lw = 6
-legend_width = 8
+legend_width = 5
 ms = 25
 axs[0].loglog(number_cells_vec[:-1], y_A_error_L2, 'o-', label='$y_A$', lw=lw, ms=ms)
 axs[0].loglog(number_cells_vec[:-1], y_C_error_L2, 'o-', label='$y_C$', lw=lw, ms=ms)
