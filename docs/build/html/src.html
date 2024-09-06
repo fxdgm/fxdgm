@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Example" href="example.html" />
-    <link rel="prev" title="Reproducibility Repository for: Numerical Treatment of a Thermodynamically Consistent Electrolyte Model documentation" href="index.html" /> 
+    <link rel="prev" title="Reproducibility Repository for Numerical Treatment of a Thermodynamically Consistent Electrolyte Model documentation" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -55,6 +55,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#Eq04.solve_System_4eq"><code class="docutils literal notranslate"><span class="pre">solve_System_4eq()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Eq02.solve_System_2eq"><code class="docutils literal notranslate"><span class="pre">solve_System_2eq()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ElectrolyticDiode.ElectrolyticDiode"><code class="docutils literal notranslate"><span class="pre">ElectrolyticDiode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Helper_DoubleLayerCapacity.C_DL_dim_ana"><code class="docutils literal notranslate"><span class="pre">C_DL_dim_ana()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Helper_DoubleLayerCapacity.C_DL_dimless_ana"><code class="docutils literal notranslate"><span class="pre">C_DL_dimless_ana()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Helper_DoubleLayerCapacity.C_dl"><code class="docutils literal notranslate"><span class="pre">C_dl()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Helper_DoubleLayerCapacity.Phi_pot_center"><code class="docutils literal notranslate"><span class="pre">Phi_pot_center()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Helper_DoubleLayerCapacity.Q_DL_dim_ana"><code class="docutils literal notranslate"><span class="pre">Q_DL_dim_ana()</span></code></a></li>
@@ -320,6 +322,73 @@ If return_type is ‘Extended’, also returns the fenicsx function u</p>
 <p id="module-Helper_DoubleLayerCapacity">Jan Habscheid
 <a class="reference external" href="mailto:Jan&#46;Habscheid&#37;&#52;&#48;rwth-aachen&#46;de">Jan<span>&#46;</span>Habscheid<span>&#64;</span>rwth-aachen<span>&#46;</span>de</a></p>
 <dl class="py function">
+<dt class="sig sig-object py" id="Helper_DoubleLayerCapacity.C_DL_dim_ana">
+<span class="sig-prename descclassname"><span class="pre">Helper_DoubleLayerCapacity.</span></span><span class="sig-name descname"><span class="pre">C_DL_dim_ana</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_A_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_C_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_N_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_C</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_L</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Lambda2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nR_m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LR</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solvation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#Helper_DoubleLayerCapacity.C_DL_dim_ana" title="Link to this definition"></a></dt>
+<dd><p>Calculates the double layer capacity of the system using the analytical method in dimensionless units</p>
+<p>C_dl = ∂Q/∂ φᴸ</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_A_R</strong> (<em>float</em>) – Value of anion fraction at the right boundary</p></li>
+<li><p><strong>y_C_R</strong> (<em>float</em>) – Value of cation fraction at the right boundary</p></li>
+<li><p><strong>y_N_R</strong> (<em>float</em>) – Value of neutral fraction at the right boundary</p></li>
+<li><p><strong>z_A</strong> (<em>float</em>) – Charge number of anions</p></li>
+<li><p><strong>z_C</strong> (<em>float</em>) – Charge number of cations</p></li>
+<li><p><strong>phi_L</strong> (<em>float</em>) – Value of electric potential at the left boundary (dimensionless units)</p></li>
+<li><p><strong>phi_R</strong> (<em>float</em>) – Value of electric potential at the right</p></li>
+<li><p><strong>p_R</strong> (<em>float</em>) – Value of pressure at the right boundary</p></li>
+<li><p><strong>K</strong> (<em>str</em><em> | </em><em>float</em>) – Bulk modulus, use ‘incompressible’ for an incompress</p></li>
+<li><p><strong>Lambda2</strong> (<em>float</em>) – Dimensionless parameter</p></li>
+<li><p><strong>a2</strong> (<em>float</em>) – Dimensionless parameter</p></li>
+<li><p><strong>nR_m</strong> (<em>float</em>) – Reference number density in 1/m^3</p></li>
+<li><p><strong>e0</strong> (<em>float</em>) – Dielectric constant</p></li>
+<li><p><strong>LR</strong> (<em>float</em>) – Reference length in m</p></li>
+<li><p><strong>k</strong> (<em>float</em>) – Boltzmann constant</p></li>
+<li><p><strong>T</strong> (<em>float</em>) – Temperature</p></li>
+<li><p><strong>solvation</strong> (<em>float</em>) – Solvation number</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Double layer capacity of the system in µAs/cm²</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Helper_DoubleLayerCapacity.C_DL_dimless_ana">
+<span class="sig-prename descclassname"><span class="pre">Helper_DoubleLayerCapacity.</span></span><span class="sig-name descname"><span class="pre">C_DL_dimless_ana</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_A_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_C_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_N_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_C</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_L</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Lambda2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solvation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#Helper_DoubleLayerCapacity.C_DL_dimless_ana" title="Link to this definition"></a></dt>
+<dd><p>Calculates the double layer capacity of the system using the analytical method in dimensionless units</p>
+<p>C_dl = ∂Q/∂ φᴸ</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_A_R</strong> (<em>float</em>) – Value of anion fraction at the right boundary</p></li>
+<li><p><strong>y_C_R</strong> (<em>float</em>) – Value of cation fraction at the right boundary</p></li>
+<li><p><strong>y_N_R</strong> (<em>float</em>) – Value of neutral fraction at the right boundary</p></li>
+<li><p><strong>z_A</strong> (<em>float</em>) – Charge number of anions</p></li>
+<li><p><strong>z_C</strong> (<em>float</em>) – Charge number of cations</p></li>
+<li><p><strong>phi_L</strong> (<em>float</em>) – Electric potential at the left boundary [V]</p></li>
+<li><p><strong>phi_R</strong> (<em>float</em>) – Electric potential at the right boundary</p></li>
+<li><p><strong>p_R</strong> (<em>float</em>) – Pressure at the right boundary</p></li>
+<li><p><strong>K</strong> (<em>str</em><em> | </em><em>float</em>) – Bulk modulus, use ‘incompressible’ for an incompressible mixture</p></li>
+<li><p><strong>Lambda2</strong> (<em>float</em>) – Dimensionless parameter</p></li>
+<li><p><strong>a2</strong> (<em>float</em>) – Dimensionless parameter</p></li>
+<li><p><strong>solvation</strong> (<em>float</em>) – Solvation number</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Double layer capacity of the system in dimensionless units</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="Helper_DoubleLayerCapacity.C_dl">
 <span class="sig-prename descclassname"><span class="pre">Helper_DoubleLayerCapacity.</span></span><span class="sig-name descname"><span class="pre">C_dl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q_DL</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Phi_pot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#Helper_DoubleLayerCapacity.C_dl" title="Link to this definition"></a></dt>
 <dd><p>Double Layer Capacity</p>
@@ -360,9 +429,7 @@ If return_type is ‘Extended’, also returns the fenicsx function u</p>
 <dt class="sig sig-object py" id="Helper_DoubleLayerCapacity.Q_DL_dim_ana">
 <span class="sig-prename descclassname"><span class="pre">Helper_DoubleLayerCapacity.</span></span><span class="sig-name descname"><span class="pre">Q_DL_dim_ana</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_A_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_C_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_N_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_C</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_L</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Lambda2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nR_m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LR</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solvation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#Helper_DoubleLayerCapacity.Q_DL_dim_ana" title="Link to this definition"></a></dt>
 <dd><p>Calculates charge of the system using the analytical method in dimensionless units</p>
-<p>Q = sgn(φᴸ −φᴿ)λ√(2/(κ+1))(√(Λᴸ)−√(Λᴿ))</p>
-<p>with
-Λ = ln(∑_α D_α exp(−z_α φ + Eₚ a²)</p>
+<p>Q = λ^2(∂ₓ φᴸ − ∂ₓ  φᴿ)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -371,7 +438,7 @@ If return_type is ‘Extended’, also returns the fenicsx function u</p>
 <li><p><strong>y_N_R</strong> (<em>float</em>) – Value of neutral fraction at the right boundary</p></li>
 <li><p><strong>z_A</strong> (<em>float</em>) – Charge number of anions</p></li>
 <li><p><strong>z_C</strong> (<em>float</em>) – Charge number of cations</p></li>
-<li><p><strong>phi_L</strong> (<em>float</em>) – Value of electric potential at the left boundary</p></li>
+<li><p><strong>phi_L</strong> (<em>float</em>) – Value of electric potential at the left boundary (dimensionless units)</p></li>
 <li><p><strong>phi_R</strong> (<em>float</em>) – Value of electric potential at the right</p></li>
 <li><p><strong>p_R</strong> (<em>float</em>) – Value of pressure at the right boundary</p></li>
 <li><p><strong>K</strong> (<em>str</em><em> | </em><em>float</em>) – Bulk modulus, use ‘incompressible’ for an incompress</p></li>
@@ -396,9 +463,7 @@ If return_type is ‘Extended’, also returns the fenicsx function u</p>
 <dt class="sig sig-object py" id="Helper_DoubleLayerCapacity.Q_DL_dimless_ana">
 <span class="sig-prename descclassname"><span class="pre">Helper_DoubleLayerCapacity.</span></span><span class="sig-name descname"><span class="pre">Q_DL_dimless_ana</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_A_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_C_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_N_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_C</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_L</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_R</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Lambda2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solvation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#Helper_DoubleLayerCapacity.Q_DL_dimless_ana" title="Link to this definition"></a></dt>
 <dd><p>Calculates charge of the system using the analytical method in dimensionless units</p>
-<p>Q = sgn(φᴸ −φᴿ)λ√(2/(κ+1))(√(Λᴸ)−√(Λᴿ))</p>
-<p>with
-Λ = ln(∑_α D_α exp(−z_α φ + Eₚ a²)</p>
+<p>Q = λ^2(∂ₓ φᴸ − ∂ₓ  φᴿ)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -522,7 +587,7 @@ If return_type is ‘Extended’, also returns the fenicsx function u</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Reproducibility Repository for: Numerical Treatment of a Thermodynamically Consistent Electrolyte Model documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Reproducibility Repository for Numerical Treatment of a Thermodynamically Consistent Electrolyte Model documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="example.html" class="btn btn-neutral float-right" title="Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

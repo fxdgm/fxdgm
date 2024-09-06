@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Reproducibility Repository for: Numerical Treatment of a Thermodynamically Consistent Electrolyte Model documentation
+Reproducibility Repository for Numerical Treatment of a Thermodynamically Consistent Electrolyte Model documentation
 =====================================================================================================================
 
 .. admonition:: \ \
@@ -15,7 +15,7 @@ Thesis
 | This repository contains the code to reproduce the results presented in the bachelor thesis: Numerical Treatment of a Thermodynamically Consistent Electrolyte Model
 | Find the thesis at:
 
-- Insert link to thesis
+- Insert link to thesis (not published yet)
 
 Abstract
 ========
