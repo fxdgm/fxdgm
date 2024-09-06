@@ -25,23 +25,23 @@ import numpy as np
 # Parameter
 phi_bias = 10
 Bias_type = 'BackwardBias'
-g_phi = 5
+g_phi = 350
 y_fixed = 0.01
 z_A = -1.0
 z_C = 1.0
 K = 'incompressible'
-Lambda2 = 3e-2 # 8.553e-2 # ! e-6
-a2 = 7.5412e-4 # !e-4
+Lambda2 = 8.553e-6
+a2 = 7.5412e-4
 solvation = 5
 number_cells = [80, 512]#[20, 128] # ! [40, 400]
-Lx = 2
-Ly = 10
+Lx = 0.02
+Ly = 0.1
 x0 = np.array([0, 0])
 x1 = np.array([Lx, Ly])
 
 # Solver parameters
 rtol = 1e-8
-relax_param = 0.1 #0.05
+relax_param = 0.15 #0.05
 max_iter = 15_000    
 
 # Solve the system

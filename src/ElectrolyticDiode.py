@@ -4,8 +4,7 @@ Jan.Habscheid@rwth-aachen.de
 
 This module solves the dimensionless system of equations for the example of an electric diode
 
-# ! Disclaimer: Comparing the solution with: Entropy and convergence analysis for two finite volume schemes for a Nernst–Planck–Poisson system with ion volume constraints (Gaudeu, Fuhrmann) DOI: 10.1007/s00211-022-01279-y yields different results. The electric potential seems to fit quite good, but shows some slight differences - the distribution fits and the rough values also. The atomic fractions do not fit with the solution in the paper. The rectification effect, observed in the paper, cannot be observed in our solution. The ion concentrations are same high for all three biases and show almost now difference. 
-The paper solves without the equation for the pressure and uses different molar volumina for the anions and cations compared to the solvent. These different molar voluma might be the reason for the differences in the atomic fractions. The used dimensionless form of the model does not allow to set different molar volumina. This needs further investigation.
+# ! Disclaimer: The results conform with [A Numerical Strategy for Nernst–Planck Systems with Solvation Effect, J. Fuhrmann, DOI:10.1002/fuce.201500215]. As the size of the domain, the boundary conditions, and the parameters are chosen differently, it can not be expected to match the same results quantitatively but qualitatively. In [Fuhrmann], only the potential and the cations are visualized. The potential behaves the same, and the cations are pushed to the outside of the domain for the forward bias and to the center of the domain for the backward bias. Furthermore, a rectification effect in the concentrations of the ions cannot be seen, as the range of the concentrations is the same along the different biases. On the other hand, this rectification process can be observed in [Entropy and convergence analysis for two finite volume schemes for a Nernst-Planck-Poisson system with ion volume constraints, B. Gaudeaul, J. Fuhrmann, DOI:10.1007/s00211-022-01279-y]. The electric potential can be verified to match the behavior from [Gaudeaul & Fuhrmann]. Furthermore, the ion concentrations can also be validated qualitatively. However, in [Gaudeaul & Fuhrmann], a rectification effect can be observed, reducing the concentrations of anions and cations for the reverse bias and no bias compared to the forward bias.
 '''
 
 import numpy as np
@@ -340,8 +339,8 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
 
 if __name__ == '__main__':
     phi_bias = 10#10
-    Bias_type = 'BackwardBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
-    g_phi = 500#5
+    Bias_type = 'ForwardBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
+    g_phi = 350#5
     y_fixed = 0.01#0.01
     z_A = -1.0
     z_C = 1.0

@@ -80,8 +80,8 @@ for bias, (y_A, y_C, y_S, phi, p, x, y) in enumerate(zip(y_A_packed, y_C_packed,
     axs[bias,1].set_title(f'$y_A \in ({round(np.min(y_A),2)},{round(np.max(y_A), 2)})$',  fontsize=titlesize)
 
     c = axs[bias,2].tricontourf(x, y, y_C, cmap=color_theme_concentration, levels=vmap_concentrations)
-    # cbar = fig.colorbar(c, ax=axs[bias,2])
-    # cbar.ax.tick_params(labelsize=labelsize)
+    cbar = fig.colorbar(c, ax=axs[bias,2])
+    cbar.ax.tick_params(labelsize=labelsize)
     axs[bias,2].tricontour(x, y, y_C, colors='black', levels=levels_contour)
     axs[bias,2].tick_params(axis='both', labelsize=labelsize)
     axs[bias,2].set_title(f'$y_C \in ({round(np.min(y_C),2)},{round(np.max(y_C), 2)})$',  fontsize=titlesize)
