@@ -23,6 +23,7 @@ nF = np.array(df['nF'])
 fig, axs = plt.subplots(ncols=2, figsize=(30,10))
 labelsize = 40
 lw = 4
+legend_width = 6
 ax1 = axs[0]
 color = 'tab:blue'
 ax1.set_xlabel('x [-]', fontsize=labelsize)
@@ -72,10 +73,16 @@ ax2.tick_params(axis='y', labelcolor=color, labelsize=labelsize)
 # Add grid and save the figure
 ax1.grid()
 ax2.grid()
+# lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
+# lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
+order = [0, 4, 1, 2, 3, 5] 
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 
-fig.legend(lines, labels, bbox_to_anchor=(0.8,1.13), ncol=6, fontsize=labelsize)
+# fig.legend(lines, labels, bbox_to_anchor=(0.8,1.13), ncol=6, fontsize=labelsize)
+lgnd = fig.legend([lines[i] for i in order], [labels[i] for i in order], bbox_to_anchor=(0.8,1.13), ncol=6, fontsize=labelsize)
+for line in lgnd.get_lines():
+    line.set_linewidth(legend_width)
 fig.tight_layout()
 fig.savefig('../Figures/TernaryElectrolyte.svg', bbox_inches='tight')
 fig.show()

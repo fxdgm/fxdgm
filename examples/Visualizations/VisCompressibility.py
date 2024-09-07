@@ -25,9 +25,9 @@ n = data['n']
 fig, axs = plt.subplots(2, 2, figsize=(30, 20))
 labelsize = 30
 lw = 4
-legend_width = 8
+legend_width = 6
 xlim = 0.05
-markers = ['-.', '--', '-', ':']
+markers = ['--', ':', '-', '-.']
 colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple']
 
 axs[0,0].plot(0, 0, label='Incompressible', color=colors[0])

@@ -100,43 +100,43 @@ fig.show()
 
 
 
-# # Streamplot
-# phi_range = np.arange(-0.1, 0.1, 0.01)  # Range for x-axis
-# dphi_range = np.linspace(-5e-3, 5e-3, 10)  # Range for y-axis
+# Streamplot
+phi_range = np.arange(-0.1, 0.1, 0.01)  # Range for x-axis
+dphi_range = np.linspace(-5e-3, 5e-3, 10)  # Range for y-axis
 
-# # Create a meshgrid with different sizes for x and y axes
-# phi_values, dphi_values = np.meshgrid(phi_range, dphi_range)
-# initial_conditions = np.array([phi_values.ravel(), dphi_values.ravel()]).T
+# Create a meshgrid with different sizes for x and y axes
+phi_values, dphi_values = np.meshgrid(phi_range, dphi_range)
+initial_conditions = np.array([phi_values.ravel(), dphi_values.ravel()]).T
 
-# # Points at which the solution is requested
-# x_domain = np.linspace(0, 1.2e-1, 1024)
+# Points at which the solution is requested
+x_domain = np.linspace(0, 1.2e-1, 1024)
 
-# # Prepare storage for the results
-# results = np.zeros((len(initial_conditions), len(x_domain), 2))
+# Prepare storage for the results
+results = np.zeros((len(initial_conditions), len(x_domain), 2))
 
-# # Numerical integration for each initial condition
-# for i, Y0 in enumerate(initial_conditions):
-#     Y = odeint(func, Y0, x_domain)
-#     results[i, :, :] = Y
+# Numerical integration for each initial condition
+for i, Y0 in enumerate(initial_conditions):
+    Y = odeint(func, Y0, x_domain)
+    results[i, :, :] = Y
 
-# # Reshape results for plotting
-# Y_reshaped = results[:, :, 0].reshape(len(dphi_range), len(phi_range), len(x_domain))
+# Reshape results for plotting
+Y_reshaped = results[:, :, 0].reshape(len(dphi_range), len(phi_range), len(x_domain))
 
-# # Select a specific slice for plotting, e.g., the last time point -> last point of phi
-# Y_slice = Y_reshaped[:, :, -1]
+# Select a specific slice for plotting, e.g., the last time point -> last point of phi
+Y_slice = Y_reshaped[:, :, -1]
 
-# # Compute derivatives for the streamplot
-# U, V = np.gradient(Y_slice, dphi_range, phi_range)
+# Compute derivatives for the streamplot
+U, V = np.gradient(Y_slice, dphi_range, phi_range)
 
-# # Plotting
-# plt.subplots(tight_layout=True)
-# # lw = 5*Y_slice/Y_slice.max()
-# strm = plt.streamplot(phi_values, dphi_values, U, V, color=U, linewidth=2, cmap='autumn', density=10)
-# plt.colorbar(strm.lines)
-# plt.xlim(-0.01, 0.01)
-# plt.ylim(dphi_values.min(), dphi_values.max())
-# plt.xlabel('$\\varphi [-]$')
-# plt.xticks(rotation='vertical')
-# plt.ylabel("$\phi [-]$")
-# plt.savefig('../Figures/InstructiveExample-Streamplot.svg')
-# plt.show()
+# Plotting
+plt.subplots(tight_layout=True)
+# lw = 5*Y_slice/Y_slice.max()
+strm = plt.streamplot(phi_values, dphi_values, U, V, color=U, linewidth=2, cmap='autumn', density=10)
+plt.colorbar(strm.lines)
+plt.xlim(-0.01, 0.01)
+plt.ylim(dphi_values.min(), dphi_values.max())
+plt.xlabel('$\\varphi^R [-]$')
+plt.xticks(rotation='vertical')
+plt.ylabel("$\phi^R [-]$")
+plt.savefig('../Figures/InstructiveExample-Streamplot.svg')
+plt.show()
