@@ -10,6 +10,7 @@ build-docs:
   script:
     - pip install sphinx
     - pip install sphinx-rtd-theme
+    - pip install sphinx-copybutton
     - pip install myst-parser
     - sphinx-build docs/source docs/build  # Build the documentation
   artifacts:
