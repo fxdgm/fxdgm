@@ -16,7 +16,7 @@ x = np.array(df['x'])
 
 # Normalize the electric potentials
 fig, axs = plt.subplots(1, 2, figsize=(30,10))
-labelsize = 30
+labelsize = 40
 lw = 4
 legend_width = 8
 xlim = 0.08
@@ -45,7 +45,7 @@ lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 
 # Finally, the legend (that maybe you'll customize differently)
-lgnd = fig.legend(lines, labels, bbox_to_anchor=(0.73,1.1), ncol=4, fontsize=labelsize)
+lgnd = fig.legend(lines, labels, bbox_to_anchor=(0.805,1.12), ncol=4, fontsize=labelsize)
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()

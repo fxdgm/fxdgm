@@ -63,13 +63,13 @@ gridspec = axs[0].get_subplotspec().get_gridspec()
 subfigs = [fig.add_subfigure(gs) for gs in gridspec]
 
 for row, subfig in enumerate(subfigs):
-    subfig.suptitle(f'$L_x = $ {abs(round(x_end[row], 4))}', fontsize=22)
+    subfig.suptitle(f'$L_x = $ {abs(round(x_end[row], 4))}', fontsize=17)
 
     # create 1x2 subplots per subfig
     axs = subfig.subplots(nrows=1, ncols=2)
 
     for col, ax in enumerate(axs):
-        labelsize = 20
+        labelsize = 13
         ax.set_ylim(-0.05, 1.05)
         match col:
             case 0: 
@@ -130,13 +130,16 @@ U, V = np.gradient(Y_slice, dphi_range, phi_range)
 
 # Plotting
 plt.subplots(tight_layout=True)
+labelsize = 13
 # lw = 5*Y_slice/Y_slice.max()
 strm = plt.streamplot(phi_values, dphi_values, U, V, color=U, linewidth=2, cmap='autumn', density=10)
-plt.colorbar(strm.lines)
+cbar = plt.colorbar(strm.lines)
+cbar.ax.tick_params(labelsize=labelsize)
 plt.xlim(-0.01, 0.01)
 plt.ylim(dphi_values.min(), dphi_values.max())
-plt.xlabel('$\\varphi^R [-]$')
+plt.xlabel('$\\varphi^R [-]$', fontsize=labelsize)
 plt.xticks(rotation='vertical')
-plt.ylabel("$\phi^R [-]$")
+plt.tick_params(axis='both', labelsize=labelsize)
+plt.ylabel("$\phi^R [-]$", fontsize=labelsize)
 plt.savefig('../Figures/InstructiveExample-Streamplot.svg')
 plt.show()

@@ -44,7 +44,7 @@ xlim = 0.05
 
 # Visualize the results
 fig, axs = plt.subplots(2, 2, figsize=(30, 20))
-labelsize = 30
+labelsize = 40
 lw = 4
 legend_width = 8
 markers = ['-', '--', '-.', ':']
@@ -156,7 +156,7 @@ lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 
 # Finally, the legend (that maybe you'll customize differently)
-lgnd = fig.legend(lines, labels, bbox_to_anchor=(0.73,1.05), ncol=6, fontsize=labelsize)
+lgnd = fig.legend(lines, labels, bbox_to_anchor=(0.8    ,1.08), ncol=6, fontsize=labelsize)
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()
@@ -185,7 +185,7 @@ p_error_inf = data_convergence['p_error_inf']
 
 # Visualize the results
 fig, axs = plt.subplots(ncols=2, figsize=(30, 12))
-labelsize = 30
+labelsize = 40
 lw = 6
 ms=20
 # Log-log plot of L2-error
@@ -212,7 +212,7 @@ lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 
 # Finally, the legend (that maybe you'll customize differently)
-fig.legend(lines, labels, bbox_to_anchor=(0.65,1.1), ncol=6, fontsize=labelsize)
+fig.legend(lines, labels, bbox_to_anchor=(0.69,1.1), ncol=6, fontsize=labelsize)
 
 fig.tight_layout()
 fig.savefig('../Figures/PoissonBoltzmann_Convergence.svg', bbox_inches='tight')

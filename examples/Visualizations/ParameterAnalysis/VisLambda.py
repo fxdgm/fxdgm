@@ -24,7 +24,7 @@ xlim = 0.08
 
 # Visualize the results
 fig, axs = plt.subplots(2, 2, figsize=(30,20))
-labelsize = 30
+labelsize = 40
 lw = 4
 legend_width = 5
 markers = ['--', '-', ':']
@@ -67,7 +67,10 @@ lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 
 # Finally, the legend (that maybe you'll customize differently)
-lgnd = fig.legend(lines, labels, bbox_to_anchor=(0.88,1.05), ncol=6, fontsize=labelsize)
+order = [0, 3, 1, 4, 2, 5] 
+lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
+lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
+lgnd = fig.legend([lines[i] for i in order], [labels[i] for i in order], bbox_to_anchor=(0.86,1.12), ncol=3, fontsize=labelsize)
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()
@@ -133,7 +136,7 @@ for j in range(len(Lambda2_vec)):
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 
-lgnd = fig.legend(lines, labels, bbox_to_anchor=(0.78,1.05), ncol=4, fontsize=labelsize)
+lgnd = fig.legend(lines, labels, bbox_to_anchor=(0.845,1.07), ncol=4, fontsize=labelsize)
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
     

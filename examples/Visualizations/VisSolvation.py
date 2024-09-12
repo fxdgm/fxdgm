@@ -21,7 +21,7 @@ Solvation_vec = data['Solvation_vec']
 # Visualize the results
 xlim = 0.15
 fig, axs = plt.subplots(ncols=2, figsize=(30, 10))
-labelsize = 30
+labelsize = 40
 lw = 4
 legend_width = 6
 markers = ['-', '-.', ':', '--']
@@ -66,7 +66,10 @@ axs[1].plot(0, 0, color=colors[1], label='$y_A$')
 axs[1].plot(0, 0, color=colors[2], label='$y_S$')
 axs[1].plot(0, 0, color=colors[4], label='$y_C$')
 
-lgnd = fig.legend(bbox_to_anchor=(0.83, 1.1), fontsize=labelsize, ncol=7)
+order = [0, 4, 1, 5, 2, 6, 3] 
+lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
+lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
+lgnd = fig.legend([lines[i] for i in order], [labels[i] for i in order], bbox_to_anchor=(0.775,1.22), ncol=4, fontsize=labelsize)
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()

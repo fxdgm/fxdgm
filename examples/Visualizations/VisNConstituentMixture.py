@@ -22,8 +22,9 @@ for data in [data_A, data_B, data_C, data_D]:
     z.append(data['z_alpha'])
 
 xlim = 0.05
-labelsize = 30
-lw = 4
+labelsize = 40
+legendsize = 30
+lw = 5
 legend_width = 8
 subtitles_long = ['Mixture $A$', 'Mixture $B$', 'Mixture $C$', 'Mixture $D$']
 subtitles_short = ['$A$', '$B$', '$C$', '$D$']
@@ -39,7 +40,7 @@ for i in range(2):
                 axs[i,j].plot(x[plotting_index], y[plotting_index][species], label=f'z = {z[plotting_index][species]}', lw=lw, color=colors[species])
             y_S_ = 1 - np.sum(y[plotting_index], axis=0)
             axs[i,j].plot(x[plotting_index], y_S_, label=f'z = {0}', lw=lw, color=colors[-1])
-            lgnd = axs[i,j].legend(fontsize=labelsize)
+            lgnd = axs[i,j].legend(fontsize=legendsize)
             for line in lgnd.get_lines():
                 line.set_linewidth(legend_width)
             axs[i,j].set_xlim(0,xlim)
@@ -86,7 +87,7 @@ axs.grid()
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 
-lgnd = fig.legend(lines, labels, bbox_to_anchor=(0.84,1.1), ncol=4, fontsize=labelsize)
+lgnd = fig.legend(lines, labels, bbox_to_anchor=(0.92,1.14), ncol=4, fontsize=labelsize)
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 

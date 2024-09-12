@@ -36,7 +36,7 @@ Ref_Ord_marker = ['--', ':', '-.']
 
 # Plot the results
 fig, axs = plt.subplots(ncols=2, figsize=(30, 10))
-labelsize = 30
+labelsize = 35
 lw = 6
 legend_width = 5
 ms = 25
@@ -66,10 +66,10 @@ axs[1].set_ylabel('log($L_\infty$)', fontsize=labelsize)
 axs[1].grid()
 axs[1].tick_params(axis='both', labelsize=labelsize)
 
-order = [0, 5, 1, 6, 2, 7, 3, 4] 
+order = [0, 5, 1, 7, 2, 6, 3, 4] 
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
-lgnd = fig.legend([lines[i] for i in order], [labels[i] for i in order], bbox_to_anchor=(0.77,1.15), ncol=5, fontsize=labelsize)
+lgnd = fig.legend([lines[i] for i in order], [labels[i] for i in order], bbox_to_anchor=(0.81,1.2), ncol=5, fontsize=labelsize)
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 
