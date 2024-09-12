@@ -1,0 +1,30 @@
+image: python:3.9  # Use a Python Docker image
+
+stages:  # Define stages in the pipeline
+  - build
+  - deploy
+
+# Job to build documentation
+build-docs:
+  stage: build
+  script:
+    - pip install sphinx
+    - pip install sphinx-rtd-theme
+    - pip install sphinx-copybutton
+    - pip install myst-parser
+    - sphinx-build docs/source docs/build  # Build the documentation
+  artifacts:
+    paths:
+      - docs/build  # Save the build output for later stages
+    expire_in: 12 month  # Optional: Set how long to keep the artifacts (default: 30 days)
+
+# Job to deploy documentation to GitLab Pages
+pages:
+  stage: deploy
+  script:
+    - mv docs/build public  # Move the build output to the "public" directory
+  artifacts:
+    paths:
+      - public  # Files in the "public" folder will be deployed to GitLab Pages
+  only:
+    - main  # Only deploy if the changes are in the default branch

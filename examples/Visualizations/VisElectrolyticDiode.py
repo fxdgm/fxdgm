@@ -49,7 +49,7 @@ color_theme_concentration = 'rainbow' # cool, spring, PuBuGn, YlGnBu, GnBu
 color_theme_solvent = 'spring'
 color_theme_pressure = 'autumn'
 
-fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(30, 30))
+fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(30, 30), sharex=True, sharey=True)
 labelsize = 30
 titlesize = 25
 legend_width = 8
@@ -102,11 +102,9 @@ for bias, (y_A, y_C, y_S, phi, p, x, y) in enumerate(zip(y_A_packed, y_C_packed,
     axs[bias,4].tick_params(axis='both', labelsize=labelsize)
     axs[bias,4].set_title(f'$p \in ({int(round(np.min(p),0))},{int(round(np.max(p), 0))})$',  fontsize=titlesize)
 
-# axs[0,0].set_title('$\\varphi [-]$', fontsize=labelsize)
-# axs[0,1].set_title('$y_A [-]$', fontsize=labelsize)
-# axs[0,2].set_title('$y_C [-]$', fontsize=labelsize)
-# axs[0,3].set_title('$y_S [-]$', fontsize=labelsize)
-# axs[0,4].set_title('$p [-]$', fontsize=labelsize)
+for bias in range(5):
+    axs[2,bias].set_xticks([0, 0.01, 0.02])
+
 fig.tight_layout()
 fig.savefig('../Figures/ElectrolyticDiode.svg')
 fig.show()

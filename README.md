@@ -1,5 +1,10 @@
 # Reproducibility Repository for Numerical Treatment of a Thermodynamically Consistent Electrolyte Model (B.Sc. Thesis - Jan Habscheid)
 
+[![Pipeline Status](https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/badges/main/pipeline.svg)](https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/pipelines) 
+[![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://jan.habscheid.pages.rwth-aachen.de/bsc-electrolytemodels/) 
+[![GitLab Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://git.rwth-aachen.de/jan.habscheid/bsc-electrolytemodels/-/tags)
+[![License](https://img.shields.io/badge/license-GPLv3-blue)](https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/-/blob/main/LICENSE?ref_type=heads)
+
 ## Thesis
 
 This repository contains the code to reproduce the results presented in the bachelor thesis: Numerical Treatment of a Thermodynamically Consistent Electrolyte Model
