@@ -8,7 +8,7 @@ Reproducibility Repository for Numerical Treatment of a Thermodynamically Consis
 
 .. admonition:: \ \
 
-   This python package has the purpose to make the implementation and the examples from the bachelor thesis "Numerical Treatment of a Thermodynamically Consistent Electrolyte Model" reproducible. The code is written in Python and uses the finite element library FEniCSx. The code is available at: ToDo Add DOI
+   This python package has the purpose to make the implementation and the examples from the bachelor thesis "Numerical Treatment of a Thermodynamically Consistent Electrolyte Model" reproducible. The code is written in Python and uses the finite element library FEniCSx. The code is available at: https://doi.org/10.5281/zenodo.13645296
 
 Thesis
 ======
