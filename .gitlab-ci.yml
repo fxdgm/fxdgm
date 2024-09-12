@@ -8,7 +8,6 @@ stages:  # Define stages in the pipeline
 build-docs:
   stage: build
   script:
-    - pip install git+https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels
     - pip install sphinx
     - pip install sphinx-rtd-theme
     - pip install myst-parser
