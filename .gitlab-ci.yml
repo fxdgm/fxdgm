@@ -8,6 +8,7 @@ stages:  # Define stages in the pipeline
 build-docs:
   stage: build
   script:
+    - pip install markdown-it-py pyyaml docutils==0.20 sphinx-rtd-theme # necessary dependencies for sphinx
     - pip install sphinx
     - pip install sphinx-rtd-theme
     - pip install sphinx-copybutton
