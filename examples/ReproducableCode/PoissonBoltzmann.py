@@ -166,11 +166,11 @@ p_PB_interp1d = [interp1d(x_PB[i], p_PB[i]) for i in range(len(phi_left_vec))]
 # Calculate L2-error
 y_A_error_L2, y_C_error_L2, y_S_error_L2, phi_error_L2, p_error_L2 = [], [], [], [], []
 for i in range(len(phi_left_vec)):
-    y_A_error_L2.append(np.trapz((y_A_DGM_interp1d[i](x_DGM[i]) - y_A_PB_interp1d[i](x_DGM[i]))**2, x_DGM[i]))
-    y_C_error_L2.append(np.trapz((y_C_DGM_interp1d[i](x_DGM[i]) - y_C_PB_interp1d[i](x_DGM[i]))**2, x_DGM[i]))
-    y_S_error_L2.append(np.trapz((y_S_DGM_interp1d[i](x_DGM[i]) - y_S_PB_interp1d[i](x_DGM[i]))**2, x_DGM[i]))
-    phi_error_L2.append(np.trapz((phi_DGM_interp1d[i](x_DGM[i]) - phi_PB_interp1d[i](x_DGM[i]))**2, x_DGM[i]))
-    p_error_L2.append(np.trapz((p_DGM_interp1d[i](x_DGM[i]) - p_PB_interp1d[i](x_DGM[i]))**2, x_DGM[i]))
+    y_A_error_L2.append(np.sqrt(np.trapz((y_A_DGM_interp1d[i](x_DGM[i]) - y_A_PB_interp1d[i](x_DGM[i]))**2, x_DGM[i])))
+    y_C_error_L2.append(np.sqrt(np.trapz((y_C_DGM_interp1d[i](x_DGM[i]) - y_C_PB_interp1d[i](x_DGM[i]))**2, x_DGM[i])))
+    y_S_error_L2.append(np.sqrt(np.trapz((y_S_DGM_interp1d[i](x_DGM[i]) - y_S_PB_interp1d[i](x_DGM[i]))**2, x_DGM[i])))
+    phi_error_L2.append(np.sqrt(np.trapz((phi_DGM_interp1d[i](x_DGM[i]) - phi_PB_interp1d[i](x_DGM[i]))**2, x_DGM[i])))
+    p_error_L2.append(np.sqrt(np.trapz((p_DGM_interp1d[i](x_DGM[i]) - p_PB_interp1d[i](x_DGM[i]))**2, x_DGM[i])))
     
     
 # Log-log plot of L2-error
