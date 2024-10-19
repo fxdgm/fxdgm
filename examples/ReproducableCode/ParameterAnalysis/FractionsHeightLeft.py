@@ -21,7 +21,7 @@ del sys.path[0]
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Define Parameter and buondary conditions
+# Define Parameter and boundary conditions
 phi_right = 0.0
 p_right = 0.0
 y_A_R, y_C_R = 1/3, 1/3

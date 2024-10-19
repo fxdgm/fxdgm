@@ -217,3 +217,57 @@ fig.legend(lines, labels, bbox_to_anchor=(0.69,1.1), ncol=6, fontsize=labelsize)
 fig.tight_layout()
 fig.savefig('../Figures/PoissonBoltzmann_Convergence.svg', bbox_inches='tight')
 fig.show()
+
+
+# Visualize the results - rescale to physical values
+''' 
+The dimensionless parameter were chosen to:
+Lambda2 = 8.553e-6
+a2 = 7.5412e-4
+with the following physical parameters:
+T = 293.75 [K] - Temperature
+nR = 55 [mol/l] - Reference number density
+pR = 1 [atm] - Reference pressure
+LR = 20e-9 [m] - Reference length
+chi = 80 [-] - Dielectric permittivity
+The constants:
+e0 = 1.602e-19 [As] - Dielectric constant
+k = 1.381e-23 [1/mol] - Avogadro constant
+'''
+e0 = 1.602e-19 # [As]
+k = 1.381e-23 # [J/K]
+T = 293.75 # [K]
+phi_left_vec_physical = phi_left_vec * (k*T)/e0
+fig, axs = plt.subplots(ncols=2, figsize=(30, 12))
+labelsize = 40
+lw = 6
+ms=20
+# Log-log plot of L2-error
+axs[0].plot(phi_left_vec_physical, y_A_error_L2, 'o-', label='$y_A$', lw=lw, ms=ms)
+axs[0].plot(phi_left_vec_physical, y_C_error_L2, 'o-', label='$y_C$', lw=lw, ms=ms)
+axs[0].plot(phi_left_vec_physical, y_S_error_L2, 'o-', label='$y_S$', lw=lw, ms=ms)
+axs[0].set_yscale('log')
+axs[0].set_xlabel('$\delta \\varphi [V]$', fontsize=labelsize)
+axs[0].set_ylabel('log($L_2$) [-]', fontsize=labelsize)
+axs[0].tick_params(axis='both', labelsize=labelsize)
+axs[0].grid()
+
+# Log-log plot of infinity error
+axs[1].plot(phi_left_vec_physical, y_A_error_inf, 'o-', lw=lw, ms=ms)
+axs[1].plot(phi_left_vec_physical, y_C_error_inf, 'o-', lw=lw, ms=ms)
+axs[1].plot(phi_left_vec_physical, y_S_error_inf, 'o-', lw=lw, ms=ms)
+axs[1].set_yscale('log')
+axs[1].set_xlabel('$\delta \\varphi [V]$', fontsize=labelsize)
+axs[1].set_ylabel('log($L_\infty$) [-]', fontsize=labelsize)
+axs[1].tick_params(axis='both', labelsize=labelsize)
+axs[1].grid()
+
+lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
+lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
+
+# Finally, the legend (that maybe you'll customize differently)
+fig.legend(lines, labels, bbox_to_anchor=(0.69,1.1), ncol=6, fontsize=labelsize)
+
+fig.tight_layout()
+fig.savefig('../Figures/PoissonBoltzmann_Convergence_Rescaled_Dimensions.svg', bbox_inches='tight')
+fig.show()

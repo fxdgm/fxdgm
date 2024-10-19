@@ -53,39 +53,63 @@ axs[0,1].set_xlabel('x [-]', fontsize=labelsize)
 axs[0,1].set_ylabel('$y_\\alpha$ [-]', fontsize=labelsize)
 axs[0,1].tick_params(axis='both', labelsize=labelsize)
 
-# a = plt.axes([.75, .77, .2, .2])
+
+# Scale to log-log plot by uncommenting and commenting the two sections
+# log-log plot
 # for i in range(len(K_vec)):
 #     clr = colors[i]
-#     a.plot(x[i], y_S[i], markers[0], color=clr, lw=lw)
-# axs[0,1].plot(0, 0.1, color='grey', linestyle='--', label='Solvent')
-# a.set_xlim(0,xlim)
-# a.grid()
-# a.set_xlabel('$x [-]$', fontsize=labelsize)
-# a.set_ylabel('$y_S$ [-]', fontsize=labelsize)
-# a.tick_params(axis='both', labelsize=labelsize)
+#     axs[1,1].plot(x[i], y_A[i] * n[i], markers[0], color=clr, lw=lw)
+#     axs[1,1].plot(x[i], y_C[i] * n[i], markers[1], color=clr, lw=lw)
+# axs[1,1].set_xscale('log')
+# axs[1,1].set_yscale('log')
+# axs[1,1].set_xlim(0,xlim)
+# axs[1,1].grid()
+# axs[1,1].set_xlabel('log(x) [-]', fontsize=labelsize)
+# axs[1,1].set_ylabel('log($n_\\alpha$) [-]', fontsize=labelsize)
+# axs[1,1].tick_params(axis='both', labelsize=labelsize)
 
-
-for i in range(len(K_vec)):
+# linear plot
+for i in range(len(K_vec)-1):
     clr = colors[i]
     axs[1,1].plot(x[i], y_A[i] * n[i], markers[0], color=clr, lw=lw)
-    axs[1,1].plot(x[i], y_C[i] * n[i], markers[1], color=clr, lw=lw)
-axs[1,1].set_xscale('log')
-axs[1,1].set_yscale('log')
-axs[1,1].set_xlim(0,xlim)
+    # axs[1,1].plot(x[i], y_C[i] * n[i], markers[1], color=clr, lw=lw)
+axs[1,1].set_xlim(0,0.01)
 axs[1,1].grid()
-axs[1,1].set_xlabel('log(x) [-]', fontsize=labelsize)
-axs[1,1].set_ylabel('log($n_\\alpha$) [-]', fontsize=labelsize)
+axs[1,1].set_xlabel('x [-]', fontsize=labelsize)
+axs[1,1].set_ylabel('$n_A$ [-]', fontsize=labelsize)
 axs[1,1].tick_params(axis='both', labelsize=labelsize)
 
-[axs[1,0].plot(x[i], p[i], lw=lw, color=colors[i]) for i in range(len(K_vec))]
-axs[1,0].set_yscale('log')
-axs[1,0].set_xlim(0,xlim)
-axs[1,0].set_ylim(1e-9, np.max(p))
+a = plt.axes([.75, .27, .2, .2])
+for i in range(len(K_vec)-1):
+    clr = colors[i]
+    a.plot(x[i], y_C[i] * n[i], markers[1], color=clr, lw=lw)
+# axs[0,1].plot(0, 0.1, color='grey', linestyle='--', label='Solvent')
+a.set_xlim(0,0.025)
+a.set_ylim(0, 1)
+a.grid()
+a.set_xlabel('$x$ [-]', fontsize=labelsize)
+a.set_ylabel('$n_C$ [-]', fontsize=labelsize)
+a.tick_params(axis='both', labelsize=labelsize)
+
+# Scale to log plot by uncommenting and commenting the two sections
+# log plot
+# [axs[1,0].plot(x[i], p[i], lw=lw, color=colors[i]) for i in range(len(K_vec))]
+# axs[1,0].set_yscale('log')
+# axs[1,0].set_xlim(0,xlim)
+# axs[1,0].set_ylim(1e-9, np.max(p))
+# axs[1,0].grid()
+# axs[1,0].set_xlabel('x [-]', fontsize=labelsize)
+# axs[1,0].set_ylabel('log($p$) [-]', fontsize=labelsize)
+# axs[1,0].tick_params(axis='both', labelsize=labelsize)
+
+# linear plot
+[axs[1,0].plot(x[i], p[i], lw=lw, color=colors[i]) for i in range(len(K_vec)-1)]
+axs[1,0].set_xlim(0,0.01)
+# axs[1,0].set_ylim(1e-9, np.max(p))
 axs[1,0].grid()
 axs[1,0].set_xlabel('x [-]', fontsize=labelsize)
-axs[1,0].set_ylabel('log($p$) [-]', fontsize=labelsize)
+axs[1,0].set_ylabel('$p$ [-]', fontsize=labelsize)
 axs[1,0].tick_params(axis='both', labelsize=labelsize)
-
 
 # order = [0, 5, 1, 6, 2, 7, 3, 4] 
 # order = [0, 5, 1, 6, 2, 3, 4] 
@@ -97,5 +121,5 @@ lgnd = fig.legend([lines[i] for i in order], [labels[i] for i in order], bbox_to
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()
-fig.savefig('../Figures/Compressibility.svg', bbox_inches='tight')
+fig.savefig('../Figures/Compressibility_no_log.svg', bbox_inches='tight')
 fig.show()

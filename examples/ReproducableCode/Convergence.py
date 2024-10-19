@@ -58,12 +58,12 @@ p_interp1d = [interp1d(x[i], p[i]) for i in range(len(number_cells_vec))]
 # Calculate L2-error
 y_A_error_L2, y_C_error_L2, y_S_error_L2, phi_error_L2, p_error_L2 = [], [], [], [], []
 for i in range(len(number_cells_vec)-1):
-    y_A_error_L2.append(np.trapz((y_A_interp1d[i](x[i]) - y_A_interp1d[-1](x[i]))**2, x[i]))
-    y_C_error_L2.append(np.trapz((y_C_interp1d[i](x[i]) - y_C_interp1d[-1](x[i]))**2, x[i]))
-    y_S_error_L2.append(np.trapz((y_S_interp1d[i](x[i]) - y_S_interp1d[-1](x[i]))**2, x[i]))
-    phi_error_L2.append(np.trapz((phi_interp1d[i](x[i]) - phi_interp1d[-1](x[i]))**2, x[i]))
-    p_error_L2.append(np.trapz((p_interp1d[i](x[i]) - p_interp1d[-1](x[i]))**2, x[i]))
-    
+    y_A_error_L2.append(np.sqrt(np.trapz((y_A_interp1d[i](x[i]) - y_A_interp1d[-1](x[i]))**2, x[i])))
+    y_C_error_L2.append(np.sqrt(np.trapz((y_C_interp1d[i](x[i]) - y_C_interp1d[-1](x[i]))**2, x[i])))
+    y_S_error_L2.append(np.sqrt(np.trapz((y_S_interp1d[i](x[i]) - y_S_interp1d[-1](x[i]))**2, x[i])))
+    phi_error_L2.append(np.sqrt(np.trapz((phi_interp1d[i](x[i]) - phi_interp1d[-1](x[i]))**2, x[i])))
+    p_error_L2.append(np.sqrt(np.trapz((p_interp1d[i](x[i]) - p_interp1d[-1](x[i]))**2, x[i])))
+
 # Log-log plot of L2-error
 plt.figure()
 plt.loglog(number_cells_vec[:-1], y_A_error_L2, 'o-', label='$y_A$')
