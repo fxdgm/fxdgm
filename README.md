@@ -1,6 +1,6 @@
 # Reproducibility Repository for Numerical Treatment of a Thermodynamically Consistent Electrolyte Model (B.Sc. Thesis - Jan Habscheid)
 
-[![Pipeline Status](https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/badges/main/pipeline.svg)](https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/pipelines) 
+[![Pipeline Status](https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/badges/main/pipeline.svg)](https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/pipelines)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://janhab.pages.rwth-aachen.de/bsc-electrolytemodels/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13645296.svg)](https://doi.org/10.5281/zenodo.13645296)
 [![GitLab Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://git.rwth-aachen.de/jan.habscheid/bsc-electrolytemodels/-/tags)
@@ -40,9 +40,16 @@ Use the "environment.yml" file to install all necessary environments
 conda env create -f environment.yml
 ```
 
+### macOS installation using Docker
+
+```
+docker compose build
+docker compose run solver
+```
+
 ## Usage
 
-Find the visualizations from the thesis and some extra calculations in the "examples" folder. 
+Find the visualizations from the thesis and some extra calculations in the "examples" folder.
 In the subfolder "ReproducableCode" is the code, to execute the calculations with some first visualizations.
 The subfolder "Data" stores the data for all the simulations in a *.npz file, which can be read with numpy `np.load(file.npz)`.
 "Visualizations" creates the necessary figures from the thesis and stores them in *.svg format in "Figures".
