@@ -9,9 +9,7 @@
 ## Thesis
 
 This repository contains the code to reproduce the results presented in the bachelor thesis: Numerical Treatment of a Thermodynamically Consistent Electrolyte Model
-Find the thesis at:
-
-- Insert link to thesis (not published yet)
+Find the thesis at [https://doi.org/10.18154/RWTH-2024-09837](https://doi.org/10.18154/RWTH-2024-09837)
 
 ### Abstract
 
