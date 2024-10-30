@@ -1,0 +1,10 @@
+services:
+  solver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/root/solver
+    stdin_open: true  # Equivalent to -i for interactive mode
+    tty: true         # Equivalent to -t for a terminal interface
+    command: ["/bin/bash"]
