@@ -27,7 +27,7 @@ All the calculations were performed on a Linux machine. According to the documen
 ```
 conda create --name fenicsx-env python=3.12.3 -y
 conda activate fenicsx-env
-conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 matplotlib=3.8.4 numpy=1.26.4 scipy=1.14.0 -y
+conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 matplotlib=3.8.4 numpy=1.26.4 scipy=1.14.0 pytest==8.3.3 -y
 ```
 
 ### Alternative installation
@@ -44,6 +44,16 @@ conda env create -f environment.yml
 docker compose build
 docker compose run solver
 ```
+
+### Testing
+
+Use pytest with 
+```
+python -m pytest
+```
+
+to verify that everything was installed correctly.
+
 
 ## Usage
 
