@@ -1,6 +1,6 @@
 # Reproducibility Repository for Numerical Treatment of a Thermodynamically Consistent Electrolyte Model (B.Sc. Thesis - Jan Habscheid)
 
-[![Pipeline Status](https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/badges/main/pipeline.svg)](https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/pipelines) 
+[![Pipeline Status](https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/badges/main/pipeline.svg)](https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/pipelines)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://janhab.pages.rwth-aachen.de/bsc-electrolytemodels/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13645296.svg)](https://doi.org/10.5281/zenodo.13645296)
 [![GitLab Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://git.rwth-aachen.de/jan.habscheid/bsc-electrolytemodels/-/tags)
@@ -9,9 +9,7 @@
 ## Thesis
 
 This repository contains the code to reproduce the results presented in the bachelor thesis: Numerical Treatment of a Thermodynamically Consistent Electrolyte Model
-Find the thesis at:
-
-- Insert link to thesis (not published yet)
+Find the thesis at [https://doi.org/10.18154/RWTH-2024-09837](https://doi.org/10.18154/RWTH-2024-09837)
 
 ### Abstract
 
@@ -29,7 +27,7 @@ All the calculations were performed on a Linux machine. According to the documen
 ```
 conda create --name fenicsx-env python=3.12.3 -y
 conda activate fenicsx-env
-conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 matplotlib=3.8.4 numpy=1.26.4 scipy=1.14.0 -y
+conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 matplotlib=3.8.4 numpy=1.26.4 scipy=1.14.0 pytest==8.3.3 -y
 ```
 
 ### Alternative installation
@@ -40,9 +38,26 @@ Use the "environment.yml" file to install all necessary environments
 conda env create -f environment.yml
 ```
 
+### macOS installation using Docker
+
+```
+docker compose build
+docker compose run solver
+```
+
+### Testing
+
+Use pytest with 
+```
+python -m pytest
+```
+
+to verify that everything was installed correctly.
+
+
 ## Usage
 
-Find the visualizations from the thesis and some extra calculations in the "examples" folder. 
+Find the visualizations from the thesis and some extra calculations in the "examples" folder.
 In the subfolder "ReproducableCode" is the code, to execute the calculations with some first visualizations.
 The subfolder "Data" stores the data for all the simulations in a *.npz file, which can be read with numpy `np.load(file.npz)`.
 "Visualizations" creates the necessary figures from the thesis and stores them in *.svg format in "Figures".
