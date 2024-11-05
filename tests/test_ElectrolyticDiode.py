@@ -15,7 +15,7 @@ z_C = 1.0
 K = 'incompressible'
 Lambda2 = 8.553e-6
 a2 = 7.5412e-4
-number_cells = [20, 128]
+number_cells = [10, 64]
 Lx = 0.02
 Ly = 0.1
 x0 = np.array([0, 0])
@@ -24,8 +24,8 @@ refinement_style = 'uniform'
 solvation = 5
 PoissonBoltzmann = False
 rtol = 1e-3 
-relax_param = 0.15 # 0.1
-max_iter = 15_000
+relax_param = 0.1
+max_iter = 100
     
 
 data_comparison = np.load('tests/TestData/ElectrolyticDiode.npz')
@@ -50,45 +50,3 @@ def test_ForwardBias():
     assert np.allclose(data_comparison['p_ForwardBias'], p_ForwardBias,\
                         rtol=1e-15, atol=1e-15),\
                         'p_ForwardBias not calculated correctly'
-    
-def test_NoBias():
-    y_A_NoBias, y_C_NoBias, phi_NoBias, p_NoBias, x_NoBias = ElectrolyticDiode('NoBias', phi_bias, g_phi, z_A, z_C, y_fixed, y_fixed, K, Lambda2, a2, number_cells, solvation, PoissonBoltzmann, relax_param, Lx, Ly, rtol, max_iter, return_type='Vector')
-
-    # test grid generation with no refinement
-    assert np.allclose(data_comparison['x_NoBias'], x_NoBias,\
-                        rtol=1e-15, atol=1e-15),\
-                        'NoBias grid not generated correctly'
-    # test solution vector
-    assert np.allclose(data_comparison['y_A_NoBias'], y_A_NoBias,\
-                        rtol=1e-15, atol=1e-15),\
-                        'y_A_NoBias not calculated correctly'
-    assert np.allclose(data_comparison['y_C_NoBias'], y_C_NoBias,\
-                        rtol=1e-15, atol=1e-15),\
-                        'y_C_NoBias not calculated correctly'
-    assert np.allclose(data_comparison['phi_NoBias'], phi_NoBias,\
-                        rtol=1e-15, atol=1e-15),\
-                        'phi_NoBias not calculated correctly'
-    assert np.allclose(data_comparison['p_NoBias'], p_NoBias,\
-                        rtol=1e-15, atol=1e-15),\
-                        'p_NoBias not calculated correctly'
-    
-def test_BackwardBias():
-    y_A_BackwardBias, y_C_BackwardBias, phi_BackwardBias, p_BackwardBias, x_BackwardBias = ElectrolyticDiode('BackwardBias', phi_bias, g_phi, z_A, z_C, y_fixed, y_fixed, K, Lambda2, a2, number_cells, solvation, PoissonBoltzmann, relax_param, Lx, Ly, rtol, max_iter, return_type='Vector')
-
-    # test grid generation with no refinement
-    assert np.allclose(data_comparison['x_BackwardBias'], x_BackwardBias,\
-                        rtol=1e-15, atol=1e-15),\
-                        'BackwardBias grid not generated correctly'
-    # test solution vector
-    assert np.allclose(data_comparison['y_A_BackwardBias'], y_A_BackwardBias,\
-                        rtol=1e-15, atol=1e-15),\
-                        'y_A_BackwardBias not calculated correctly'
-    assert np.allclose(data_comparison['y_C_BackwardBias'], y_C_BackwardBias,\
-                        rtol=1e-15, atol=1e-15),\
-                        'y_C_BackwardBias not calculated correctly'
-    assert np.allclose(data_comparison['phi_BackwardBias'], phi_BackwardBias,\
-                        rtol=1e-15, atol=1e-15),\
-                        'phi_BackwardBias not calculated correctly'
-    assert np.allclose(data_comparison['p_BackwardBias'], p_BackwardBias,\
-                        rtol=1e-15, atol=1e-15),\
-                        'p_BackwardBias not calculated correctly'

@@ -24,7 +24,7 @@ chi = 80 # [-]
 # Parameter and bcs for the electrolyte
 Lambda2 = (k*T*epsilon0*(1+chi))/(e0**2 * nR_m * (LR)**2)
 a2 = (pR)/(nR_m * k * T)
-K_incompresible = 'incompressible'
+K_incompressible = 'incompressible'
 K_compressible = 20_000
 kappa = 0
 Molarity = 0.01
@@ -34,7 +34,7 @@ phi_right = 0.0
 p_right = 0
 
 # Solver settings
-number_cells = 128
+number_cells = 32
 relax_param = 0.03
 p_right = 0
 rtol = 1e-4 # ! Change back to 1e-8
@@ -43,12 +43,12 @@ rtol = 1e-4 # ! Change back to 1e-8
 # phi^L domain
 Vol_start = 0.05 # ! Change back to 0
 Volt_end = 0.75
-n_Volts = 10#0
+n_Volts = 7
 
 phi_left_dim = np.linspace(Vol_start, Volt_end, n_Volts)
 phi_left = phi_left_dim * e0/(k*T)
 
-data_comparison = np.load('tests/TestData/DLKap.npz')
+data_comparison = np.load('tests/TestData/DoubleLayerCapacity.npz')
 
 
 
@@ -57,7 +57,7 @@ def test_incompressible():
     # Calculate the numerical solution
     y_A_num, y_C_num, y_S_num, phi_num, p_num, x_num = [], [], [], [], [], []
     for i, phi_bcs in enumerate(phi_left):
-        y_A_, y_C_, phi_, p_, x_ = solve_System_4eq(phi_bcs, phi_right, p_right, z_A, z_C, y_R, y_R, K_incompresible, Lambda2, a2, number_cells, solvation=kappa, refinement_style='hard_log', rtol=rtol, max_iter=2500, return_type='Vector', relax_param=relax_param)
+        y_A_, y_C_, phi_, p_, x_ = solve_System_4eq(phi_bcs, phi_right, p_right, z_A, z_C, y_R, y_R, K_incompressible, Lambda2, a2, number_cells, solvation=kappa, refinement_style='hard_log', rtol=rtol, max_iter=2500, return_type='Vector', relax_param=relax_param)
         y_S_ = 1 - y_A_ - y_C_
         y_A_num.append(y_A_)
         y_C_num.append(y_C_)
@@ -70,8 +70,8 @@ def test_incompressible():
     Q_num = []
     Q_num_dim_ = []
     for j in range(len(phi_left)):
-        Q_num.append(Q_num_(y_A_num[j], y_C_num[j], n(p_num[j], K_incompresible), x_num[j]))
-        Q_num_dim_.append(Q_num_dim(y_A_num[j], y_C_num[j], n(p_num[j], K_incompresible), x_num[j], z_A, z_C, nR_m, e0, LR))
+        Q_num.append(Q_num_(y_A_num[j], y_C_num[j], n(p_num[j], K_incompressible), x_num[j]))
+        Q_num_dim_.append(Q_num_dim(y_A_num[j], y_C_num[j], n(p_num[j], K_incompressible), x_num[j], z_A, z_C, nR_m, e0, LR))
     Q_num = np.array(Q_num)
     Q_num_dim_ = np.array(Q_num_dim_)
 
@@ -83,10 +83,10 @@ def test_incompressible():
 
 
     # Calculate the analytical charge and capacity
-    Q_ana = Q_DL_dimless_ana(y_R, y_R, 1-2*y_R, z_A, z_C, phi_left, phi_right, p_right, K_incompresible, Lambda2, a2, kappa)
-    Q_ana_dim_ = Q_DL_dim_ana(y_R, y_R, 1-2*y_R, z_A, z_C, phi_left, phi_right, p_right, K_incompresible, Lambda2, a2, nR_m, e0, LR, kappa)
-    C_dl_ana = C_DL_dimless_ana(y_R, y_R, 1-2*y_R, z_A, z_C, Phi_pot_center(phi_left), phi_right, p_right, K_incompresible, Lambda2, a2, kappa)
-    C_dl_ana_dim = C_DL_dim_ana(y_R, y_R, 1-2*y_R, z_A, z_C, Phi_pot_center(phi_left), phi_right, p_right, K_incompresible, Lambda2, a2, nR_m, e0, LR, k, T, kappa)
+    Q_ana = Q_DL_dimless_ana(y_R, y_R, 1-2*y_R, z_A, z_C, phi_left, phi_right, p_right, K_incompressible, Lambda2, a2, kappa)
+    Q_ana_dim_ = Q_DL_dim_ana(y_R, y_R, 1-2*y_R, z_A, z_C, phi_left, phi_right, p_right, K_incompressible, Lambda2, a2, nR_m, e0, LR, kappa)
+    C_dl_ana = C_DL_dimless_ana(y_R, y_R, 1-2*y_R, z_A, z_C, Phi_pot_center(phi_left), phi_right, p_right, K_incompressible, Lambda2, a2, kappa)
+    C_dl_ana_dim = C_DL_dim_ana(y_R, y_R, 1-2*y_R, z_A, z_C, Phi_pot_center(phi_left), phi_right, p_right, K_incompressible, Lambda2, a2, nR_m, e0, LR, k, T, kappa)
 
     # Test the numerical charge and capacity
     assert np.allclose(data_comparison['Q_num'], Q_num,\
@@ -147,7 +147,7 @@ def test_compressible():
 
     # Calculate the analytical charge and capacity
     Q_ana_compressible = Q_DL_dimless_ana(y_R, y_R, 1-2*y_R, z_A, z_C, phi_left, phi_right, p_right, K_compressible, Lambda2, a2, kappa)
-    Q_ana_dim__compressible = Q_DL_dim_ana(y_R, y_R, 1-2*y_R, z_A, z_C, phi_left, phi_right, p_right, K_compressible, Lambda2, a2, nR_m, e0, LR, kappa)
+    Q_ana_dim_compressible = Q_DL_dim_ana(y_R, y_R, 1-2*y_R, z_A, z_C, phi_left, phi_right, p_right, K_compressible, Lambda2, a2, nR_m, e0, LR, kappa)
     C_dl_ana_compressible = C_DL_dimless_ana(y_R, y_R, 1-2*y_R, z_A, z_C, Phi_pot_center(phi_left), phi_right, p_right, K_compressible, Lambda2, a2, kappa)
     C_dl_ana_dim_compressible = C_DL_dim_ana(y_R, y_R, 1-2*y_R, z_A, z_C, Phi_pot_center(phi_left), phi_right, p_right, K_compressible, Lambda2, a2, nR_m, e0, LR, k, T, kappa)
 
@@ -169,7 +169,7 @@ def test_compressible():
     assert np.allclose(data_comparison['Q_ana_compressible'], Q_ana_compressible,\
                         rtol=1e-15, atol=1e-15),\
                         'Compressible: Analytical charge not calculated correctly for dimensions'
-    assert np.allclose(data_comparison['Q_ana_dim__compressible'], Q_ana_dim__compressible,\
+    assert np.allclose(data_comparison['Q_ana_dim_compressible'], Q_ana_dim_compressible,\
                         rtol=1e-15, atol=1e-15),\
                         'Compressible: Analytical charge not calculated correctly for dimensionless'
     assert np.allclose(data_comparison['C_dl_ana_compressible'], C_dl_ana_compressible,\
@@ -190,6 +190,8 @@ def test_dx():
                         rtol=1e-15, atol=1e-15),\
                         'dx not calculated correctly'
 def test_n():
-    assert np.allclose(n(data_comparison['p_num_compressible'][0], K_compressible), data_comparison['n'], rtol=1e-15, atol=1e-15),\
-                        'n not calculated correctly'
+    assert np.allclose(n(data_comparison['p_num'][0], K_incompressible), data_comparison['n_incompressible'], rtol=1e-15, atol=1e-15),\
+                        'n incompressible not calculated correctly'
+    assert np.allclose(n(data_comparison['p_num_compressible'][0], K_compressible), data_comparison['n_compressible'], rtol=1e-15, atol=1e-15),\
+                        'n compressible not calculated correctly'
     
