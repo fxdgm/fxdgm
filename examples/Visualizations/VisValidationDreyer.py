@@ -79,5 +79,5 @@ for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 
 fig.tight_layout()
-fig.savefig('../Figures/Validation_Dreyer_BulkSurface.svg', bbox_inches='tight')
+# fig.savefig('../Figures/Validation_Dreyer_BulkSurface.svg', bbox_inches='tight')
 fig.show()

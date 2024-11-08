@@ -106,7 +106,7 @@ for bias in range(5):
     axs[2,bias].set_xticks([0, 0.01, 0.02])
 
 fig.tight_layout()
-fig.savefig('../Figures/ElectrolyticDiode.svg')
+# fig.savefig('../Figures/ElectrolyticDiode.svg')
 fig.show()
 
 print('np.max(y_A_Forward):', np.max(y_A_Forward))

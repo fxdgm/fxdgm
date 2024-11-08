@@ -121,5 +121,5 @@ lgnd = fig.legend([lines[i] for i in order], [labels[i] for i in order], bbox_to
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()
-fig.savefig('../Figures/Compressibility_no_log.svg', bbox_inches='tight')
+# fig.savefig('../Figures/Compressibility_no_log.svg', bbox_inches='tight')
 fig.show()
