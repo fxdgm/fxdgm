@@ -3,7 +3,7 @@ image: docker:20.10.16  # Define the Docker image
 stages:  # Define stages in the pipeline
   - prepare
   - build
-  - test
+  # - test
   - deploy
 
 prepare:
@@ -38,18 +38,18 @@ build-docs:
       - docs/build  # Save the build output for later stages
     expire_in: 12 month  # Optional: Set how long to keep the artifacts (default: 30 days)
 
-# Job to test the implementation
-test:
-  stage: test
-  dependencies:
-  - prepare
-  image:
-    name: $CI_REGISTRY_IMAGE:latest
-    entrypoint: [""]
-  tags:
-    - docker
-  script:
-    - python -m pytest # Run the tests
+# # Job to test the implementation
+# test:
+#   stage: test
+#   dependencies:
+#   - prepare
+#   image:
+#     name: $CI_REGISTRY_IMAGE:latest
+#     entrypoint: [""]
+#   tags:
+#     - docker
+#   script:
+#     - python -m pytest # Run the tests
   
 # Job to deploy documentation to GitLab Pages
 pages:

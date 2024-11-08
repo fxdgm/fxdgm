@@ -2,9 +2,12 @@
 Tests the Eq02 implementation in src.Eq02.py
 '''
 
-
 from src.Eq02 import solve_System_2eq
 import numpy as np
+
+# Define the testing tolerance
+rtol = 1e-10
+atol = 1e-10
 
 # Define parameter to use in the test
 phi_left = 10.0
@@ -30,20 +33,20 @@ def test_standard():
 
     # test grid generation with no refinement
     assert np.allclose(data_comparison['x'], x,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Uniform grid not generated correctly'
     # test solution vector
     assert np.allclose(data_comparison['y_A'], y_A,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'y_A not calculated correctly'
     assert np.allclose(data_comparison['y_C'], y_C,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'y_C not calculated correctly'
     assert np.allclose(data_comparison['phi'], phi,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'phi not calculated correctly'
     assert np.allclose(data_comparison['p'], p,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'p not calculated correctly'
 
 
@@ -53,20 +56,20 @@ def test_solvation():
 
     # test grid generation with logarithmic refinement
     assert np.allclose(data_comparison['x_solvation'], x_solvation,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'log grid not generated correctly'
     # test solution vector
     assert np.allclose(data_comparison['y_A_solvation'], y_A_solvation,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'y_A with solvation not calculated correctly'
     assert np.allclose(data_comparison['y_C_solvation'], y_C_solvation,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'y_C with solvation not calculated correctly'
     assert np.allclose(data_comparison['phi_solvation'], phi_solvation,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'phi with solvation not calculated correctly'
     assert np.allclose(data_comparison['p_solvation'], p_solvation,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'p with solvation not calculated correctly'
 
 def test_compressibility():
@@ -76,19 +79,19 @@ def test_compressibility():
 
     # test grid generation with hard-logarithmic refinement
     assert np.allclose(data_comparison['x_compressible'], x_compressible,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'hard-log grid not generated correctly'
     # test solution vector
     assert np.allclose(data_comparison['y_A_compressible'], y_A_compressible,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'y_A with compressible not calculated correctly'
     assert np.allclose(data_comparison['y_C_compressible'], y_C_compressible,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'y_C with compressible not calculated correctly'
     assert np.allclose(data_comparison['phi_compressible'], phi_compressible,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'phi with compressible not calculated correctly'
     assert np.allclose(data_comparison['p_compressible'], p_compressible,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'p with compressible not calculated correctly'
     

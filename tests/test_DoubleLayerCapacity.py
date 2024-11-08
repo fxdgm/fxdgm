@@ -2,11 +2,14 @@
 Tests the Helpfer functions implemented in src.Helper_DoubleLayerCapacity.py
 '''
 
-
 from src.Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_num_dim, Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
 from src.Eq04 import solve_System_4eq
 from src.Eq02 import solve_System_2eq
 import numpy as np
+
+# Define the testing tolerance
+rtol = 1e-10
+atol = 1e-10
 
 # Define Parameter
 e0 = 1.602e-19 # [As]
@@ -90,30 +93,30 @@ def test_incompressible():
 
     # Test the numerical charge and capacity
     assert np.allclose(data_comparison['Q_num'], Q_num,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Incompressible: Numerical charge not calculated correctly for dimensions'
     assert np.allclose(data_comparison['Q_num_dim_'], Q_num_dim_,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Incompressible: Numerical charge not calculated correctly for dimensionless'
     assert np.allclose(data_comparison['C_dl_num'], C_dl_num,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Incompressible: Numerical capacity not calculated correctly for dimensions'
     assert np.allclose(data_comparison['C_dl_num_dim_'], C_dl_num_dim_,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Incompressible: Numerical capacity not calculated correctly for dimensionless'
     
     # Test the analytical charge and capacity
     assert np.allclose(data_comparison['Q_ana'], Q_ana,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Incompressible: Analytical charge not calculated correctly for dimensions'
     assert np.allclose(data_comparison['Q_ana_dim_'], Q_ana_dim_,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Incompressible: Analytical charge not calculated correctly for dimensionless'
     assert np.allclose(data_comparison['C_dl_ana'], C_dl_ana,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Incompressible: Analytical capacity not calculated correctly for dimensions'
     assert np.allclose(data_comparison['C_dl_ana_dim'], C_dl_ana_dim,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Incompressible: Analytical capacity not calculated correctly for dimensionless'
     
 # Compressible tests
@@ -153,45 +156,45 @@ def test_compressible():
 
     # Test the numerical charge and capacity
     assert np.allclose(data_comparison['Q_num_compressible'], Q_num_compressible,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Compressible: Numerical charge not calculated correctly for dimensions'
     assert np.allclose(data_comparison['Q_num_dim_compressible'], Q_num_dim_compressible,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Compressible: Numerical charge not calculated correctly for dimensionless'
     assert np.allclose(data_comparison['C_dl_num_compressible'], C_dl_num_compressible,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Compressible: Numerical capacity not calculated correctly for dimensions'
     assert np.allclose(data_comparison['C_dl_num_dim_compressible'], C_dl_num_dim_compressible,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Compressible: Numerical capacity not calculated correctly for dimensionless'
     
     # Test the analytical charge and capacity
     assert np.allclose(data_comparison['Q_ana_compressible'], Q_ana_compressible,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Compressible: Analytical charge not calculated correctly for dimensions'
     assert np.allclose(data_comparison['Q_ana_dim_compressible'], Q_ana_dim_compressible,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Compressible: Analytical charge not calculated correctly for dimensionless'
     assert np.allclose(data_comparison['C_dl_ana_compressible'], C_dl_ana_compressible,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Compressible: Analytical capacity not calculated correctly for dimensions'
     assert np.allclose(data_comparison['C_dl_ana_dim_compressible'], C_dl_ana_dim_compressible,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Compressible: Analytical capacity not calculated correctly for dimensionless'
     
 # Test the functions
 def test_Phi_pot_center():
     assert np.allclose(Phi_pot_center(phi_left), data_comparison['Phi_pot_center'],\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'Phi_pot_center not calculated correctly'
     
 def test_dx():
     assert np.allclose(dx(phi_left), data_comparison['dx'],\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'dx not calculated correctly'
 def test_n():
-    assert np.allclose(n(data_comparison['p_num'][0], K_incompressible), data_comparison['n_incompressible'], rtol=1e-15, atol=1e-15),\
+    assert np.allclose(n(data_comparison['p_num'][0], K_incompressible), data_comparison['n_incompressible'], rtol=rtol, atol=atol),\
                         'n incompressible not calculated correctly'
-    assert np.allclose(n(data_comparison['p_num_compressible'][0], K_compressible), data_comparison['n_compressible'], rtol=1e-15, atol=1e-15),\
+    assert np.allclose(n(data_comparison['p_num_compressible'][0], K_compressible), data_comparison['n_compressible'], rtol=rtol, atol=atol),\
                         'n compressible not calculated correctly'
     

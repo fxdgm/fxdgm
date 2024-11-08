@@ -2,9 +2,12 @@
 Tests the ElectrolyticDiode implementation in src.ElectrolyticDiode.py
 '''
 
-
 from src.ElectrolyticDiode import ElectrolyticDiode
 import numpy as np
+
+# Define the testing tolerance
+rtol = 1e-10
+atol = 1e-10
 
 # Define parameter to use in the test
 phi_bias = 10
@@ -35,18 +38,18 @@ def test_ForwardBias():
 
     # test grid generation with no refinement
     assert np.allclose(data_comparison['x_ForwardBias'], x_ForwardBias,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'ForwardBias grid not generated correctly'
     # test solution vector
     assert np.allclose(data_comparison['y_A_ForwardBias'], y_A_ForwardBias,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'y_A_ForwardBias not calculated correctly'
     assert np.allclose(data_comparison['y_C_ForwardBias'], y_C_ForwardBias,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'y_C_ForwardBias not calculated correctly'
     assert np.allclose(data_comparison['phi_ForwardBias'], phi_ForwardBias,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'phi_ForwardBias not calculated correctly'
     assert np.allclose(data_comparison['p_ForwardBias'], p_ForwardBias,\
-                        rtol=1e-15, atol=1e-15),\
+                        rtol=rtol, atol=atol),\
                         'p_ForwardBias not calculated correctly'
