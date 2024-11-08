@@ -61,6 +61,7 @@ Lambda2 = 3.4e-6
 # Solver parameters
 # ! Refine for PB
 number_cells = 1028# ! *32
+# number_cells_PB = number_cells*16
 relax_param = 0.005
 refinement_style = 'log'
 max_iter = 100_000
@@ -70,7 +71,7 @@ rtol = 1e-7
 
 y_A_dimless, y_C_dimless, y_S_dimless, phi_dimless, p_dimless, x_dimless = [], [], [], [], [], []
 # ! Uncomment
-# y_A_, y_C_, phi_, p_, x_ = solve_System_4eq(phi_L_dimless, phi_R_dimless, pR, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, solvation=0, PoissonBoltzmann=True, relax_param=relax_param, refinement_style=refinement_style, return_type=return_type, max_iter=max_iter, rtol=rtol)
+# y_A_, y_C_, phi_, p_, x_ = solve_System_4eq(phi_L_dimless, phi_R_dimless, pR, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, solvation=0, PoissonBoltzmann=True, relax_param=relax_param, refinement_style='log', return_type=return_type, max_iter=max_iter, rtol=rtol)
 # y_A_dimless.append(y_A_)
 # y_C_dimless.append(y_C_)
 # y_S_dimless.append(1 - y_A_ - y_C_)
