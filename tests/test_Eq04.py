@@ -48,7 +48,27 @@ def test_standard():
     assert np.allclose(data_comparison['p'], p,\
                         rtol=rtol, atol=atol),\
                         'p not calculated correctly'
+    
+def test_NerstPlanck():
+    y_A_NP, y_C_NP, phi_NP, p_NP, x_NP = solve_System_4eq(phi_left, phi_right, p_right, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, solvation=solvation,  relax_param=relax_param, PoissonBoltzmann=True, x0=0, x1=1, refinement_style='uniform', return_type='Vector', max_iter=max_iter, rtol=rtol)
 
+    # test grid generation with no refinement
+    assert np.allclose(data_comparison['x_NP'], x_NP,\
+                        rtol=rtol, atol=atol),\
+                        'Uniform grid not generated correctly'
+    # test solution vector
+    assert np.allclose(data_comparison['y_A_NP'], y_A_NP,\
+                        rtol=rtol, atol=atol),\
+                        'y_A with NP not calculated correctly'
+    assert np.allclose(data_comparison['y_C_NP'], y_C_NP,\
+                        rtol=rtol, atol=atol),\
+                        'y_C with NP not calculated correctly'
+    assert np.allclose(data_comparison['phi_NP'], phi_NP,\
+                        rtol=rtol, atol=atol),\
+                        'phi with NP not calculated correctly'
+    assert np.allclose(data_comparison['p_NP'], p_NP,\
+                        rtol=rtol, atol=atol),\
+                        'p with NP not calculated correctly'
 
 def test_solvation():
     solvation = 5
