@@ -62,7 +62,7 @@ a2 = 0.00075 # 0.0007
 # Lambda2 = Lambda2 * 1e-1
 
 # Solver parameters
-number_cells = 1024
+number_cells = 1024*4
 # number_cells_PB = number_cells*16
 relax_param = 0.005
 refinement_style = 'log'
@@ -91,7 +91,7 @@ x_dimless.append(x_)
 # ? Additional issue from NP -> very bad convergence
 # Apply extra refinement because of bad convergence, but use larger relaxation parameter due to the simplified system to two equations
 # Use only system of 2 equations to get better convergence
-y_A_, y_C_, phi_, p_, x_ = solve_System_2eq(phi_L_dimless, phi_R_dimless, pR, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, solvation=0, PoissonBoltzmann=True, relax_param=0.7, refinement_style='hard_hard_log', return_type=return_type, max_iter=max_iter, rtol=rtol)
+y_A_, y_C_, phi_, p_, x_ = solve_System_2eq(phi_L_dimless, phi_R_dimless, pR, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, solvation=0, PoissonBoltzmann=True, relax_param=1.0, refinement_style='hard_hard_log', return_type=return_type, max_iter=max_iter, rtol=1e-6) # 0.7 # oder hard_log + 1024*4 grids
 y_A_dimless.append(y_A_)
 y_C_dimless.append(y_C_)
 y_S_dimless.append(1 - y_A_ - y_C_)
