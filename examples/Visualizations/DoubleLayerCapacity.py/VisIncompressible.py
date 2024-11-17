@@ -101,7 +101,7 @@ lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 fig.legend(lines, labels, bbox_to_anchor=(0.81,1.03), ncol=6, fontsize=labelsize)
 fig.tight_layout()
-fig.savefig('../../Figures/DoubleLayerCapacity/DLKap_Molarity.svg', bbox_inches='tight')
+# fig.savefig('../../Figures/DoubleLayerCapacity/DLKap_Molarity.svg', bbox_inches='tight')
 fig.show()
 
 
@@ -199,7 +199,7 @@ lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 fig.legend(lines, labels, bbox_to_anchor=(0.76,1.05), ncol=6, fontsize=labelsize)
 fig.tight_layout()
-fig.savefig('../../Figures/DoubleLayerCapacity/DLKap_Solvation.svg', bbox_inches='tight')
+# fig.savefig('../../Figures/DoubleLayerCapacity/DLKap_Solvation.svg', bbox_inches='tight')
 fig.show()
 
 
@@ -275,5 +275,5 @@ lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 fig.legend(lines, labels, bbox_to_anchor=(0.74,1.03), ncol=6, fontsize=labelsize)
 fig.tight_layout()
-fig.savefig('../../Figures/DoubleLayerCapacity/DLKap_Lambda.svg', bbox_inches='tight')
+# fig.savefig('../../Figures/DoubleLayerCapacity/DLKap_Lambda.svg', bbox_inches='tight')
 fig.show()

@@ -75,5 +75,5 @@ for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 
 fig.tight_layout()
-fig.savefig('../Figures/Convergence.svg', bbox_inches='tight')
+# fig.savefig('../Figures/Convergence.svg', bbox_inches='tight')
 fig.show()

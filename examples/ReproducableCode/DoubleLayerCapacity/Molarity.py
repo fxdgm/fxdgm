@@ -29,7 +29,7 @@ T = 293.75 # [K]
 epsilon0 = 8.85e-12 #[F/m]
 F = 9.65e+4 # [As/mol]
 NA = 6.022e+23 # [1/mol] - Avogadro constant
-nR_mol = 55 # [mol/m^3]
+nR_mol = 55 # [mol/m^3] # ? m^3 or dm^3? Should be dm^3 and then we get 55 mol/dm^3 * 1e+3 = 55 mol/m^3
 nR_m = nR_mol * NA * 1/(1e-3)# [1/m^3]
 pR = 1.01325 * 1e+5 # [Pa]
 LR = 20e-9
