@@ -53,7 +53,7 @@ def create_refined_mesh(refinement_style:str, number_cells:int) -> Mesh:
     msh = mesh.create_mesh(MPI.COMM_WORLD, cells_np, coordinates_np_, domain)
     return msh
 
-def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, z_C:float, y_A_R:float, y_C_R:float, K:float|str, Lambda2:float, a2:float, number_cells:int, solvation:float = 0, relax_param:float=None, x0:float=0, x1:float=1, refinement_style:str='uniform', return_type:str='Scalar', rtol:float=1e-8, max_iter:float=500):
+def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, z_C:float, y_A_R:float, y_C_R:float, K:float|str, Lambda2:float, a2:float, number_cells:int, solvation:float = 0, PoissonBoltzmann:bool=False, relax_param:float=None, x0:float=0, x1:float=1, refinement_style:str='uniform', return_type:str='Scalar', rtol:float=1e-8, max_iter:float=500):
     '''
     Solve the simplified dimensionless system of equations presented in: Numerical Treatment of a Thermodynamically Consistent Electrolyte Model, B.Sc. Thesis Habscheid 2024
 
@@ -101,6 +101,8 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         Number of cells in the mesh
     solvation : float, optional
         solvation number, by default 0
+    PoissonBoltzmann : bool, optional
+        Solve classical Nernst-Planck model with the use of the Poisson-Boltzmann formulation if True, else solve the presented model by Dreyer, Guhlke, Müller, by default False
     relax_param : float, optional
         Relaxation parameter for the Newton solver
         xₙ₊₁ = γ xₙ f(xₙ)/f'(xₙ) with γ the relaxation parameter
@@ -191,12 +193,20 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
     bcs = [bc_left_phi, bc_right_phi, bc_right_p]
 
     def y_A(phi, p):
-        D_A = y_A_R / exp(-(solvation + 1) * a2 * p_right - z_A * phi_right)
-        return D_A * exp(-(solvation + 1) * a2 * p - z_A * phi)
+        if PoissonBoltzmann == False:
+            D_A = y_A_R / exp(-(solvation + 1) * a2 * p_right - z_A * phi_right)
+            return D_A * exp(-(solvation + 1) * a2 * p - z_A * phi)
+        elif PoissonBoltzmann == True:
+            D_A = y_A_R / exp(- z_A * phi_right)
+            return D_A * exp(- z_A * phi)
     
     def y_C(phi, p):
-        D_C = y_C_R / exp(-(solvation + 1) * a2 * p_right - z_C * phi_right)
-        return D_C * exp(-(solvation + 1) * a2 * p - z_C * phi)
+        if PoissonBoltzmann == False:
+            D_C = y_C_R / exp(-(solvation + 1) * a2 * - z_C * phi_right)
+            return D_C * exp(-(solvation + 1) * a2 * p - z_C * phi)
+        elif PoissonBoltzmann == True:
+            D_C = y_C_R / exp(- z_C * phi_right)
+            return D_C * exp(- z_C * phi)
     
 
     # Define variational problem
@@ -260,6 +270,12 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
     
         D_C = y_C_R / np.exp(-(solvation + 1) * a2 * p_right - z_C * phi_right)
         y_C_vals = D_C * np.exp(-(solvation + 1) * a2 * p_vals - z_C * phi_vals)
+
+        if PoissonBoltzmann:
+            D_A = y_A_R / np.exp(- z_A * phi_right)
+            y_A_vals = D_A * np.exp(- z_A * phi_vals)
+            D_C = y_C_R / np.exp(- z_C * phi_right)
+            y_C_vals = D_C * np.exp(- z_C * phi_vals)
         
         return y_A_vals, y_C_vals, phi_vals, p_vals, x_vals
     

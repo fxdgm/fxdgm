@@ -1,2 +1,0 @@
-[console_scripts]
-my-example-utility = example.example_module:main

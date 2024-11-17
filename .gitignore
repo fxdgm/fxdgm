@@ -1,0 +1,18 @@
+# Taken and adapted from: https://git.rwth-aachen.de/lamBOO/fenicsR13
+# ignore VSCode's helper files
+*.vscode
+*.ipynb_checkpoints
+# ignore python cache
+*__pycache__*
+*.pytest_cache*
+# ignore Sphinx documentation output
+*docs/build
+# Ignore pip folder
+*egg-info/*
+# Ignore venv files
+venv
+# Ignore .eggs
+*.eggs
+FENICSxDGM.egg-info
+# Ignore build files
+build
