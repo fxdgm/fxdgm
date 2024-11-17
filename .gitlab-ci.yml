@@ -1,12 +1,36 @@
-image: python:3.9  # Use a Python Docker image
+image: docker:20.10.16  # Define the Docker image
 
 stages:  # Define stages in the pipeline
+  - prepare
   - build
+  # - test
   - deploy
+
+prepare:
+  stage: prepare
+  tags:
+    - docker
+  services:
+    - docker:20.10.16-dind
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build
+      --cache-from $CI_REGISTRY_IMAGE:latest
+      --tag $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:latest
 
 # Job to build documentation
 build-docs:
   stage: build
+  dependencies:
+    - prepare
+  image:
+    name: $CI_REGISTRY_IMAGE:latest
+    entrypoint: [""]
+  tags:
+    - docker
   script:
     - sphinx-build docs/source docs/build  # Build the documentation
   artifacts:
@@ -14,9 +38,29 @@ build-docs:
       - docs/build  # Save the build output for later stages
     expire_in: 12 month  # Optional: Set how long to keep the artifacts (default: 30 days)
 
+# # Job to test the implementation
+# test:
+#   stage: test
+#   dependencies:
+#   - prepare
+#   image:
+#     name: $CI_REGISTRY_IMAGE:latest
+#     entrypoint: [""]
+#   tags:
+#     - docker
+#   script:
+#     - python -m pytest # Run the tests
+  
 # Job to deploy documentation to GitLab Pages
 pages:
   stage: deploy
+  dependencies:
+  - prepare
+  image:
+    name: $CI_REGISTRY_IMAGE:latest
+    entrypoint: [""]
+  tags:
+    - docker
   script:
     - mv docs/build public  # Move the build output to the "public" directory
   artifacts:

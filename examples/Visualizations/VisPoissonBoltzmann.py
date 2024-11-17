@@ -162,7 +162,7 @@ for line in lgnd.get_lines():
 fig.tight_layout()
 
 fig.tight_layout()
-fig.savefig('../Figures/PoissonBoltzmann_Comparsion.svg', bbox_inches='tight')
+# fig.savefig('../Figures/PoissonBoltzmann_Comparsion.svg', bbox_inches='tight')
 fig.show()
 
 
@@ -215,7 +215,7 @@ lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 fig.legend(lines, labels, bbox_to_anchor=(0.69,1.1), ncol=6, fontsize=labelsize)
 
 fig.tight_layout()
-fig.savefig('../Figures/PoissonBoltzmann_Convergence.svg', bbox_inches='tight')
+# fig.savefig('../Figures/PoissonBoltzmann_Convergence.svg', bbox_inches='tight')
 fig.show()
 
 
@@ -269,5 +269,5 @@ lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 fig.legend(lines, labels, bbox_to_anchor=(0.69,1.1), ncol=6, fontsize=labelsize)
 
 fig.tight_layout()
-fig.savefig('../Figures/PoissonBoltzmann_Convergence_Rescaled_Dimensions.svg', bbox_inches='tight')
+# fig.savefig('../Figures/PoissonBoltzmann_Convergence_Rescaled_Dimensions.svg', bbox_inches='tight')
 fig.show()

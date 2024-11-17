@@ -64,7 +64,7 @@ for i in range(2):
             # Next mixture
             plotting_index += 1
 fig.tight_layout()
-fig.savefig('../Figures/NConstituentMixture_Concentrations_Pressure.svg')
+# fig.savefig('../Figures/NConstituentMixture_Concentrations_Pressure.svg')
 fig.show()
 
 
@@ -92,7 +92,7 @@ for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 
 fig.show()
-fig.savefig('../Figures/NConstituentMixture_ElectricPotential.svg', bbox_inches='tight')
+# fig.savefig('../Figures/NConstituentMixture_ElectricPotential.svg', bbox_inches='tight')
 
 for p_ in p:
     print(np.max(p_))

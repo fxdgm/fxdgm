@@ -37,5 +37,5 @@ lgnd = fig.legend(lines, labels, bbox_to_anchor=(0.75,1.1), ncol=6, fontsize=lab
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()
-fig.savefig('../../Figures/ParameterAnalysis/FractionsHeightLeft.svg', bbox_inches='tight')
+# fig.savefig('../../Figures/ParameterAnalysis/FractionsHeightLeft.svg', bbox_inches='tight')
 fig.show()

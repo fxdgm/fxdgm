@@ -74,7 +74,7 @@ lgnd = fig.legend([lines[i] for i in order], [labels[i] for i in order], bbox_to
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()
-fig.savefig('../../Figures/ParameterAnalysis/Lambda_fractions.svg', bbox_inches='tight')
+# fig.savefig('../../Figures/ParameterAnalysis/Lambda_fractions.svg', bbox_inches='tight')
 fig.show()
 
 
@@ -141,5 +141,5 @@ for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
     
 fig.tight_layout()
-fig.savefig('../../Figures/ParameterAnalysis/Lambda2_pot_press.svg', bbox_inches='tight')
+# fig.savefig('../../Figures/ParameterAnalysis/Lambda2_pot_press.svg', bbox_inches='tight')
 fig.show()
