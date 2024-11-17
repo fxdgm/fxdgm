@@ -6,9 +6,9 @@ scipy==1.14.0
 build>=0.7.0
 
 [dev]
-BScElectrolytemodels[tests]
-BScElectrolytemodels[docs]
-BScElectrolytemodels[build]
+FENICSxDGM[tests]
+FENICSxDGM[docs]
+FENICSxDGM[build]
 
 [docs]
 sphinx==7.3.7

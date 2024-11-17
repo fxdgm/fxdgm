@@ -1,5 +1,5 @@
 Metadata-Version: 2.1
-Name: BscElectrolyteModels
+Name: FENICSxDGM
 Version: 1.0
 Summary: A description is yet to follow
 Home-page: https://git.rwth-aachen.de/JanHab/Bsc-ElectrolyteModels
@@ -9,7 +9,7 @@ License: GNU General Public License v3.0 or later
 Keywords: fenics-project,Battery Simulation,finite element method
 Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
 Classifier: Programming Language :: Python :: 3
-Requires-Python: ==3.12.3
+Requires-Python: >=3.12.3
 Description-Content-Type: text/markdown
 License-File: LICENSE
 Requires-Dist: pyvista==0.43.10
@@ -27,9 +27,9 @@ Requires-Dist: sphinx_rtd_theme==3.0.1; extra == "docs"
 Provides-Extra: build
 Requires-Dist: build>=0.7.0; extra == "build"
 Provides-Extra: dev
-Requires-Dist: BScElectrolytemodels[tests]; extra == "dev"
-Requires-Dist: BScElectrolytemodels[docs]; extra == "dev"
-Requires-Dist: BScElectrolytemodels[build]; extra == "dev"
+Requires-Dist: FENICSxDGM[tests]; extra == "dev"
+Requires-Dist: FENICSxDGM[docs]; extra == "dev"
+Requires-Dist: FENICSxDGM[build]; extra == "dev"
 
 # Reproducibility Repository for Numerical Treatment of a Thermodynamically Consistent Electrolyte Model (B.Sc. Thesis - Jan Habscheid)
 
@@ -60,7 +60,7 @@ All the calculations were performed on a Linux machine. According to the documen
 ```
 conda create --name fenicsx-env python=3.12.3 -y
 conda activate fenicsx-env
-conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 matplotlib=3.8.4 numpy=1.26.4 scipy=1.14.0 pytest==8.3.3 -y
+conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 gcc=12.4.0 matplotlib=3.8.4 numpy=1.26.4 scipy=1.14.0 pytest==8.3.3 -y
 ```
 
 ### Alternative installation
