@@ -16,8 +16,8 @@ src/Eq04.py
 src/EqN.py
 src/Helper_DoubleLayerCapacity.py
 src/__init__.py
+tests/test_DoubleLayerCapacity.py
 tests/test_ElectrolyticDiode.py
 tests/test_Eq02.py
 tests/test_Eq04.py
 tests/test_EqN.py
-tests/test_Helper_DoubleLayerCapacity.py

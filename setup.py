@@ -10,7 +10,7 @@ setup(
     packages=["FENICSxDGM"],
     package_dir={"FENICSxDGM":"src"},
     package_data={"FENICSxDGM": ["tests/*"]},
-    python_requires=">=3.12.3",
+    python_requires=">=3.12",
     install_requires=[
         "pyvista == 0.43.10",
         "numpy == 1.26.4",
