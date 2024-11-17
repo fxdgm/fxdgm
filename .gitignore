@@ -11,3 +11,8 @@
 *egg-info/*
 # Ignore venv files
 venv
+# Ignore .eggs
+*.eggs
+FENICSxDGM.egg-info
+# Ignore build files
+build
