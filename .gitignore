@@ -13,6 +13,7 @@
 venv
 # Ignore .eggs
 *.eggs
-FENICSxDGM.egg-info
+*eggs*
+*.egg-info
 # Ignore build files
 build

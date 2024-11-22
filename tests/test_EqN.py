@@ -2,7 +2,8 @@
 Tests the EqN implementation in src.EqN.py
 '''
 
-from src.EqN import solve_System_Neq
+# from src.EqN import solve_System_Neq
+from FENICSxDGM import solve_System_Neq
 import numpy as np
 
 # Define the testing tolerance

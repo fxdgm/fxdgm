@@ -21,24 +21,39 @@ The classical Nernst-Planck model for the ion transport in an electrolyte fails 
 
 ## Installation
 
-As a numerical solver, mainly FEniCSx was used and installed via conda.
-All the calculations were performed on a Linux machine. According to the documentation, everything should work well on macOS, but this was not tested. FEniCSx offers some beta versions for Windows support, but it is recommended to use WSL2 instead.
+<!-- As a numerical solver, mainly FEniCSx was used and installed via conda.
+All the calculations were performed on a Linux machine. According to the documentation, everything should work well on macOS, but this was not tested. FEniCSx offers some beta versions for Windows support, but it is recommended to use WSL2 instead. -->
+Install the FENICSxDGM package with pip to get all the implemented functions.
 
 ```
-conda create --name fenicsx-env python=3.12.3 -y
-conda activate fenicsx-env
-conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 gcc=12.4.0 matplotlib=3.8.4 numpy=1.26.4 scipy=1.14.0 pytest==8.3.3 -y
+pip install git+https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels
 ```
 
+For the backend, FEniCSx was used and installed via conda.
+The necessery dependencies can be installed with
+
+<!-- ``` -->
+<!-- conda create --name fenicsx-env python=3.12.3 -y -->
+<!-- conda activate fenicsx-env -->
+```
+conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 gcc=12.4.0 -y
+```
+
+It is also possible to install the FEniCSx backend in a different manner. See the [FEniCSx documentation](https://fenicsproject.org/download/) for this.
+Although this installation method should work, it was not tested for the purpose of this package.
+
+<!-- 
 ### Alternative installation
 
 Use the "environment.yml" file to install all necessary environments
 
 ```
 conda env create -f environment.yml
-```
+``` -->
 
 ### macOS installation using Docker
+
+The docker installation method works for linux too. It was not tested on windows.
 
 ```
 docker compose build
@@ -47,23 +62,23 @@ docker compose run solver
 
 ### Testing
 
-Use pytest with 
+For testing clone the repository, install pytest and run the tests with
+
 ```
+pip install pytest==8.3.3
 python -m pytest
 ```
-
-to verify that everything was installed correctly.
 
 
 ## Usage
 
-Find the visualizations from the thesis and some extra calculations in the "examples" folder.
+Find the pacakge source code in "src".
+This implements the nonlinear electrolyte model.
+
+Furthermore, some phsyical examples are provided in the "examples" folder.
 In the subfolder "ReproducableCode" is the code, to execute the calculations with some first visualizations.
 The subfolder "Data" stores the data for all the simulations in a *.npz file, which can be read with numpy `np.load(file.npz)`.
-"Visualizations" creates the necessary figures from the thesis and stores them in *.svg format in "Figures".
-
-In "src" there are the generic FEniCSx implementations, that were used to calculate the examples.
-
+"Visualizations" creates the necessary figures from the thesis and stores them either in *.svg or *.pdf format in "Figures".
 
 ## Contact
 

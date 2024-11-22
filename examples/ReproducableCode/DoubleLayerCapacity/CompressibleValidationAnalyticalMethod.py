@@ -7,21 +7,8 @@ This script is used to validate the analytical method for the calculation of the
 # ! Problems, if solvation != 0. Further investigation is needed.
 '''
 
-# import the src file needed to solve the system of equations
-import sys
-import os
-
-# Add the src directory to the sys.path
-src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../../', 'src')
-sys.path.insert(0, src_path)
-
-from Eq04 import solve_System_4eq
-from Eq02 import solve_System_2eq
-from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_num_dim, Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
-
-
-# Remove the src directory from sys.path after import
-del sys.path[0]
+# import the needed functions from the FENICSxDGM module
+from FENICSxDGM import solve_System_4eq, Phi_pot_center, C_dl, n, Q_num_, Q_num_dim, Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
 
 # Import plotting library
 import matplotlib.pyplot as plt
