@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Reproducibility Repository for: Numerical Treatment of a Thermodynamically Consistent Electrolyte Model'
+project = 'FENICSxDGM'
 copyright = '2024, Jan Habscheid'
 author = 'Jan Habscheid'
 release = 'September, 2024'
