@@ -1,15 +1,15 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="FENICSxDGM",
+    name="fxdgm",
     version="1.0",
     description="A description is yet to follow",
     url="https://git.rwth-aachen.de/JanHab/Bsc-ElectrolyteModels",
     author="Jan Habscheid, Lambert Theisen, Manuel Torrilhon",
     author_email="Jan.Habscheid@rwth-aachen.de, lambert.theisen@rwth-aachen.de, mt@mathcces.rwth-aachen.de",
-    packages=["FENICSxDGM"],
-    package_dir={"FENICSxDGM":"src"},
-    package_data={"FENICSxDGM": ["tests/*"]},
+    packages=["fxdgm"],
+    package_dir={"fxdgm":"src"},
+    package_data={"fxdgm": ["tests/*"]},
     python_requires=">=3.12",
     install_requires=[
         "pyvista == 0.43.10",

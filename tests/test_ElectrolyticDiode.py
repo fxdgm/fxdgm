@@ -3,7 +3,7 @@ Tests the ElectrolyticDiode implementation in src.ElectrolyticDiode.py
 '''
 
 # from src.ElectrolyticDiode import ElectrolyticDiode
-from FENICSxDGM import ElectrolyticDiode
+from fxdgm import ElectrolyticDiode
 import numpy as np
 
 # Define the testing tolerance

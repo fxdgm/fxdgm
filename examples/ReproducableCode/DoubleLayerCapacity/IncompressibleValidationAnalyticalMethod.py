@@ -7,8 +7,8 @@ This script is used to validate the analytical method for the calculation of the
 # ! Problems, if solvation != 0. Further investigation is needed.
 '''
 
-# import the needed functions from the FENICSxDGM module
-from FENICSxDGM import solve_System_4eq, Phi_pot_center, C_dl, n, Q_num_, Q_num_dim, Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
+# import the needed functions from the fxdgm module
+from fxdgm import solve_System_4eq, Phi_pot_center, C_dl, n, Q_num_, Q_num_dim, Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
 
 # Import plotting library
 import matplotlib.pyplot as plt

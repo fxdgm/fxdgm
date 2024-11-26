@@ -5,8 +5,8 @@ Jan.Habscheid@rwth-aachen.de
 This script simulates mixture C from the thesis
 '''
 
-# import the needed functions from the FENICSxDGM module
-from FENICSxDGM import solve_System_Neq
+# import the needed functions from the fxdgm module
+from fxdgm import solve_System_Neq
 
 # Further imports
 import matplotlib.pyplot as plt

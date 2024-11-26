@@ -16,7 +16,7 @@ Import the necessary libraries
 
 .. code-block:: python
 
-    from FENICSxDGM import solve_System_4eq
+    from fxdgm import solve_System_4eq
 
     import matplotlib.pyplot as plt
     import numpy as np

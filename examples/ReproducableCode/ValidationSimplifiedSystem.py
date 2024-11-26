@@ -5,8 +5,8 @@ Jan.Habscheid@rwth-aachen.de
 This script is used to validate the simplification of the system of four equations to a system of two equations in the one-dimensional equilibrium case.
 '''
 
-# import the needed functions from the FENICSxDGM module
-from FENICSxDGM import solve_System_4eq, solve_System_2eq
+# import the needed functions from the fxdgm module
+from fxdgm import solve_System_4eq, solve_System_2eq
 
 # Further imports
 import matplotlib.pyplot as plt

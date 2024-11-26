@@ -5,8 +5,8 @@ Jan.Habscheid@rwth-aachen.de
 This script is used to compare the thermodynamically consistent model, proposed by Dreyer, Guhlke and Müller, against the classical Nernst-Plank model with the Poisson-Boltzmann formulation.
 '''
 
-# import the needed functions from the FENICSxDGM module
-from FENICSxDGM import solve_System_4eq
+# import the needed functions from the fxdgm module
+from fxdgm import solve_System_4eq
 
 # Further imports
 import matplotlib.pyplot as plt

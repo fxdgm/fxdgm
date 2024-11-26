@@ -3,7 +3,7 @@ Tests the Helpfer functions implemented in src.Helper_DoubleLayerCapacity.py
 '''
 
 # from src.Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_num_dim, Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
-from FENICSxDGM import Phi_pot_center, dx, C_dl, n, Q_num_, Q_num_dim, Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana, solve_System_4eq
+from fxdgm import Phi_pot_center, dx, C_dl, n, Q_num_, Q_num_dim, Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana, solve_System_4eq
 # from src.Eq04 import solve_System_4eq
 # from src.Eq02 import solve_System_2eq
 import numpy as np

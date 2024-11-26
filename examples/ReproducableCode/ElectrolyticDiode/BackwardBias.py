@@ -5,8 +5,8 @@ Jan.Habscheid@rwth-aachen.de
 Solve the electrolitic diode for the backward bias case
 
 '''
-# import the needed functions from the FENICSxDGM module
-from FENICSxDGM import ElectrolyticDiode
+# import the needed functions from the fxdgm module
+from fxdgm import ElectrolyticDiode
 
 # Import plotting library
 import matplotlib.pyplot as plt

@@ -1,4 +1,4 @@
-# FENICSxDGM
+# fxdgm
 
 [![Pipeline Status](https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/badges/main/pipeline.svg)](https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/pipelines)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://janhab.pages.rwth-aachen.de/bsc-electrolytemodels/)
@@ -29,7 +29,7 @@ The system, which is solved, refers to the original work, [Overcoming the shortc
 
 <!-- As a numerical solver, mainly FEniCSx was used and installed via conda.
 All the calculations were performed on a Linux machine. According to the documentation, everything should work well on macOS, but this was not tested. FEniCSx offers some beta versions for Windows support, but it is recommended to use WSL2 instead. -->
-Install the FENICSxDGM package with pip to get all the implemented functions.
+Install the fxdgm package with pip to get all the implemented functions.
 
 ```
 pip install git+https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels

@@ -5,8 +5,8 @@ Jan.Habscheid@rwth-aachen.de
 This script is used to calculate some first results for the incompressible, ternary electrolyte.
 '''
 
-# import the needed functions from the FENICSxDGM module
-from FENICSxDGM import solve_System_4eq
+# import the needed functions from the fxdgm module
+from fxdgm import solve_System_4eq
 
 # Further imports
 import matplotlib.pyplot as plt

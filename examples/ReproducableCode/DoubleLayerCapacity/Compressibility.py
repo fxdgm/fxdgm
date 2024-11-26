@@ -7,8 +7,8 @@ This script is used to analyze the influence of the compressibility on the charg
 # ! Efforts were made to simplify this similar to the incompressible case. However, this seems not to be robust, yet. Further investigation is needed. This is why it is solved numerically for now.
 '''
 
-# import the needed functions from the FENICSxDGM module
-from FENICSxDGM import Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
+# import the needed functions from the fxdgm module
+from fxdgm import Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
 
 # Import plotting library
 import matplotlib.pyplot as plt

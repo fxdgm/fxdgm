@@ -1,4 +1,4 @@
-FENICSxDGM
+fxdgm
 ==========
 
 .. image:: https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/badges/main/pipeline.svg
@@ -33,7 +33,7 @@ Main Features
 
 Installation
 ============
-| Install the FENICSxDGM package with pip to get all the implemented functions.
+| Install the fxdgm package with pip to get all the implemented functions.
 
 .. code-block:: 
    

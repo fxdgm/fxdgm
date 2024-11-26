@@ -5,8 +5,8 @@ Jan.Habscheid@rwth-aachen.de
 This script is used to analyze the influence of the dimensionless parameter λ on the charge of the system and the double-layer capacity.
 '''
 
-# import the needed functions from the FENICSxDGM module
-from FENICSxDGM import Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
+# import the needed functions from the fxdgm module
+from fxdgm import Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
 
 # Import plotting library
 import matplotlib.pyplot as plt

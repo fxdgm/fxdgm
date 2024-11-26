@@ -3,7 +3,7 @@ Tests the Eq02 implementation in src.Eq02.py
 '''
 
 # from src.Eq02 import solve_System_2eq
-from FENICSxDGM import solve_System_2eq
+from fxdgm import solve_System_2eq
 import numpy as np
 
 # Define the testing tolerance

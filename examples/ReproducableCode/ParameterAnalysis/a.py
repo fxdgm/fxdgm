@@ -2,8 +2,8 @@
 Jan Habscheid
 Jan.Habscheid@rwth-aachen.de
 '''
-# import the needed functions from the FENICSxDGM module
-from FENICSxDGM import solve_System_4eq
+# import the needed functions from the fxdgm module
+from fxdgm import solve_System_4eq
 
 # Import plotting library
 import matplotlib.pyplot as plt

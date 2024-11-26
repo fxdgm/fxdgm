@@ -6,8 +6,8 @@ This script is used to validate the implemetation with:
 Wolfgang Dreyer, Clemens Guhlke, and Rüdiger Müller. Bulk-surface electrothermodynamics and applications to electrochemistry. Entropy, 20(12), 2018
 '''
 
-# import the needed functions from the FENICSxDGM module
-from FENICSxDGM import solve_System_4eq, solve_System_2eq
+# import the needed functions from the fxdgm module
+from fxdgm import solve_System_4eq, solve_System_2eq
 
 # Further imports
 import matplotlib.pyplot as plt

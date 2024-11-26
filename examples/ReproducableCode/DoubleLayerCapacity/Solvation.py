@@ -5,7 +5,7 @@ Jan.Habscheid@rwth-aachen.de
 This script is used to analyze the influence of the solvation on the charge of the system and the double-layer capacity.
 '''
 
-from FENICSxDGM import solve_System_4eq, Phi_pot_center, C_dl, n, Q_num_, Q_num_dim
+from fxdgm import solve_System_4eq, Phi_pot_center, C_dl, n, Q_num_, Q_num_dim
 
 # Import plotting library
 import matplotlib.pyplot as plt
