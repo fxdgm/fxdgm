@@ -13,45 +13,7 @@ from dolfinx.nls.petsc import NewtonSolver
 from ufl import TestFunctions, split, dot, grad, dx, inner, ln, Mesh
 from basix.ufl import element, mixed_element
 import matplotlib.pyplot as plt
-
-# Define mesh
-def create_refined_mesh(refinement_style:str, number_cells:int) -> Mesh:
-    '''
-    Creates a one-dimensional mesh with a refined region at the left boundary
-
-    Parameters
-    ----------
-    refinement_style : str
-        How the mesh should be refined. Options are 'log', 'hard_log', 'hard_hard_log'
-    number_cells : int
-        Number of cells in the mesh
-
-    Returns
-    -------
-    Mesh
-        One-dimensional mesh, ready for use in FEniCSx
-    '''
-    if refinement_style == 'log':
-        coordinates_np = (np.logspace(0, 1, number_cells+1) - 1) / 9
-    elif refinement_style == 'hard_log':
-        coordinates_np1 = (np.logspace(0,1,int(number_cells*0.9)+1,endpoint=False)-1)/9 * 0.1
-        coordinates_np2 = 0.1 + (np.logspace(0,1,int(number_cells*0.1)+1)-1)/9 * 0.9
-        coordinates_np = np.concatenate((coordinates_np1, coordinates_np2), axis=0)
-    elif refinement_style == 'hard_hard_log':
-        coordinates_np1 = (np.logspace(0,1,int(number_cells*0.9)+1,endpoint=False)-1)/9 * 0.004
-        coordinates_np2 = 0.004 + (np.logspace(0,1,int(number_cells*0.1)+1)-1)/9 * 0.996
-        coordinates_np = np.concatenate((coordinates_np1, coordinates_np2), axis=0)
-    num_vertices = len(coordinates_np)
-    num_cells = num_vertices - 1
-    cells_np = np.column_stack((np.arange(num_cells), np.arange(1, num_cells+1)))
-    gdim = 1
-    shape = 'interval' # 'interval', 'triangle', 'quadrilateral', 'tetrahedron', 'hexahedron'
-    degree = 1
-    domain = Mesh(element("Lagrange", shape, 1, shape=(1,)))
-    coordinates_np_ = []
-    [coordinates_np_.append([coord]) for coord in coordinates_np]
-    msh = mesh.create_mesh(MPI.COMM_WORLD, cells_np, coordinates_np_, domain)
-    return msh
+from RefinedMesh1D import create_refined_mesh
 
 def solve_System_Neq(phi_left:float, phi_right:float, p_right:float, z_alpha:list, y_R:list, K:float|str, Lambda2:float, a2:float, number_cells:int, solvation:float = 0, PoissonBoltzmann:bool=False, relax_param:float=None, x0:float=0, x1:float=1, refinement_style:str='uniform', return_type:str='Vector', rtol:float=1e-8, max_iter:float=500):
     '''
