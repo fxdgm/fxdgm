@@ -55,7 +55,7 @@ test:
 pages:
   stage: deploy
   dependencies:
-  - prepare
+  - build-docs
   image:
     name: $CI_REGISTRY_IMAGE:latest
     entrypoint: [""]
