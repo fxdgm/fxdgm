@@ -28,7 +28,7 @@ refinement_style = 'uniform'
 solvation = 5
 PoissonBoltzmann = False
 rtol = 1e-3
-relax_param = 0.1
+relax_param = 0.08
 max_iter = 1_000
     
 

@@ -13,7 +13,7 @@ from dolfinx.nls.petsc import NewtonSolver
 from ufl import TestFunctions, split, dot, grad, dx, inner, Mesh, exp
 from basix.ufl import element, mixed_element
 import matplotlib.pyplot as plt
-from RefinedMesh1D import create_refined_mesh
+from src.RefinedMesh1D import create_refined_mesh
 
 
 def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, z_C:float, y_A_R:float, y_C_R:float, K:float|str, Lambda2:float, a2:float, number_cells:int, solvation:float = 0, PoissonBoltzmann:bool=False, relax_param:float=None, x0:float=0, x1:float=1, refinement_style:str='uniform', return_type:str='Scalar', rtol:float=1e-8, max_iter:float=500):
