@@ -12,8 +12,8 @@ fxdgm
 
 *A nonlinear, mixed finite element solver for the DGM electrolyte model*
 
-.. .. image:: ../../media/logo.png
-..    :width: 300px
+.. image:: ../../media/logo.svg
+   :width: 300px
 
 Physical Background
 ===================

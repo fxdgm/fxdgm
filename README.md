@@ -8,6 +8,8 @@
 
 *A nonlinear, mixed finite element solver for the DGM electrolyte model*
 
+![](media/logo.svg)
+
 ## Physical Background
 
 The system, which is solved, refers to the original work, [Overcoming the shortcomings of the Nernst–Planck model](https://doi.org/10.1039/C3CP44390F), from Wolfgang Dreyer, Clemens Guhlke and Rüdiger Müller in 2013.\
