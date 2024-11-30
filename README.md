@@ -8,7 +8,7 @@
 
 *A nonlinear, mixed finite element solver for the DGM electrolyte model*
 
-![](media/logo.svg | width=50)
+<img src="media/logo.svg" alt="Logo" width="200" />
 
 ## Physical Background
 
