@@ -1,7 +1,5 @@
-'''
-Jan Habscheid
-Jan.Habscheid@rwth-aachen.de
-'''
+# Jan Habscheid
+# Jan.Habscheid@rwth-aachen.de
 
 import numpy as np
 from scipy.optimize import fixed_point, fsolve

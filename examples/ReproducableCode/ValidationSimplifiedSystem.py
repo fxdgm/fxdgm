@@ -5,19 +5,8 @@ Jan.Habscheid@rwth-aachen.de
 This script is used to validate the simplification of the system of four equations to a system of two equations in the one-dimensional equilibrium case.
 '''
 
-# import the src file needed to solve the system of equations
-import sys
-import os
-
-# Add the src directory to the sys.path
-src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', 'src')
-sys.path.insert(0, src_path)
-
-from Eq04 import solve_System_4eq
-from Eq02 import solve_System_2eq
-
-# Remove the src directory from sys.path after import
-del sys.path[0]
+# import the needed functions from the fxdgm module
+from fxdgm import solve_System_4eq, solve_System_2eq
 
 # Further imports
 import matplotlib.pyplot as plt

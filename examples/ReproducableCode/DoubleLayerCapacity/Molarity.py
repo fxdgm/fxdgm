@@ -5,18 +5,8 @@ Jan.Habscheid@rwth-aachen.de
 This script is used to analyze the influence of the molarity on the charge of the system and the double-layer capacity.
 '''
 
-# import the src file needed to solve the system of equations
-import sys
-import os
-
-# Add the src directory to the sys.path
-src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..', 'src')
-sys.path.insert(0, src_path)
-
-from Helper_DoubleLayerCapacity import Phi_pot_center, dx, C_dl, n, Q_num_, Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
-
-# Remove the src directory from sys.path after import
-del sys.path[0]
+# import the needed functions from the fxdgm module
+from fxdgm import Q_DL_dimless_ana, Q_DL_dim_ana, C_DL_dimless_ana, C_DL_dim_ana
 
 # Import plotting library
 import matplotlib.pyplot as plt

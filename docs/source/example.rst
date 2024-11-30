@@ -1,24 +1,22 @@
 Example
 =======
 
-|  In this example, we are going to solve the thermodynamically consistent electrolyte model for a incompressible, ternary electrolyte, as it is done in "examples/ReproducableCode/TernaryElectrolyte.py"
+|  In this example, we are going to solve the thermodynamically consistent electrolyte model for a incompressible, ternary electrolyte, as it is done in `https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads>`_.
 
-| The code will work if executed in the examples/ReproducableCode folder, as the TernaryElectrolyte.py file is located in the same folder
-
-Import FEniCSx implementation and necessary libraries
------------------------------------------------------
+Install the package and necessary libraries
+-------------------------------------------
 
 .. code-block:: python
 
-    import sys
-    import os
+    pip install git+https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels
+    conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 gcc=12.4.0 -y
 
-    src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', 'src')
-    sys.path.insert(0, src_path)
+Import the necessary libraries
+-------------------------------------------
 
-    from Eq04 import solve_System_4eq
+.. code-block:: python
 
-    del sys.path[0]
+    from fxdgm import solve_System_4eq
 
     import matplotlib.pyplot as plt
     import numpy as np

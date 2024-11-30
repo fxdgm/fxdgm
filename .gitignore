@@ -4,6 +4,11 @@
 *.ipynb_checkpoints
 # ignore python cache
 *__pycache__*
+*.__pycache__
+*test/__pycache__
+*fxdgm/__pycache__
+*examples/__pycache__
+*examples/ReproduableCode/__pycache__
 *.pytest_cache*
 # ignore Sphinx documentation output
 *docs/build
@@ -11,3 +16,9 @@
 *egg-info/*
 # Ignore venv files
 venv
+# Ignore .eggs
+*.eggs
+*eggs*
+*.egg-info
+# Ignore build files
+build

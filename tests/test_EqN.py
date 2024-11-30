@@ -1,8 +1,9 @@
 ''' 
-Tests the EqN implementation in src.EqN.py
+Tests the EqN implementation in fxdgm.EqN.py
 '''
 
-from src.EqN import solve_System_Neq
+# from fxdgm.EqN import solve_System_Neq
+from fxdgm import solve_System_Neq
 import numpy as np
 
 # Define the testing tolerance
