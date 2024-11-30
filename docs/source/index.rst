@@ -84,7 +84,7 @@ Testing
 Usage
 =====
 
-| Find the package source code in `src <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/tree/main/src?ref_type=heads>`_
+| Find the package source code in `fxdgm <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/tree/main/fxdgm?ref_type=heads>`_
 | This implements the nonlinear electrolyte model.
 
 | Furthermore, some physical examples are provided in the `examples <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/tree/main/examples?ref_type=heads>`_ folder.
