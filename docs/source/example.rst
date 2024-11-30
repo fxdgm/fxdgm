@@ -1,14 +1,14 @@
 Example
 =======
 
-|  In this example, we are going to solve the thermodynamically consistent electrolyte model for a incompressible, ternary electrolyte, as it is done in `https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads>`_.
+|  In this example, we are going to solve the thermodynamically consistent electrolyte model for a incompressible, ternary electrolyte, as it is done in `https://git.rwth-aachen.de/JanHab/fxdgm/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads <https://git.rwth-aachen.de/JanHab/fxdgm/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads>`_.
 
 Install the package and necessary libraries
 -------------------------------------------
 
 .. code-block:: python
 
-    pip install git+https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels
+    pip install git+https://git.rwth-aachen.de/JanHab/fxdgm
     conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 gcc=12.4.0 -y
 
 Import the necessary libraries

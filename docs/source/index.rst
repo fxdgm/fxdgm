@@ -1,14 +1,14 @@
 fxdgm
 =====
 
-.. image:: https://git.rwth-aachen.de/Jan.Habscheid/bsc-electrolytemodels/badges/main/pipeline.svg
-   :target: https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/pipelines
+.. image:: https://git.rwth-aachen.de/Jan.Habscheid/fxdgm/badges/main/pipeline.svg
+   :target: https://git.rwth-aachen.de/JanHab/fxdgm/pipelines
 .. image:: https://img.shields.io/badge/docs-latest-blue
-   :target: https://janhab.pages.rwth-aachen.de/bsc-electrolytemodels/
+   :target: https://janhab.pages.rwth-aachen.de/fxdgm/
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.13645296.svg
    :target: https://doi.org/10.5281/zenodo.13645296
 .. image:: https://img.shields.io/badge/version-1.0-blue.svg
-   :target: https://git.rwth-aachen.de/janhab/bsc-electrolytemodels/-/tags
+   :target: https://git.rwth-aachen.de/janhab/fxdgm/-/tags
 
 *A nonlinear, mixed finite element solver for the DGM electrolyte model*
 
@@ -33,13 +33,13 @@ Main Features
 
 - Local mesh refinement for one-dimensional domains towards the electrode
 
-- `Testcases <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/tree/main/tests?ref_type=heads>`_ for the one-dimensional case or the two-dimensional electrolytic diode
+- `Testcases <https://git.rwth-aachen.de/JanHab/fxdgm/-/tree/main/tests?ref_type=heads>`_ for the one-dimensional case or the two-dimensional electrolytic diode
 
-- Solutions for the `Double-Layer Capacity <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/tree/main/examples/ReproducableCode/DoubleLayerCapacity?ref_type=heads>`_, both numerical and analytical
+- Solutions for the `Double-Layer Capacity <https://git.rwth-aachen.de/JanHab/fxdgm/-/tree/main/examples/ReproducableCode/DoubleLayerCapacity?ref_type=heads>`_, both numerical and analytical
 
-- `Numerical Convergence <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/blob/main/examples/ReproducableCode/Convergence.py?ref_type=heads>`_ with relaxation parameter for newtons method
+- `Numerical Convergence <https://git.rwth-aachen.de/JanHab/fxdgm/-/blob/main/examples/ReproducableCode/Convergence.py?ref_type=heads>`_ with relaxation parameter for newtons method
 
-- Two-dimensional testcases for the example of the `electrolytic diode <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/tree/main/examples/ReproducableCode/ElectrolyticDiode?ref_type=heads>`_
+- Two-dimensional testcases for the example of the `electrolytic diode <https://git.rwth-aachen.de/JanHab/fxdgm/-/tree/main/examples/ReproducableCode/ElectrolyticDiode?ref_type=heads>`_
 
 
 Installation
@@ -48,7 +48,7 @@ Installation
 
 .. code-block:: 
    
-   pip install git+https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels
+   pip install git+https://git.rwth-aachen.de/JanHab/fxdgm
 
 | For the backend, FEniCSx was used and installed via conda.
 | The necessary dependencies can be installed with
@@ -84,13 +84,13 @@ Testing
 Usage
 =====
 
-| Find the package source code in `fxdgm <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/tree/main/fxdgm?ref_type=heads>`_
+| Find the package source code in `fxdgm <https://git.rwth-aachen.de/JanHab/fxdgm/-/tree/main/fxdgm?ref_type=heads>`_
 | This implements the nonlinear electrolyte model.
 
-| Furthermore, some physical examples are provided in the `examples <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/tree/main/examples?ref_type=heads>`_ folder.
-| In the subfolder `ReproducableCode <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/tree/main/examples/ReproducableCode?ref_type=heads>`_ is the code, to execute the calculations with some first visualizations.
-| The subfolder `Data <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/tree/main/examples/Data?ref_type=heads>`_ stores the data for all the simulations in a \*.npz file, which can be read with numpy `np.load(file.npz)`.
-| `visualizations <https://git.rwth-aachen.de/JanHab/bsc-electrolytemodels/-/tree/main/examples/Visualizations?ref_type=heads>`_ creates the necessary figures from the thesis and stores them either in \*.svg or \*.pdf format in "Figures".
+| Furthermore, some physical examples are provided in the `examples <https://git.rwth-aachen.de/JanHab/fxdgm/-/tree/main/examples?ref_type=heads>`_ folder.
+| In the subfolder `ReproducableCode <https://git.rwth-aachen.de/JanHab/fxdgm/-/tree/main/examples/ReproducableCode?ref_type=heads>`_ is the code, to execute the calculations with some first visualizations.
+| The subfolder `Data <https://git.rwth-aachen.de/JanHab/fxdgm/-/tree/main/examples/Data?ref_type=heads>`_ stores the data for all the simulations in a \*.npz file, which can be read with numpy `np.load(file.npz)`.
+| `visualizations <https://git.rwth-aachen.de/JanHab/fxdgm/-/tree/main/examples/Visualizations?ref_type=heads>`_ creates the necessary figures from the thesis and stores them either in \*.svg or \*.pdf format in "Figures".
 
 Contact
 =======
