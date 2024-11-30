@@ -1,10 +1,10 @@
 # fxdgm
 
-[![Pipeline Status](https://git.rwth-aachen.de/Jan.Habscheid/fxdgm/badges/main/pipeline.svg)](https://git.rwth-aachen.de/Jan.Habscheid/fxdgm/pipelines)
+[![Pipeline Status](https://git.rwth-aachen.de/janhab/fxdgm/badges/main/pipeline.svg)](https://git.rwth-aachen.de/janhab/fxdgm/pipelines)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://janhab.pages.rwth-aachen.de/fxdgm/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13645296.svg)](https://doi.org/10.5281/zenodo.13645296)
-[![GitLab Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://git.rwth-aachen.de/jan.habscheid/fxdgm/-/tags)
-[![License](https://img.shields.io/badge/license-GPLv3-blue)](https://git.rwth-aachen.de/Jan.Habscheid/fxdgm/-/blob/main/LICENSE?ref_type=heads)
+[![GitLab Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://git.rwth-aachen.de/janhab/fxdgm/-/tags)
+[![License](https://img.shields.io/badge/license-GPLv3-blue)](https://git.rwth-aachen.de/janhab/fxdgm/-/blob/main/LICENSE?ref_type=heads)
 
 *A nonlinear, mixed finite element solver for the DGM electrolyte model*
 

@@ -1,7 +1,7 @@
 fxdgm
 =====
 
-.. image:: https://git.rwth-aachen.de/Jan.Habscheid/fxdgm/badges/main/pipeline.svg
+.. image:: https://git.rwth-aachen.de/janhab/fxdgm/badges/main/pipeline.svg
    :target: https://git.rwth-aachen.de/JanHab/fxdgm/pipelines
 .. image:: https://img.shields.io/badge/docs-latest-blue
    :target: https://janhab.pages.rwth-aachen.de/fxdgm/
