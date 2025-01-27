@@ -82,3 +82,8 @@ for line in lgnd.get_lines():
 fig.tight_layout()
 fig.savefig('../Figures/Shortcomings_NP_DGM.svg', bbox_inches='tight')
 fig.show()
+
+
+
+# Save the data
+np.savez('../Data/Shortcomings_NP.npz', phi_R=phi_R, p_R=p_R, y_A_R=y_A_R, y_C_R=y_C_R, K=K, Lambda2=Lambda2, a2=a2, number_cells=number_cells, relax_param=relax_param, DeltaPhi=DeltaPhi, y_A_Dreyer=y_A_Dreyer, x_Dreyer=x_Dreyer, y_A_NP=y_A_NP, x_NP=x_NP)

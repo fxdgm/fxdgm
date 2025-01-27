@@ -22,3 +22,8 @@ venv
 *.egg-info
 # Ignore build files
 build
+# Ignore lyx temp files
+*.lyx~
+*.lyx#
+# Ignore .DS_Store
+.DS_Store
