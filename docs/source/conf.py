@@ -11,11 +11,11 @@ copyright = '2024, Jan Habscheid'
 author = 'Jan Habscheid'
 release = 'September, 2024'
 
-# Add src folder to path
+# Add fxdgm folder to path
 import os
 import sys
-sys.path.insert(0, os.path.abspath(os.path.join("..", "../src")))
-sys.path.insert(0, os.path.abspath('../src'))
+sys.path.insert(0, os.path.abspath(os.path.join("..", "../fxdgm")))
+sys.path.insert(0, os.path.abspath('../fxdgm'))
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

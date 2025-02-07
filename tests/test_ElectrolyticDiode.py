@@ -1,8 +1,8 @@
 ''' 
-Tests the ElectrolyticDiode implementation in src.ElectrolyticDiode.py
+Tests the ElectrolyticDiode implementation in fxdgm.ElectrolyticDiode.py
 '''
 
-# from src.ElectrolyticDiode import ElectrolyticDiode
+# from fxdgm.ElectrolyticDiode import ElectrolyticDiode
 from fxdgm import ElectrolyticDiode
 import numpy as np
 

@@ -1,8 +1,8 @@
 ''' 
-Tests the Eq04 implementation in src.Eq04.py
+Tests the Eq04 implementation in fxdgm.Eq04.py
 '''
 
-# from src.Eq04 import solve_System_4eq
+# from fxdgm.Eq04 import solve_System_4eq
 from fxdgm import solve_System_4eq
 import numpy as np
 

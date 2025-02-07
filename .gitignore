@@ -6,7 +6,7 @@
 *__pycache__*
 *.__pycache__
 *test/__pycache__
-*src/__pycache__
+*fxdgm/__pycache__
 *examples/__pycache__
 *examples/ReproduableCode/__pycache__
 *.pytest_cache*
@@ -22,3 +22,8 @@ venv
 *.egg-info
 # Ignore build files
 build
+# Ignore lyx temp files
+*.lyx~
+*.lyx#
+# Ignore .DS_Store
+.DS_Store
