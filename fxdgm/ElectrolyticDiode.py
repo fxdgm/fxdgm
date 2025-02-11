@@ -337,7 +337,7 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
     else:
         raise ValueError('Invalid return_type')
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover # dont cover main in coverage
     phi_bias = 10#10
     Bias_type = 'ForwardBias' # 'ForwardBias', 'NoBias', 'BackwardBias'
     g_phi = 350#5
