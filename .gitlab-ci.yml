@@ -50,7 +50,7 @@ test:
     - docker
   script:
     # - python -m pytest # Run the tests
-    - pytest --cov=fxdgm --cov-report=xml --cov-report=term-missing tests/ # Run the tests and store coverage 
+    -  pytest --cov=fxdgm --cov-report=term --cov-report=html tests/ # Run the tests and store coverage 
   artifacts:
     paths:
       - coverage.xml # Save the coverage report
