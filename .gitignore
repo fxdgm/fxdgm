@@ -12,6 +12,9 @@
 *.pytest_cache*
 # ignore Sphinx documentation output
 *docs/build
+# Ignore coverage files
+.coverage
+htmlcov
 # Ignore pip folder
 *egg-info/*
 # Ignore venv files

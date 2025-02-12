@@ -1,5 +1,5 @@
 # Start with a base image that includes conda
-FROM continuumio/miniconda3
+FROM continuumio/miniconda3:latest
 
 # Set environment variables
 ENV CONDA_DEFAULT_ENV=base
@@ -7,15 +7,14 @@ ENV PATH /opt/conda/envs/${CONDA_DEFAULT_ENV}/bin:$PATH
 ENV HOME /root
 
 # Create the environment and install packages
+# RUN conda install -n ${CONDA_DEFAULT_ENV} python=3.11.8 -y
 # FEniCSx backend + documentation and testing dependencies
-RUN conda install -n ${CONDA_DEFAULT_ENV} -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 gcc=12.4.0 sphinx=7.3.7 myst-parser=4.0.0 sphinx-copybutton=0.5.2 sphinx-rtd-theme=3.0.1 pytest==8.3.3 pytest-cov==6.0.0 -y
-# fxdgm package from git
+RUN conda install -n ${CONDA_DEFAULT_ENV} -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 gcc=12.4.0 sphinx=7.3.7 myst-parser=4.0.0 sphinx-copybutton=0.5.2 sphinx-rtd-theme=3.0.1 pytest=8.3.3 pytest-cov=6.0.0 sqlite=3.41.2 -y
 
 # Activate environment
 # SHELL ["conda", "run", "-n", "fenicsx-env", "/bin/bash", "-c"]
 
 WORKDIR /root
-# WORKDIR /solver
 
 ADD . /fxdgm
 RUN pip install --editable /fxdgm/.
