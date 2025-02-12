@@ -242,7 +242,7 @@ def solve_System_2eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         
         return y_A_vals, y_C_vals, phi_vals, p_vals, x_vals
     
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover # dont cover main in coverage
     # Define the parameters
     phi_left = 5.0
     phi_right = 0.0

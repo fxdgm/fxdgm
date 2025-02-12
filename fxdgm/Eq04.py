@@ -274,7 +274,7 @@ def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
         return y_A, y_C, phi, p, msh
     
     
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover # dont cover main in coverage
     # Define the parameters
     phi_left = 10.0
     phi_right = 0.0

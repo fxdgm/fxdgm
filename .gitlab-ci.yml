@@ -49,7 +49,13 @@ test:
   tags:
     - docker
   script:
-    - python -m pytest # Run the tests
+    -  pytest --cov=fxdgm --cov-report=term --cov-report=html tests/ # Run the tests and store coverage 
+  artifacts:
+    paths:
+      - htmlcov # Save the coverage report
+    expire_in: 12 month  # Optional: Set how long to keep the artifacts (default: 30 days)
+  coverage: '/^TOTAL.*\s+(\d+\%)$/'
+
   
 # Job to deploy documentation to GitLab Pages
 pages:

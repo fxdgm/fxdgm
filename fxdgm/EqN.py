@@ -238,7 +238,7 @@ def solve_System_Neq(phi_left:float, phi_right:float, p_right:float, z_alpha:lis
         return y, phi, p, x
     
     
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover # dont cover main in coverage
     # Define the parameters
     phi_left = 8.0
     phi_right = 0.0
