@@ -62,6 +62,7 @@ pages:
   stage: deploy
   dependencies:
   - build-docs
+  - test
   image:
     name: $CI_REGISTRY_IMAGE:latest
     entrypoint: [""]
@@ -69,6 +70,7 @@ pages:
     - docker
   script:
     - mv docs/build public  # Move the build output to the "public" directory
+    - mv htmlcov public  # Move the coverage report to the "public" directory
   artifacts:
     paths:
       - public  # Files in the "public" folder will be deployed to GitLab Pages
