@@ -2,7 +2,7 @@
 
 [![Pipeline Status](https://git.rwth-aachen.de/janhab/fxdgm/badges/main/pipeline.svg)](https://git.rwth-aachen.de/janhab/fxdgm/pipelines)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://janhab.pages.rwth-aachen.de/fxdgm/)
-[![coverage report](https://git.rwth-aachen.de/JanHab/fxdgm/badges/main/coverage.https://janhab.pages.rwth-aachen.de/fxdgm/htmlcov/)
+[![coverage report](https://git.rwth-aachen.de/JanHab/fxdgm/badges/main/coverage)](https://janhab.pages.rwth-aachen.de/fxdgm/htmlcov/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13645296.svg)](https://doi.org/10.5281/zenodo.13645296)
 [![GitLab Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://git.rwth-aachen.de/janhab/fxdgm/-/tags)
 [![License](https://img.shields.io/badge/license-GPLv3-blue)](https://git.rwth-aachen.de/janhab/fxdgm/-/blob/main/LICENSE?ref_type=heads)
