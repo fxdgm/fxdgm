@@ -24,7 +24,7 @@ max_iter = 10_000
 
 # Define left values of electric potential and values for lambda^2
 phi_left_vec = [1.0, 4.0, 8.0]
-Lambda2_vec = [10e-4, 10e-5, 10e-6]# ! [8.553e-5, 8.553e-6, 8.553e-7]
+Lambda2_vec = [1e-4, 1e-5, 1e-6]# ! [8.553e-5, 8.553e-6, 8.553e-7]
 y_A, y_C, y_S, phi, p, x = [], [], [], [], [], []
 
 # Solve the system for different values of phi_left
