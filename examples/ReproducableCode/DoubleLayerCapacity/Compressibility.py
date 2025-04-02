@@ -32,8 +32,6 @@ kappa = 0
 Molarity = 0.01
 z_A, z_C = -1.0, 1.0
 
-# K_vec = ['incompressible', 100_000, 50_000, 20_000] #15_000, 5_000, 1_500, 500]
-K_vec = ['incompressible', 15_000, 1_500, 500]
 Lambda2 = (k*T*epsilon0*(1+chi))/(e0**2 * nR_m * (LR)**2)
 a2 = (pR)/(nR_m * k * T)
 
