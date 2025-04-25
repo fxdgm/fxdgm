@@ -24,7 +24,7 @@ NA = 6.022e+23 # [1/mol] - Avogadro constant
 nR_mol = 55
 nR_m = nR_mol * NA * 1/(1e-3)# [1/m^3]
 pR = 1.01325 * 1e+5 # [Pa]
-LR = 20e-8
+LR = 20e-9 # [m]
 chi = 80 # [-]
 
 # Parameter and bcs for the electrolyte
