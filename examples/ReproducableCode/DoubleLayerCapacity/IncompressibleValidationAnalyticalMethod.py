@@ -46,7 +46,7 @@ rtol = 1e-4 # ! Change back to 1e-8
 
 
 # phi^L domain
-Vol_start = 0.1 # ! Change back to 0
+Vol_start = 0.01 # ! Change back to 0
 Volt_end = 0.75
 n_Volts = 30#0
 
@@ -90,7 +90,6 @@ C_dl_ana_dim = C_DL_dim_ana(y_R, y_R, 1-2*y_R, z_A, z_C, Phi_pot_center(phi_left
 
 # Plotting
 plt.figure()
-# plt.plot(phi_left, Q_num - Q_ana, label='Difference')
 plt.title('Charge (dimensionless)')
 plt.plot(phi_left, Q_num, label='Numerical')
 plt.plot(phi_left, Q_ana, label='Analytical')
@@ -102,20 +101,6 @@ plt.ylabel('$Q[-]$')
 plt.tight_layout()
 plt.savefig('../../Figures/DoubleLayerCapacity_Validation_Incompressible.pdf')
 plt.show()   
-
-# # Dimensions
-# plt.figure()
-# # plt.plot(phi_left, Q_num - Q_ana, label='Difference')
-# plt.title('Charge (diomensions)')
-# plt.plot(phi_left_dim, Q_num_dim_, label='Numerical')
-# plt.plot(phi_left_dim, Q_ana_dim_, label='Analytical')
-# plt.grid()
-# plt.legend()
-# plt.xlabel('$\delta \\varphi$ [-]')
-# # plt.ylabel('$Q_{num} - Q_{ana} [-]$')
-# plt.ylabel('$Q[µAs/cm³]$')
-# plt.tight_layout()
-# plt.show()   
 
 plt.figure()
 # Use Center points to evaluate on same x-points
@@ -130,17 +115,3 @@ plt.ylabel('$C_{dl}[-]$')
 plt.tight_layout()
 plt.savefig('../../Figures/DoubleLayerCharge_Validation_Incompressible.pdf')
 plt.show()
-
-# Dimensions
-# plt.figure()
-# # Use Center points to evaluate on same x-points
-# plt.title('Charge (dimensions)')
-# plt.plot(Phi_pot_center(phi_left_dim), C_dl_num_dim_, label='Numerical')
-# plt.plot(Phi_pot_center(phi_left_dim), C_dl_ana_dim, label='Analytical')
-# plt.grid()
-# plt.legend()
-# plt.xlabel('$\delta \\varphi$ [-]') # todo: Add dimensions
-# # plt.ylabel('$C_{dl,num} - C_{dl,ana} [-]$')
-# plt.ylabel('$C_{dl}[µAs/cm²]$')
-# plt.tight_layout()
-# plt.show()
