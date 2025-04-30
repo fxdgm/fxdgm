@@ -3,8 +3,6 @@ Jan Habscheid
 Jan.Habscheid@rwth-aachen.de
 
 This script is used to analyze the influence of the compressibility on the charge of the system and the double-layer capacity.
-
-# ! Efforts were made to simplify this similar to the incompressible case. However, this seems not to be robust, yet. Further investigation is needed. This is why it is solved numerically for now.
 '''
 
 # import the needed functions from the fxdgm module
