@@ -21,13 +21,13 @@ sys.path.insert(0, os.path.abspath('../fxdgm'))
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-              'sphinx.ext.napoleon',
-              'sphinx.ext.autodoc', 
-              'myst_parser',
-              'sphinx_copybutton',
-              'sphinx.ext.coverage',
-              'sphinx.ext.autosectionlabel',
-              ]
+    'sphinx.ext.napoleon',
+    'sphinx.ext.autodoc', 
+    'myst_parser',
+    'sphinx_copybutton',
+    'sphinx.ext.coverage',
+    'sphinx.ext.autosectionlabel',
+]
 
 templates_path = ['_templates']
 exclude_patterns = []

@@ -24,10 +24,9 @@ NA = 6.022e+23 # [1/mol] - Avogadro constant
 nR_mol = 55
 nR_m = nR_mol * NA * 1/(1e-3)# [1/m^3]
 pR = 1.01325 * 1e+5 # [Pa]
-LR = 20e-8
+LR = 20e-9
 chi = 80 # [-]
-K_vec = ['incompressible', 50_000, 15_000, 1_500, 500] # Working
-# ! Not working: 100_000, 20_000
+K_vec = ['incompressible', 50_000, 15_000, 1_500, 500]
 # Parameter and bcs for the electrolyte
 Lambda2 = (k*T*epsilon0*(1+chi))/(e0**2 * nR_m * (LR)**2)
 a2 = (pR)/(nR_m * k * T)
@@ -90,30 +89,16 @@ C_dl_ana_dim = C_DL_dim_ana(y_R, y_R, 1-2*y_R, z_A, z_C, Phi_pot_center(phi_left
 
 # Plotting
 plt.figure()
-# plt.plot(phi_left, Q_num - Q_ana, label='Difference')
 plt.title('Charge (dimensionless)')
 plt.plot(phi_left_dimless, Q_num, label='Numerical')
 plt.plot(phi_left_dimless, Q_ana, label='Analytical')
 plt.grid()
 plt.legend()
 plt.xlabel('$\delta \\varphi$ [-]')
-# plt.ylabel('$Q_{num} - Q_{ana} [-]$')
 plt.ylabel('$Q[-]$')
 plt.tight_layout()
-plt.show()   
-
-plt.figure()
-# plt.plot(phi_left, Q_num - Q_ana, label='Difference')
-plt.title('Charge (diomensions)')
-plt.plot(phi_left_dim, Q_num_dim_, label='Numerical')
-plt.plot(phi_left_dim, Q_ana_dim_, label='Analytical')
-plt.grid()
-plt.legend()
-plt.xlabel('$\delta \\varphi$ [-]')
-# plt.ylabel('$Q_{num} - Q_{ana} [-]$')
-plt.ylabel('$Q[µAs/cm³]$')
-plt.tight_layout()
-plt.show()   
+plt.savefig('../../Figures/DoubleLayerCapacity_Validation_Compressible.pdf')
+plt.show()    
 
 plt.figure()
 # Use Center points to evaluate on same x-points
@@ -123,20 +108,7 @@ plt.plot(Phi_pot_center(phi_left_dimless), C_dl_ana, label='Analytical')
 plt.grid()
 plt.legend()
 plt.xlabel('$\delta \\varphi$ [-]')
-# plt.ylabel('$C_{dl,num} - C_{dl,ana} [-]$')
 plt.ylabel('$C_{dl}[-]$')
 plt.tight_layout()
-plt.show()
-
-plt.figure()
-# Use Center points to evaluate on same x-points
-plt.title('Charge (dimensionless)')
-plt.plot(Phi_pot_center(phi_left_dim), C_dl_num_dim_, label='Numerical')
-plt.plot(Phi_pot_center(phi_left_dim), C_dl_ana_dim, label='Analytical')
-plt.grid()
-plt.legend()
-plt.xlabel('$\delta \\varphi$ [-]')
-# plt.ylabel('$C_{dl,num} - C_{dl,ana} [-]$')
-plt.ylabel('$C_{dl}[µAs/cm²]$')
-plt.tight_layout()
+plt.savefig('../../Figures/DoubleLayerCharge_Validation_Compressible.pdf')
 plt.show()
