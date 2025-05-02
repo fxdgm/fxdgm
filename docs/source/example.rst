@@ -1,7 +1,7 @@
 Example
 =======
 
-|  In this example, we are going to solve the thermodynamically consistent electrolyte model for a incompressible, ternary electrolyte, as it is done in `https://git.rwth-aachen.de/JanHab/fxdgm/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads <https://git.rwth-aachen.de/JanHab/fxdgm/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads>`_.
+|  In this example, we are going to solve the thermodynamically consistent electrolyte model for an incompressible, ternary electrolyte, as it is done in `https://git.rwth-aachen.de/JanHab/fxdgm/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads <https://git.rwth-aachen.de/JanHab/fxdgm/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads>`_.
 
 Install the package and necessary libraries
 -------------------------------------------

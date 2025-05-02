@@ -94,18 +94,25 @@ Usage
 
 Contact
 =======
-**Author**
 
 - Jan Habscheid
-- Jan.Habscheid@rwth-aachen.de
+   - Jan.Habscheid@rwth-aachen.de
 
-**Supervisor**
+- Dr. Satyvir Singh
+   - ACoM - Applied and Computational Mathematics
+   - RWTH Aachen University
+   - singh@acom.rwth-aachen.de
 
 - Dr. Lambert Theisen
 
    - ACoM - Applied and Computational Mathematics
    - RWTH Aachen University
    - theisen@acom.rwth-aachen.de
+
+- Dr. Stefanie Braun
+   - ACoM - Applied and Computational Mathematics
+   - RWTH Aachen University
+   - braun@acom.rwth-aachen.de
 
 - Prof. Dr. Manuel Torrilhon
 
