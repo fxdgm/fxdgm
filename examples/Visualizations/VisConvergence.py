@@ -45,10 +45,10 @@ axs[0].loglog(number_cells_vec[:-1], y_C_error_L2, 'o-', label='$y_C$', lw=lw, m
 axs[0].loglog(number_cells_vec[:-1], y_S_error_L2, 'o-', label='$y_S$', lw=lw, ms=ms)
 axs[0].loglog(number_cells_vec[:-1], phi_error_L2, 'o-', label='$\\varphi$', lw=lw, ms=ms)
 axs[0].loglog(number_cells_vec[:-1], p_error_L2, 'o-', label='$p$', lw=lw, ms=ms)
-axs[0].loglog(x_ref, O1_2_ref, Ref_Ord_marker[0], color='tab:gray', label='$O(nx)^1$', lw=lw, ms=ms)
-axs[0].loglog(x_ref, O2_2_ref, Ref_Ord_marker[1], color='tab:gray', label='$O(nx)^2$', lw=lw, ms=ms)
+axs[0].loglog(x_ref, O1_2_ref, Ref_Ord_marker[0], color='tab:gray', label='$O(n_x)$', lw=lw, ms=ms)
+axs[0].loglog(x_ref, O2_2_ref, Ref_Ord_marker[1], color='tab:gray', label='$O((n_x)^2)$', lw=lw, ms=ms)
 # axs[0].loglog(x_ref, O3_2_ref, Ref_Ord_marker[2], color='tab:gray', label='$O(nx)^3$', lw=lw, ms=ms)
-axs[0].set_xlabel('log(nx)', fontsize=labelsize)
+axs[0].set_xlabel('$\log(n_x)$', fontsize=labelsize)
 axs[0].set_ylabel('log($e_2(f)$)', fontsize=labelsize)
 axs[0].grid()
 axs[0].tick_params(axis='both', labelsize=labelsize)
@@ -59,18 +59,19 @@ axs[1].loglog(number_cells_vec[:-1], y_S_error_inf, 'o-', lw=lw, ms=ms)
 axs[1].loglog(number_cells_vec[:-1], phi_error_inf, 'o-', lw=lw, ms=ms)
 axs[1].loglog(number_cells_vec[:-1], p_error_inf, 'o-', lw=lw, ms=ms)
 axs[1].loglog(x_ref, O1_inf_ref, Ref_Ord_marker[0], color='tab:gray', lw=lw, ms=ms)
-axs[1].loglog(x_ref, O2_inf_ref, Ref_Ord_marker[1], color='tab:gray', label='$O(nx)^2$', lw=lw, ms=ms)
+axs[1].loglog(x_ref, O2_inf_ref, Ref_Ord_marker[1], color='tab:gray', lw=lw, ms=ms)
 # axs[1].loglog(x_ref, O3_inf_ref, Ref_Ord_marker[2], color='tab:gray', lw=lw, ms=ms)
-axs[1].set_xlabel('log(nx)', fontsize=labelsize)
+axs[1].set_xlabel('$\log(n_x)$', fontsize=labelsize)
 axs[1].set_ylabel('log($e_\infty(f)$)', fontsize=labelsize)
 axs[1].grid()
 axs[1].tick_params(axis='both', labelsize=labelsize)
 
 # order = [0, 5, 1, 7, 2, 6, 3, 4] 
-order = [0, 5, 1, 6, 2, 3, 4] 
+# order = [0, 5, 1, 6, 2, 3, 4] 
+order = [0, 1, 2, 3,4, 5, 6] 
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
-lgnd = fig.legend([lines[i] for i in order], [labels[i] for i in order], bbox_to_anchor=(0.81,1.2), ncol=5, fontsize=labelsize)
+lgnd = fig.legend([lines[i] for i in order], [labels[i] for i in order], bbox_to_anchor=(0.89,1.15), ncol=8, fontsize=labelsize)
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 
