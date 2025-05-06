@@ -4,7 +4,7 @@
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://janhab.pages.rwth-aachen.de/fxdgm/)
 [![coverage report](https://git.rwth-aachen.de/JanHab/fxdgm/badges/main/coverage.svg)](https://janhab.pages.rwth-aachen.de/fxdgm/htmlcov)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13645296.svg)](https://doi.org/10.5281/zenodo.13645296)
-[![GitLab Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://git.rwth-aachen.de/janhab/fxdgm/-/tags)
+[![GitLab Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://git.rwth-aachen.de/janhab/fxdgm/-/tags)
 [![License](https://img.shields.io/badge/license-GPLv3-blue)](https://git.rwth-aachen.de/janhab/fxdgm/-/blob/main/LICENSE?ref_type=heads)
 
 *A nonlinear, mixed finite element solver for the DGM electrolyte model*
@@ -14,7 +14,7 @@
 ## Physical Background
 
 The system, which is solved, refers to the original work, [Overcoming the shortcomings of the Nernst–Planck model](https://doi.org/10.1039/C3CP44390F), from Wolfgang Dreyer, Clemens Guhlke and Rüdiger Müller in 2013.\
-This paper introduces a new, generalized Nernst-Planck model, which is thermodynamically consistent, as the classical Nernst-Planck model fails to predict the correct ion-concentrations close to the boundaries.
+This paper introduces a **new, generalized Nernst-Planck model, which is thermodynamically consistent**, as the classical Nernst-Planck model fails to predict the correct ion-concentrations close to the boundaries.
 The open-source package [FEniCSx](https://fenicsproject.org/) was used for the numerical implementation.
 
 ## Main Features
@@ -30,13 +30,13 @@ The open-source package [FEniCSx](https://fenicsproject.org/) was used for the n
 
 ## Installation
 
-Install the fxdgm package with pip to get all the implemented functions.
+Install the **fxdgm** package with pip to get all the implemented functions.
 
 ``` bash
 pip install git+https://git.rwth-aachen.de/JanHab/fxdgm
 ```
 
-For the backend, FEniCSx was used and installed via conda.
+For the backend, **FEniCSx** was used and installed via conda.
 The necessery dependencies can be installed with
 
 ``` bash
@@ -46,9 +46,9 @@ conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 gc
 It is also possible to install the FEniCSx backend in a different manner. See the [FEniCSx documentation](https://fenicsproject.org/download/) for this.
 Although this installation method should work, it was not tested for the purpose of this package.
 
-### macOS installation using Docker
+### Alternative installation using Docker
 
-The docker installation method works for linux too. It was not tested on windows.
+Alternatively, the FEniCSx backend and the fxdgm package can be installed at once using Docker.
 
 ``` bash
 docker compose build
@@ -76,21 +76,21 @@ The subfolder [Data](https://git.rwth-aachen.de/JanHab/fxdgm/-/tree/main/example
 
 ## Contact
 
-- Jan Habscheid:  
+- **Jan Habscheid**:  
   - [Jan.Habscheid@rwth-aachen.de](mailto:Jan.Habscheid@rwth-aachen.de)
-- Dr. Satyvir Singh
+- **Dr. Satyvir Singh**
   - ACoM - Applied and Computational Mathematics
   - RWTH Aachen University
   - [singh@acom.rwth-aachen.de](mailto:singh@acom.rwth-aachen.de)
-- Dr. Lambert Theisen
+- **Dr. Lambert Theisen**
   - ACoM - Applied and Computational Mathematics
   - RWTH Aachen University
   - [theisen@acom.rwth-aachen.de](mailto:theisen@acom.rwth-aachen.de)
-- Dr. Stefanie Braun
+- **Dr. Stefanie Braun**
   - ACoM - Applied and Computational Mathematics
   - RWTH Aachen University
   - [braun@acom.rwth-aachen.de](mailto:braun@acom.rwth-aachen.de)
-- Prof. Dr. Manuel Torrilhon
+- **Prof. Dr. Manuel Torrilhon**
   - ACoM - Applied and Computational Mathematics
   - RWTH Aachen University
   - [mt@acom.rwth-aachen.de](mailto:mt@acom.rwth-aachen.de)

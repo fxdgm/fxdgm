@@ -30,3 +30,10 @@ build
 *.lyx#
 # Ignore .DS_Store
 .DS_Store
+
+# Pdf format to ignore figures
+*.pdf
+
+# README (markdown) preview files
+*README.html
+README_files

@@ -7,7 +7,7 @@ fxdgm
    :target: https://janhab.pages.rwth-aachen.de/fxdgm/
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.13645296.svg
    :target: https://doi.org/10.5281/zenodo.13645296
-.. image:: https://img.shields.io/badge/version-1.0-blue.svg
+.. image:: https://img.shields.io/badge/version-1.1.0-blue.svg
    :target: https://git.rwth-aachen.de/janhab/fxdgm/-/tags
 
 *A nonlinear, mixed finite element solver for the DGM electrolyte model*
@@ -19,7 +19,7 @@ Physical Background
 ===================
 
 | The system, which is solved, refers to the original work, `Overcoming the shortcomings of the Nernst–Planck model <https://doi.org/10.1039/C3CP44390F>`_, from Wolfgang Dreyer, Clemens Guhlke and Rüdiger Müller in 2013.
-| This paper introduces a new, generalized Nernst-Planck model, which is thermodynamically consistent, as the classical Nernst-Planck model fails to predict the correct ion-concentrations close to the boundaries.
+| This paper introduces a **new, generalized Nernst-Planck model, which is thermodynamically consistent**, as the classical Nernst-Planck model fails to predict the correct ion-concentrations close to the boundaries.
 | The open-source package `FEniCSx <https://fenicsproject.org/>`_ was used for the numerical implementation.
 
 Main Features
@@ -44,13 +44,13 @@ Main Features
 
 Installation
 ============
-| Install the fxdgm package with pip to get all the implemented functions.
+| Install the **fxdgm** package with pip to get all the implemented functions.
 
 .. code-block:: 
    
    pip install git+https://git.rwth-aachen.de/JanHab/fxdgm
 
-| For the backend, FEniCSx was used and installed via conda.
+| For the backend, **FEniCSx** was used and installed via conda.
 | The necessary dependencies can be installed with
 
 .. code-block:: 
@@ -60,10 +60,10 @@ Installation
 | It is also possible to install the FEniCSx backend in a different manner. See the `FEniCSx documentation <https://fenicsproject.org/download/>`_ for this.
 | Although this installation method should work, it was not tested for the purpose of this package.
 
-macOS installation using Docker
--------------------------------
+Alternative installation using Docker
+-------------------------------------  
 
-| The docker installation method works for linux too. It was not tested on windows.
+| Alternatively, the FEniCSx backend and the fxdgm package can be installed at once using Docker.
 
 .. code-block::
 
@@ -104,7 +104,6 @@ Contact
    - singh@acom.rwth-aachen.de
 
 - Dr. Lambert Theisen
-
    - ACoM - Applied and Computational Mathematics
    - RWTH Aachen University
    - theisen@acom.rwth-aachen.de
@@ -115,7 +114,6 @@ Contact
    - braun@acom.rwth-aachen.de
 
 - Prof. Dr. Manuel Torrilhon
-
    - ACoM - Applied and Computational Mathematics
    - RWTH Aachen University
    - mt@acom.rwth-aachen.de

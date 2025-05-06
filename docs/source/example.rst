@@ -1,10 +1,10 @@
 Example
 =======
 
-|  In this example, we are going to solve the thermodynamically consistent electrolyte model for an incompressible, ternary electrolyte, as it is done in `https://git.rwth-aachen.de/JanHab/fxdgm/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads <https://git.rwth-aachen.de/JanHab/fxdgm/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads>`_.
+|  In this example, we are going to solve the thermodynamically consistent electrolyte model for an **incompressible, ternary electrolyte**, as it is done in `https://git.rwth-aachen.de/JanHab/fxdgm/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads <https://git.rwth-aachen.de/JanHab/fxdgm/-/blob/main/examples/ReproducableCode/TernaryElectrolyte.py?ref_type=heads>`_.
 
-Install the package and necessary libraries
--------------------------------------------
+Install the package and FEniCSx backend
+---------------------------------------
 
 .. code-block:: python
 
@@ -12,12 +12,14 @@ Install the package and necessary libraries
     conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 gcc=12.4.0 -y
 
 Import the necessary libraries
--------------------------------------------
+------------------------------
 
 .. code-block:: python
 
+    # Import the fxdgm package
     from fxdgm import solve_System_4eq
 
+    # Import the necessary libraries
     import matplotlib.pyplot as plt
     import numpy as np
 
@@ -26,11 +28,14 @@ Define parameters and boundary conditions
 
 .. code-block:: python
 
+    # Boundary conditions
     phi_left = 8.0
     phi_right = 0.0
     p_right = 0.0
     y_A_R = 1/3
     y_C_R = 1/3
+
+    # Mixture properties
     z_A = -1.0
     z_C = 1.0
     K = 'incompressible'
@@ -43,7 +48,9 @@ Define mesh and solver settings
 .. code-block:: python
 
     number_cells = 1024
+    # Local mesh refinement towards the electrode
     refinement_style = 'log'
+    # Relative tolerance for the newton solver
     rtol = 1e-8
 
 Solve the system
@@ -51,13 +58,24 @@ Solve the system
 
 .. code-block:: python
 
-    y_A, y_C, phi, p, x = solve_System_4eq(phi_left, phi_right, p_right, z_A, z_C, y_A_R, y_C_R, K, Lambda2, a2, number_cells, relax_param=0.05, x0=0, x1=1,    refinement_style='hard_log', return_type='Vector', max_iter=1_000, rtol=rtol)
+    y_A, y_C, phi, p, x = solve_System_4eq(
+        phi_left, phi_right, 
+        p_right, 
+        z_A, z_C, 
+        y_A_R, y_C_R, 
+        K, Lambda2, a2, 
+        number_cells, relax_param=0.05, 
+        x0=0, x1=1, 
+        refinement_style='hard_log', return_type='Vector', 
+        max_iter=1_000, rtol=rtol
+    )
 
 Visualize the results
 ---------------------
 
 .. code-block:: python
 
+    # Electric potential
     plt.figure()
     plt.plot(x, phi)
     plt.xlabel('x [-]')
@@ -66,6 +84,7 @@ Visualize the results
     plt.grid()
     plt.show()
 
+    # Pressure
     plt.figure()
     plt.plot(x, p)
     plt.xlabel('x [-]')
@@ -74,6 +93,7 @@ Visualize the results
     plt.grid()
     plt.show()
 
+    # Atomic fractions
     plt.figure()
     plt.plot(x, y_A, label='$y_A$')
     plt.plot(x, y_C, label='$y_C$')
