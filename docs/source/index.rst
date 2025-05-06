@@ -63,7 +63,7 @@ Installation
 Alternative installation using Docker
 -------------------------------------  
 
-| The docker installation method works for linux too. It was not tested on windows.
+| Alternatively, the FEniCSx backend and the fxdgm package can be installed at once using Docker.
 
 .. code-block::
 
