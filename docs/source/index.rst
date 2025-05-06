@@ -60,8 +60,8 @@ Installation
 | It is also possible to install the FEniCSx backend in a different manner. See the `FEniCSx documentation <https://fenicsproject.org/download/>`_ for this.
 | Although this installation method should work, it was not tested for the purpose of this package.
 
-macOS installation using Docker
--------------------------------
+Alternative installation using Docker
+-------------------------------------  
 
 | The docker installation method works for linux too. It was not tested on windows.
 
