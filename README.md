@@ -14,7 +14,7 @@
 ## Physical Background
 
 The system, which is solved, refers to the original work, [Overcoming the shortcomings of the Nernst–Planck model](https://doi.org/10.1039/C3CP44390F), from Wolfgang Dreyer, Clemens Guhlke and Rüdiger Müller in 2013.\
-This paper introduces a new, generalized Nernst-Planck model, which is thermodynamically consistent, as the classical Nernst-Planck model fails to predict the correct ion-concentrations close to the boundaries.
+This paper introduces a **new, generalized Nernst-Planck model, which is thermodynamically consistent**, as the classical Nernst-Planck model fails to predict the correct ion-concentrations close to the boundaries.
 The open-source package [FEniCSx](https://fenicsproject.org/) was used for the numerical implementation.
 
 ## Main Features
@@ -30,13 +30,13 @@ The open-source package [FEniCSx](https://fenicsproject.org/) was used for the n
 
 ## Installation
 
-Install the fxdgm package with pip to get all the implemented functions.
+Install the **fxdgm** package with pip to get all the implemented functions.
 
 ``` bash
 pip install git+https://git.rwth-aachen.de/JanHab/fxdgm
 ```
 
-For the backend, FEniCSx was used and installed via conda.
+For the backend, **FEniCSx** was used and installed via conda.
 The necessery dependencies can be installed with
 
 ``` bash
@@ -76,21 +76,21 @@ The subfolder [Data](https://git.rwth-aachen.de/JanHab/fxdgm/-/tree/main/example
 
 ## Contact
 
-- Jan Habscheid:  
+- **Jan Habscheid**:  
   - [Jan.Habscheid@rwth-aachen.de](mailto:Jan.Habscheid@rwth-aachen.de)
-- Dr. Satyvir Singh
+- **Dr. Satyvir Singh**
   - ACoM - Applied and Computational Mathematics
   - RWTH Aachen University
   - [singh@acom.rwth-aachen.de](mailto:singh@acom.rwth-aachen.de)
-- Dr. Lambert Theisen
+- **Dr. Lambert Theisen**
   - ACoM - Applied and Computational Mathematics
   - RWTH Aachen University
   - [theisen@acom.rwth-aachen.de](mailto:theisen@acom.rwth-aachen.de)
-- Dr. Stefanie Braun
+- **Dr. Stefanie Braun**
   - ACoM - Applied and Computational Mathematics
   - RWTH Aachen University
   - [braun@acom.rwth-aachen.de](mailto:braun@acom.rwth-aachen.de)
-- Prof. Dr. Manuel Torrilhon
+- **Prof. Dr. Manuel Torrilhon**
   - ACoM - Applied and Computational Mathematics
   - RWTH Aachen University
   - [mt@acom.rwth-aachen.de](mailto:mt@acom.rwth-aachen.de)

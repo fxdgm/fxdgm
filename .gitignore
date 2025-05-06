@@ -33,3 +33,7 @@ build
 
 # Pdf format to ignore figures
 *.pdf
+
+# README (markdown) preview files
+*README.html
+README_files

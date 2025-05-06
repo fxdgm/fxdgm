@@ -19,7 +19,7 @@ Physical Background
 ===================
 
 | The system, which is solved, refers to the original work, `Overcoming the shortcomings of the Nernst–Planck model <https://doi.org/10.1039/C3CP44390F>`_, from Wolfgang Dreyer, Clemens Guhlke and Rüdiger Müller in 2013.
-| This paper introduces a new, generalized Nernst-Planck model, which is thermodynamically consistent, as the classical Nernst-Planck model fails to predict the correct ion-concentrations close to the boundaries.
+| This paper introduces a **new, generalized Nernst-Planck model, which is thermodynamically consistent**, as the classical Nernst-Planck model fails to predict the correct ion-concentrations close to the boundaries.
 | The open-source package `FEniCSx <https://fenicsproject.org/>`_ was used for the numerical implementation.
 
 Main Features
@@ -44,13 +44,13 @@ Main Features
 
 Installation
 ============
-| Install the fxdgm package with pip to get all the implemented functions.
+| Install the **fxdgm** package with pip to get all the implemented functions.
 
 .. code-block:: 
    
    pip install git+https://git.rwth-aachen.de/JanHab/fxdgm
 
-| For the backend, FEniCSx was used and installed via conda.
+| For the backend, **FEniCSx** was used and installed via conda.
 | The necessary dependencies can be installed with
 
 .. code-block:: 

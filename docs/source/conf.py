@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'fxdgm'
-copyright = '2024, Jan Habscheid'
+copyright = '2025, Jan Habscheid'
 author = 'Jan Habscheid'
 release = 'September, 2024'
 
