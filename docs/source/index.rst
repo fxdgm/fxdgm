@@ -104,7 +104,6 @@ Contact
    - singh@acom.rwth-aachen.de
 
 - Dr. Lambert Theisen
-
    - ACoM - Applied and Computational Mathematics
    - RWTH Aachen University
    - theisen@acom.rwth-aachen.de
@@ -115,7 +114,6 @@ Contact
    - braun@acom.rwth-aachen.de
 
 - Prof. Dr. Manuel Torrilhon
-
    - ACoM - Applied and Computational Mathematics
    - RWTH Aachen University
    - mt@acom.rwth-aachen.de
