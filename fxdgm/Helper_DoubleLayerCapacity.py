@@ -402,7 +402,6 @@ def C_DL_dim_ana(y_A_R:float, y_C_R:float, y_N_R:float, z_A:float, z_C:float, ph
     '''
     C_DL = C_DL_dimless_ana(y_A_R, y_C_R, y_N_R, z_A, z_C, phi_L, phi_R, p_R, K, Lambda2, a2, solvation)
     C_DL *= nR_m * e0 * LR
-    # ! ToDo
     C_DL *= 1e+6
     C_DL *= 1/(1e+4) 
     C_DL *= 1 /(k*T/e0)

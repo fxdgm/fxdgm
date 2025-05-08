@@ -358,8 +358,8 @@ if __name__ == '__main__': # pragma: no cover # dont cover main in coverage
     refinement_style = 'uniform'
     solvation = 5
     PoissonBoltzmann = False
-    rtol = 1e-3 # ToDo: Change back to 1e-8, currently just for testing
-    relax_param = 0.15 # 0.1
+    rtol = 1e-3
+    relax_param = 0.15
     max_iter = 15_000
 
     # Solve the system
