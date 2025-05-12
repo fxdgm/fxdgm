@@ -3,7 +3,7 @@
 [![Pipeline Status](https://git.rwth-aachen.de/janhab/fxdgm/badges/main/pipeline.svg)](https://git.rwth-aachen.de/janhab/fxdgm/pipelines)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://janhab.pages.rwth-aachen.de/fxdgm/)
 [![coverage report](https://git.rwth-aachen.de/JanHab/fxdgm/badges/main/coverage.svg)](https://janhab.pages.rwth-aachen.de/fxdgm/htmlcov)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13645296.svg)](https://doi.org/10.5281/zenodo.13645296)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15388656.svg)](https://doi.org/10.5281/zenodo.15388656)
 [![GitLab Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://git.rwth-aachen.de/janhab/fxdgm/-/tags)
 [![License](https://img.shields.io/badge/license-GPLv3-blue)](https://git.rwth-aachen.de/janhab/fxdgm/-/blob/main/LICENSE?ref_type=heads)
 
@@ -37,7 +37,7 @@ pip install git+https://git.rwth-aachen.de/JanHab/fxdgm
 ```
 
 For the backend, **FEniCSx** was used and installed via conda.
-The necessery dependencies can be installed with
+The necessary dependencies can be installed with
 
 ``` bash
 conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 gcc=12.4.0 -y

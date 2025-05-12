@@ -5,8 +5,8 @@ fxdgm
    :target: https://git.rwth-aachen.de/JanHab/fxdgm/pipelines
 .. image:: https://img.shields.io/badge/docs-latest-blue
    :target: https://janhab.pages.rwth-aachen.de/fxdgm/
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.13645296.svg
-   :target: https://doi.org/10.5281/zenodo.13645296
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.15388656.svg
+   :target: https://doi.org/10.5281/zenodo.15388656
 .. image:: https://img.shields.io/badge/version-1.1.0-blue.svg
    :target: https://git.rwth-aachen.de/janhab/fxdgm/-/tags
 
