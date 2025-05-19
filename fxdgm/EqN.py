@@ -195,7 +195,7 @@ def solve_System_Neq(phi_left:float, phi_right:float, p_right:float, z_alpha:lis
     F = A
 
     # Initialize initial guess for u
-    with u.vector.localForm() as u_loc:
+    with u.x.petsc_vec.localForm() as u_loc:
         u_loc.set(0)
 
     # Initialize initial guess for u

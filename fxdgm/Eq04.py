@@ -230,7 +230,7 @@ def solve_System_4eq(phi_left:float, phi_right:float, p_right:float, z_A:float, 
     y_C_init.interpolate(lambda x: np.full_like(x[0], y_C_R))
     y_A_init.interpolate(lambda x: np.full_like(x[0], y_A_R))
 
-    with u.vector.localForm() as u_loc:
+    with u.x.petsc_vec.localForm() as u_loc:
         u_loc.set(0)
     u.sub(0).interpolate(y_A_init)
     u.sub(1).interpolate(y_C_init)
