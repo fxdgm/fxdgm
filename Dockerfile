@@ -1,5 +1,5 @@
 # Start with a base image that includes conda
-FROM continuumio/miniconda3:latest
+FROM continuumio/miniconda3:24.9.2-0
 
 # Set environment variables
 ENV CONDA_DEFAULT_ENV=base
