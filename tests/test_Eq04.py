@@ -2,7 +2,6 @@
 Tests the Eq04 implementation in fxdgm.Eq04.py
 '''
 
-# from fxdgm.Eq04 import solve_System_4eq
 from fxdgm import solve_System_4eq
 import numpy as np
 

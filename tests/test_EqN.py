@@ -2,7 +2,6 @@
 Tests the EqN implementation in fxdgm.EqN.py
 '''
 
-# from fxdgm.EqN import solve_System_Neq
 from fxdgm import solve_System_Neq
 import numpy as np
 

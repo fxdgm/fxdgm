@@ -2,7 +2,6 @@
 Tests the ElectrolyticDiode implementation in fxdgm.ElectrolyticDiode.py
 '''
 
-# from fxdgm.ElectrolyticDiode import ElectrolyticDiode
 from fxdgm import ElectrolyticDiode
 import numpy as np
 
