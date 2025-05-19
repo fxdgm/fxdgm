@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="fxdgm",
-    version="1.0",
+    version="1.1.1",
     description="A description is yet to follow",
     url="https://git.rwth-aachen.de/JanHab/fxdgm",
     author="Jan Habscheid, Lambert Theisen, Manuel Torrilhon",
@@ -10,7 +10,7 @@ setup(
     packages=["fxdgm"],
     package_dir={"fxdgm":"fxdgm"},
     package_data={"fxdgm": ["tests/*"]},
-    python_requires=">=3.12",
+    python_requires=">=3.10",
     install_requires=[
         "pyvista == 0.43.10",
         "numpy == 1.26.4",
