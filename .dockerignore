@@ -4,6 +4,13 @@
 
 # Python
 __pycache__/
+*__pycache__*
+*.__pycache__
+*test/__pycache__
+*fxdgm/__pycache__
+*examples/__pycache__
+*examples/ReproduableCode/__pycache__
+*.pytest_cache*
 *.pyc
 *.pyo
 *.pyd
@@ -34,3 +41,13 @@ dist/
 
 # Examples
 examples/
+
+# ignore Sphinx documentation output
+*docs/build
+
+# Pdf format to ignore figures
+*.pdf
+
+# README (markdown) preview files
+*README.html
+README_files

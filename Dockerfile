@@ -21,7 +21,9 @@ RUN pip install --no-cache-dir \
 
 WORKDIR /root
 
-ADD . /fxdgm
-RUN pip install --no-cache-dir --editable /fxdgm/.
+# Add the source code to the container
+ADD ./ ./
+
+RUN pip install --no-cache-dir --editable .
 
 CMD ["bash"]
