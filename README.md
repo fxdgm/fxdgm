@@ -40,7 +40,7 @@ For the backend, **FEniCSx** was used and installed via conda.
 The necessary dependencies can be installed with
 
 ``` bash
-conda install -c conda-forge fenics-dolfinx=0.8.0 mpich=4.2.1 pyvista=0.43.10 gcc=12.4.0 -y
+conda install -c conda-forge fenics-dolfinx=0.9.0 mpich=4.3.0 pyvista=0.43.10 gcc=13.3.0 -y
 ```
 
 It is also possible to install the FEniCSx backend in a different manner. See the [FEniCSx documentation](https://fenicsproject.org/download/) for this.
