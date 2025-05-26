@@ -20,7 +20,6 @@ RUN conda install -n ${CONDA_DEFAULT_ENV} -c conda-forge --yes \
     myst-parser==4.0.0 \
     sphinx-copybutton==0.5.2 \
     sphinx-rtd-theme==3.0.1 \
-
     && pip install --no-cache-dir \
     pytest==8.3.3 \
     pytest-cov==6.0.0
