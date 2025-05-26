@@ -1,20 +1,11 @@
-# Start with a base image that includes conda
-FROM continuumio/miniconda3:25.1.1-2
+# Start with a base image that includes dolfinx
+FROM dolfinx/dolfinx:v0.9.0
 
-# Set environment variables
-ENV CONDA_DEFAULT_ENV=base
-ENV PATH /opt/conda/envs/${CONDA_DEFAULT_ENV}/bin:$PATH
-ENV HOME /root
+# Update OS
+RUN apt-get update && apt-get install -y
 
-# Create the environment and install packages
-# FEniCSx backend (+ sqlite for database support for coverage report)
-RUN conda install -n ${CONDA_DEFAULT_ENV} -c conda-forge --yes \
-    fenics-dolfinx=0.9.0 \
-    mpich=4.3.0 \
-    pyvista=0.43.10 \
-    gcc=13.3.0 \
-    sqlite=3.44.0 \ 
-    && conda clean -afy
+# Update pip
+RUN python -m pip install --upgrade pip
 
 # Documentation tools
 RUN pip install --no-cache-dir \
@@ -27,7 +18,6 @@ RUN pip install --no-cache-dir \
 RUN pip install --no-cache-dir \
     pytest==8.3.3 \
     pytest-cov==6.0.0
-# RUN conda install -n ${CONDA_DEFAULT_ENV} -c conda-forge sqlite=3.44 -y
 
 WORKDIR /root
 
