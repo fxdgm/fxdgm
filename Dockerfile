@@ -14,8 +14,8 @@ RUN conda install -n ${CONDA_DEFAULT_ENV} -c conda-forge --yes \
     pyvista=0.43.10 \
     gcc=13.3.0 \
     sqlite=3.44.0 \ 
-    && conda clean -afy \
-    && pip install --no-cache-dir \
+    && conda clean -afy
+RUN pip install --no-cache-dir \
     sphinx==7.3.7 \
     myst-parser==4.0.0 \
     sphinx-copybutton==0.5.2 \
@@ -24,11 +24,11 @@ RUN conda install -n ${CONDA_DEFAULT_ENV} -c conda-forge --yes \
     pytest==8.3.3 \
     pytest-cov==6.0.0
 
-WORKDIR /root
+# Set the working directory for the application code and add source code
+WORKDIR /fxdgm
+ADD . .
 
-# Add the source code to the container
-ADD ./ ./
-
-RUN pip install --no-cache-dir --editable .
+# Install the local package (now from the current WORKDIR)
+RUN pip install --no-cache-dir .
 
 CMD ["bash"]
