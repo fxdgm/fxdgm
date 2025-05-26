@@ -39,9 +39,6 @@ dist/
 *.zip
 # any_large_dataset_folders/
 
-# Examples
-examples/
-
 # ignore Sphinx documentation output
 *docs/build
 
