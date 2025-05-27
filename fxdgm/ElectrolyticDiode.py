@@ -300,7 +300,7 @@ def ElectrolyticDiode(Bias_type:str, phi_bias:float, g_phi:float, z_A:float, z_C
     y_C_init.interpolate(lambda x: np.full_like(x[0], y_C_bath))
     y_A_init.interpolate(lambda x: np.full_like(x[0], y_A_bath))
 
-    with u.vector.localForm() as u_loc:
+    with u.x.petsc_vec.localForm() as u_loc:
         u_loc.set(0)
     u.sub(0).interpolate(y_A_init)
     u.sub(1).interpolate(y_C_init)

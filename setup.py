@@ -2,11 +2,11 @@ from setuptools import setup, find_packages
 
 setup(
     name="fxdgm",
-    version="1.0",
+    version="1.1.1",
     description="A description is yet to follow",
     url="https://git.rwth-aachen.de/JanHab/fxdgm",
-    author="Jan Habscheid, Lambert Theisen, Manuel Torrilhon",
-    author_email="Jan.Habscheid@rwth-aachen.de, lambert.theisen@rwth-aachen.de, mt@mathcces.rwth-aachen.de",
+    author="Jan Habscheid, Lambert Theisen, Satyvir Singh, Stefanie Braun, Manuel Torrilhon",
+    author_email="Jan.Habscheid@rwth-aachen.de, lambert.theisen@rwth-aachen.de, singh@acom.rwth, braun@acom.rwth, mt@mathcces.rwth-aachen.de",
     packages=["fxdgm"],
     package_dir={"fxdgm":"fxdgm"},
     package_data={"fxdgm": ["tests/*"]},

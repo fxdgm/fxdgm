@@ -2,7 +2,6 @@
 Tests the Eq02 implementation in fxdgm.Eq02.py
 '''
 
-# from fxdgm.Eq02 import solve_System_2eq
 from fxdgm import solve_System_2eq
 import numpy as np
 

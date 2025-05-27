@@ -1,0 +1,56 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Python
+__pycache__/
+*__pycache__*
+*.__pycache__
+*test/__pycache__
+*fxdgm/__pycache__
+*examples/__pycache__
+*examples/ReproduableCode/__pycache__
+*.pytest_cache*
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+README.md
+
+# IDE / Editor specific
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+*.DS_Store
+*~
+Thumbs.db
+
+# Local build artifacts or large data not needed in the image
+build/
+dist/
+*.tar.gz
+*.zip
+# any_large_dataset_folders/
+
+# ignore Sphinx documentation output
+*docs/build
+
+# Pdf format to ignore figures
+*.pdf
+
+# README (markdown) preview files
+*README.html
+README_files
