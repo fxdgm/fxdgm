@@ -55,7 +55,7 @@ Installation
 
 .. code-block:: 
 
-   conda install -c conda-forge fenics-dolfinx=0.9.0 mpich=4.3.0 pyvista=0.43.10 gcc=13.3.0 -y
+   conda install -c conda-forge fenics-dolfinx=0.9.0 mpich=4.3.0 pyvista=0.43.10 c-compiler=1.9.0 cxx-compiler=1.9.0 fortran-compiler=1.9.0 -y
 
 | It is also possible to install the FEniCSx backend in a different manner. See the `FEniCSx documentation <https://fenicsproject.org/download/>`_ for this.
 | Although this installation method should work, it was not tested for the purpose of this package.
