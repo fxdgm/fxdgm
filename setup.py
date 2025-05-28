@@ -14,7 +14,7 @@ setup(
     install_requires=[
         "pyvista == 0.43.10",
         "numpy == 1.26.4",
-        "scipy == 1.14.0"
+        "scipy == 1.14.1"
     ],
     setup_requires=["pytest-runner"],
     tests_require=["pytest>=7.4.0"],
