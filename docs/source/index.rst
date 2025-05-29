@@ -44,7 +44,7 @@ Main Features
 
 Installation
 ============
-| First, install the **FEniCSx** via conda and after the **fxdgm** package with pip.
+| First, install the **FEniCSx**  and the necessary compiler via conda and after the **fxdgm** package with pip.
 | The necessary dependencies can be installed with
 
 .. code-block:: 
