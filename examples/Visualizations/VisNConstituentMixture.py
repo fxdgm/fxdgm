@@ -64,8 +64,8 @@ for i in range(2):
             # Next mixture
             plotting_index += 1
 fig.tight_layout()
-# fig.savefig('../Figures/NConstituentMixture_Concentrations_Pressure.svg')
 fig.show()
+input("Press Enter to continue...")
 
 
 
@@ -74,10 +74,6 @@ fig, axs = plt.subplots(layout='constrained', figsize=(15, 10))
 
 for i in range(4):
     axs.plot(x[i], phi[i], label=subtitles_short[i], lw=lw)
-# axs.plot(x[0], phi[0], label='$A$', lw=lw)
-# axs.plot(x[1], phi[1], label='$B$', lw=lw)
-# axs.plot(x[2], phi[2], label='$C$', lw=lw)
-# axs.plot(x[3], phi[3], label='$D$', lw=lw)
 axs.set_xlim(0,xlim)
 axs.set_xlabel('x [-]', fontsize=labelsize)
 axs.set_ylabel('$\\varphi$ [-]', fontsize=labelsize)
@@ -92,7 +88,4 @@ for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 
 fig.show()
-# fig.savefig('../Figures/NConstituentMixture_ElectricPotential.svg', bbox_inches='tight')
-
-for p_ in p:
-    print(np.max(p_))
+input("Press Enter to continue...")

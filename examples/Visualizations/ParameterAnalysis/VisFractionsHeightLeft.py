@@ -25,8 +25,8 @@ axs.plot(phi_left_vec, y_A_np[:,0], label='$y_A$', lw=lw)
 axs.plot(phi_left_vec, y_C_np[:,0], label='$y_C$', lw=lw)
 axs.plot(phi_left_vec, y_S_np[:,0], label='$y_S$', lw=lw)
 axs.grid()
-axs.set_xlabel('$\delta \\varphi$ [-]', fontsize=labelsize)
-axs.set_ylabel('$y_\\alpha^L$ [-]', fontsize=labelsize)
+axs.set_xlabel(r'$\delta \varphi$ [-]', fontsize=labelsize)
+axs.set_ylabel(r'$y_\alpha^L$ [-]', fontsize=labelsize)
 axs.tick_params(axis='both', labelsize=labelsize)
 
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
@@ -37,5 +37,5 @@ lgnd = fig.legend(lines, labels, bbox_to_anchor=(0.75,1.1), ncol=6, fontsize=lab
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()
-# fig.savefig('../../Figures/ParameterAnalysis/FractionsHeightLeft.svg', bbox_inches='tight')
 fig.show()
+input("Press Enter to continue...")
