@@ -44,18 +44,13 @@ Main Features
 
 Installation
 ============
-| Install the **fxdgm** package with pip to get all the implemented functions.
-
-.. code-block:: 
-   
-   pip install git+https://git.rwth-aachen.de/JanHab/fxdgm
-
-| For the backend, **FEniCSx** was used and installed via conda.
+| First, install the **FEniCSx** via conda and after the **fxdgm** package with pip.
 | The necessary dependencies can be installed with
 
 .. code-block:: 
-
+   
    conda install -c conda-forge fenics-dolfinx=0.9.0 mpich=4.3.0 pyvista=0.43.10 c-compiler=1.9.0 cxx-compiler=1.9.0 fortran-compiler=1.9.0 -y
+   pip install git+https://git.rwth-aachen.de/JanHab/fxdgm
 
 | It is also possible to install the FEniCSx backend in a different manner. See the `FEniCSx documentation <https://fenicsproject.org/download/>`_ for this.
 | Although this installation method should work, it was not tested for the purpose of this package.
