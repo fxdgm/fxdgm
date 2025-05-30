@@ -50,7 +50,7 @@ legend_width = 8
 markers = ['-', '--', '-.', ':']
 colors = ['tab:blue', 'tab:orange', 'tab:green']
 
-axs[0,1].set_title('$\delta \\varphi = 1$', fontsize=labelsize)
+axs[0,1].set_title(r'$\delta \varphi = 1$', fontsize=labelsize)
 axs[0,1].plot(x_DGM_1, y_A_DGM_1, markers[0], color=colors[0], lw=lw)
 axs[0,1].plot(x_PB_1, y_A_PB_1, markers[1], color=colors[0], lw=lw)
 axs[0,1].plot(x_DGM_1, y_C_DGM_1, markers[0], color=colors[1], lw=lw)
@@ -61,11 +61,11 @@ axs[0,1].set_xlim(0,xlim)
 axs[0,1].set_ylim(-0.02, 1.02)
 axs[0,1].grid()
 axs[0,1].set_xlabel('x [-]', fontsize=labelsize)
-axs[0,1].set_ylabel('$y_\\alpha$ [-]', fontsize=labelsize)
+axs[0,1].set_ylabel(r'$y_\alpha$ [-]', fontsize=labelsize)
 axs[0,1].tick_params(axis='both', labelsize=labelsize)
 
 
-axs[1,1].set_title('$\delta \\varphi = 10$', fontsize=labelsize)
+axs[1,1].set_title(r'$\delta \varphi = 10$', fontsize=labelsize)
 axs[1,1].plot(x_DGM_10, y_A_DGM_10, markers[0], color=colors[0], lw=lw)
 axs[1,1].plot(x_PB_10, y_A_PB_10, markers[1], color=colors[0], lw=lw)
 axs[1,1].plot(x_DGM_10, y_C_DGM_10, markers[0], color=colors[1], lw=lw)
@@ -81,7 +81,7 @@ axs[1,1].set_xlim(0,xlim)
 axs[1,1].set_ylim(-0.02, 1.02)
 axs[1,1].grid()
 axs[1,1].set_xlabel('x [-]', fontsize=labelsize)
-axs[1,1].set_ylabel('$y_\\alpha$ [-]', fontsize=labelsize)
+axs[1,1].set_ylabel(r'$y_\alpha$ [-]', fontsize=labelsize)
 axs[1,1].tick_params(axis='both', labelsize=labelsize)
 
 
@@ -90,18 +90,18 @@ axs[1,1].tick_params(axis='both', labelsize=labelsize)
 color_phi = 'tab:blue'
 color_p = 'tab:red'
 ax1 = axs[1,0]
-ax1.set_title('$\delta \\varphi = 10$', fontsize=labelsize)
-ax1.tick_params(axis='y')#, labelcolor=color)
+ax1.set_title(r'$\delta \varphi = 10$', fontsize=labelsize)
+ax1.tick_params(axis='y')
 ax1.plot(x_DGM_10, phi_DGM_10, markers[0], color=color_phi, lw=lw)
 ax1.plot(x_PB_10, phi_PB_10, markers[1], color=color_phi, lw=lw)
 ax1.grid()
 ax1.set_ylim(0.0, np.max(phi_DGM_10))
 ax1.set_xlabel('$x$ [-]', fontsize=labelsize)
-ax1.set_ylabel('$\\varphi$ [-]', fontsize=labelsize, color=color_phi)
+ax1.set_ylabel(r'$\varphi$ [-]', fontsize=labelsize, color=color_phi)
 ax1.set_xlim(0,xlim)
 ax1.tick_params(axis='x', labelsize=labelsize)
 ax1.tick_params(axis='y', labelcolor=color_phi, labelsize=labelsize)
-ax1.legend()
+# ax1.legend()
 
 # Create a second y-axis
 ax2 = ax1.twinx()
@@ -115,7 +115,7 @@ ax2.set_ylim(0.0, np.max(p_DGM_10))
 ax2.set_xlim(0,xlim)
 ax2.set_xlabel('$x$ [-]', fontsize=labelsize)
 ax2.set_ylabel('$p$ [-]', fontsize=labelsize)
-ax2.legend()
+# ax2.legend()
 ax2.tick_params(axis='x', labelsize=labelsize)
 ax2.tick_params(axis='y', labelcolor=color_p, labelsize=labelsize)
 
@@ -123,18 +123,18 @@ ax2.tick_params(axis='y', labelcolor=color_p, labelsize=labelsize)
 color_phi = 'tab:blue'
 color_p = 'tab:red'
 ax1 = axs[0,0]
-ax1.set_title('$\delta \\varphi = 1$', fontsize=labelsize)
-ax1.tick_params(axis='y')#, labelcolor=color)
+ax1.set_title(r'$\delta \varphi = 1$', fontsize=labelsize)
+ax1.tick_params(axis='y')
 ax1.plot(x_DGM_1, phi_DGM_1, markers[0], color=color_phi, lw=lw)
 ax1.plot(x_PB_1, phi_PB_1, markers[1], color=color_phi, lw=lw)
 ax1.grid()
 ax1.set_ylim(0.0, np.max(phi_DGM_1))
 ax1.set_xlabel('$x$ [-]', fontsize=labelsize)
-ax1.set_ylabel('$\\varphi$ [-]', fontsize=labelsize, color=color_phi)
+ax1.set_ylabel(r'$\varphi$ [-]', fontsize=labelsize, color=color_phi)
 ax1.set_xlim(0,xlim)
 ax1.tick_params(axis='x', labelsize=labelsize)
 ax1.tick_params(axis='y', labelcolor=color_phi, labelsize=labelsize)
-ax1.legend()
+# ax1.legend()
 
 # Create a second y-axis
 ax2 = ax1.twinx()
@@ -148,7 +148,7 @@ ax2.set_ylim(0.0, np.max(p_DGM_1))
 ax2.set_xlim(0,xlim)
 ax2.set_xlabel('$x$ [-]', fontsize=labelsize)
 ax2.set_ylabel('$p$ [-]', fontsize=labelsize)
-ax2.legend()
+# ax2.legend()
 ax2.tick_params(axis='x', labelsize=labelsize)
 ax2.tick_params(axis='y', labelcolor=color_p, labelsize=labelsize)
 
@@ -162,8 +162,8 @@ for line in lgnd.get_lines():
 fig.tight_layout()
 
 fig.tight_layout()
-# fig.savefig('../Figures/PoissonBoltzmann_Comparsion.svg', bbox_inches='tight')
 fig.show()
+input("Press Enter to continue...")
 
 
 
@@ -193,8 +193,8 @@ axs[0].plot(phi_left_vec, y_A_error_L2, 'o-', label='$y_A$', lw=lw, ms=ms)
 axs[0].plot(phi_left_vec, y_C_error_L2, 'o-', label='$y_C$', lw=lw, ms=ms)
 axs[0].plot(phi_left_vec, y_S_error_L2, 'o-', label='$y_S$', lw=lw, ms=ms)
 axs[0].set_yscale('log')
-axs[0].set_xlabel('$\delta \\varphi [-]$', fontsize=labelsize)
-axs[0].set_ylabel('log($L_2$) [-]', fontsize=labelsize)
+axs[0].set_xlabel(r'$\delta \varphi [-]$', fontsize=labelsize)
+axs[0].set_ylabel(r'log($L_2$) [-]', fontsize=labelsize)
 axs[0].tick_params(axis='both', labelsize=labelsize)
 axs[0].grid()
 
@@ -203,8 +203,8 @@ axs[1].plot(phi_left_vec, y_A_error_inf, 'o-', lw=lw, ms=ms)
 axs[1].plot(phi_left_vec, y_C_error_inf, 'o-', lw=lw, ms=ms)
 axs[1].plot(phi_left_vec, y_S_error_inf, 'o-', lw=lw, ms=ms)
 axs[1].set_yscale('log')
-axs[1].set_xlabel('$\delta \\varphi [-]$', fontsize=labelsize)
-axs[1].set_ylabel('log($L_\infty$) [-]', fontsize=labelsize)
+axs[1].set_xlabel(r'$\delta \varphi [-]$', fontsize=labelsize)
+axs[1].set_ylabel(r'log($L_\infty$) [-]', fontsize=labelsize)
 axs[1].tick_params(axis='both', labelsize=labelsize)
 axs[1].grid()
 
@@ -215,8 +215,8 @@ lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 fig.legend(lines, labels, bbox_to_anchor=(0.69,1.1), ncol=6, fontsize=labelsize)
 
 fig.tight_layout()
-# fig.savefig('../Figures/PoissonBoltzmann_Convergence.svg', bbox_inches='tight')
 fig.show()
+input("Press Enter to continue...")
 
 
 # Visualize the results - rescale to physical values
@@ -247,7 +247,7 @@ axs[0].plot(phi_left_vec_physical, y_A_error_L2, 'o-', label='$y_A$', lw=lw, ms=
 axs[0].plot(phi_left_vec_physical, y_C_error_L2, 'o-', label='$y_C$', lw=lw, ms=ms)
 axs[0].plot(phi_left_vec_physical, y_S_error_L2, 'o-', label='$y_S$', lw=lw, ms=ms)
 axs[0].set_yscale('log')
-axs[0].set_xlabel('$\delta \\varphi [V]$', fontsize=labelsize)
+axs[0].set_xlabel(r'$\delta \varphi [V]$', fontsize=labelsize)
 axs[0].set_ylabel('log($L_2$) [-]', fontsize=labelsize)
 axs[0].tick_params(axis='both', labelsize=labelsize)
 axs[0].grid()
@@ -257,8 +257,8 @@ axs[1].plot(phi_left_vec_physical, y_A_error_inf, 'o-', lw=lw, ms=ms)
 axs[1].plot(phi_left_vec_physical, y_C_error_inf, 'o-', lw=lw, ms=ms)
 axs[1].plot(phi_left_vec_physical, y_S_error_inf, 'o-', lw=lw, ms=ms)
 axs[1].set_yscale('log')
-axs[1].set_xlabel('$\delta \\varphi [V]$', fontsize=labelsize)
-axs[1].set_ylabel('log($L_\infty$) [-]', fontsize=labelsize)
+axs[1].set_xlabel(r'$\delta \varphi [V]$', fontsize=labelsize)
+axs[1].set_ylabel(r'log($L_\infty$) [-]', fontsize=labelsize)
 axs[1].tick_params(axis='both', labelsize=labelsize)
 axs[1].grid()
 
@@ -269,5 +269,5 @@ lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 fig.legend(lines, labels, bbox_to_anchor=(0.69,1.1), ncol=6, fontsize=labelsize)
 
 fig.tight_layout()
-# fig.savefig('../Figures/PoissonBoltzmann_Convergence_Rescaled_Dimensions.svg', bbox_inches='tight')
 fig.show()
+input("Press Enter to continue...")

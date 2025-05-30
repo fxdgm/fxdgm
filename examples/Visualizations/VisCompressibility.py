@@ -31,7 +31,7 @@ markers = ['--', ':', '-', '-.']
 colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple']
 
 axs[0,0].plot(0, 0, label='Incompressible', color=colors[0])
-[axs[0,0].plot(0, 0, label=f'$\kappa$ = {K_vec[i]}', color=colors[i]) for i in range(1, len(K_vec))]
+[axs[0,0].plot(0, 0, label=fr'$\kappa$ = {K_vec[i]}', color=colors[i]) for i in range(1, len(K_vec))]
 
 [axs[0,0].plot(x[i], phi[i], lw=lw, color=colors[i]) for i in range(len(K_vec))]
 axs[0,0].set_xlim(0,xlim)
@@ -120,6 +120,7 @@ lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 lgnd = fig.legend([lines[i] for i in order], [labels[i] for i in order], bbox_to_anchor=(0.89,1.12), ncol=4, fontsize=labelsize)
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
-fig.tight_layout()
+# fig.tight_layout()
 # fig.savefig('../Figures/Compressibility_no_log.svg', bbox_inches='tight')
 fig.show()
+input("Press Enter to continue...")

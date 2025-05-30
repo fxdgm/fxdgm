@@ -61,7 +61,7 @@ axs2.grid()
 
 # Adding legend entries with explicit line styles
 for i in range(len(Solvation_vec)):
-    axs[1].plot(0, 0, markers[i], color='grey', label=f'$\kappa$ = {Solvation_vec[i]}', lw=lw)
+    axs[1].plot(0, 0, markers[i], color='grey', label=rf'$\kappa$ = {Solvation_vec[i]}', lw=lw)
 axs[1].plot(0, 0, color=colors[1], label='$y_A$')
 axs[1].plot(0, 0, color=colors[2], label='$y_S$')
 axs[1].plot(0, 0, color=colors[4], label='$y_C$')
@@ -73,5 +73,5 @@ lgnd = fig.legend([lines[i] for i in order], [labels[i] for i in order], bbox_to
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()
-# fig.savefig('../Figures/Solvation.svg', bbox_inches='tight')
 fig.show()
+input("Press Enter to continue...")
