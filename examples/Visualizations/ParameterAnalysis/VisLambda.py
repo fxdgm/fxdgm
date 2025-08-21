@@ -45,7 +45,7 @@ for i in range(len(phi_left_vec)):
         case 3: 
             i_ = 1
             j_ = 1
-    axs[i_,j_].set_title(f'$\delta \\varphi$ = {phi_left_vec[i]}', fontsize=labelsize)
+    axs[i_,j_].set_title(rf'$\delta \varphi$ = {phi_left_vec[i]}', fontsize=labelsize)
     for j in range(len(Lambda2_vec)):
         clr = colors[j]
         axs[i_,j_].plot(x[i][j], y_A[i][j], markers[0], color=clr, lw=lw)
@@ -54,14 +54,14 @@ for i in range(len(phi_left_vec)):
     axs[i_,j_].grid()
     axs[i_,j_].set_xlim(0,xlim)
     axs[i_,j_].set_xlabel('$x$ [-]', fontsize=labelsize)
-    axs[i_,j_].set_ylabel('$y_\\alpha$ [-]', fontsize=labelsize)
+    axs[i_,j_].set_ylabel(r'$y_\alpha$ [-]', fontsize=labelsize)
     axs[i_,j_].tick_params(axis='both', labelsize=labelsize)
 
 dummy, = axs[i_,j_].plot(2, y_A_R, color='grey', linestyle='--', label='$y_A$')
 dummy, = axs[i_,j_].plot(2, y_A_R, color='grey', linestyle='-', label='$y_C$')
 dummy, = axs[i_,j_].plot(2, y_A_R, color='grey', linestyle=':', label='$y_S$')
 for index, Lambda2_cur in enumerate(Lambda2_vec):
-    dummy, = axs[i_,j_].plot(10, y_A_R, color=colors[index], linestyle='-', label=f'$\lambda^2$ = {Lambda2_cur}')
+    dummy, = axs[i_,j_].plot(10, y_A_R, color=colors[index], linestyle='-', label=rf'$\lambda^2$ = {Lambda2_cur}')
 
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
@@ -74,8 +74,8 @@ lgnd = fig.legend([lines[i] for i in order], [labels[i] for i in order], bbox_to
 for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
 fig.tight_layout()
-# fig.savefig('../../Figures/ParameterAnalysis/Lambda_fractions.svg', bbox_inches='tight')
 fig.show()
+input("Press Enter to continue...")
 
 
 
@@ -99,16 +99,14 @@ for i in range(len(phi_left_vec)):
             i_ = 1
             j_ = 1
             
-    axs[i_,j_].set_title('$\delta \\varphi$ = {}'.format(phi_left_vec[i]), fontsize=labelsize)
+    axs[i_,j_].set_title(r'$\delta \varphi$ = {}'.format(phi_left_vec[i]), fontsize=labelsize)
     axs[i_,j_].set_xlabel('x [-]', fontsize=labelsize)
-    axs[i_,j_].set_ylabel('$\\varphi$  [-]', color=colors[0], fontsize=labelsize)
+    axs[i_,j_].set_ylabel(r'$\varphi$  [-]', color=colors[0], fontsize=labelsize)
     axs[i_,j_].tick_params(axis='y', labelcolor=colors[0], labelsize=labelsize)
     for j in range(len(Lambda2_vec)):
         axs[i_,j_].plot(x[i][j], phi[i][j], markers[j], color=colors[0], lw=lw)
     axs[i_,j_].grid()
     axs[i_,j_].set_ylim(np.min(phi[i]), np.max(phi[i]))
-    # axs[i_,j_].set_xlabel('$x$ [-]', fontsize=labelsize)
-    # axs[i_,j_].set_ylabel('$\\varphi$ [-]', fontsize=labelsize)
     axs[i_,j_].set_xlim(0,xlim)
     axs[i_,j_].tick_params(axis='x', labelsize=labelsize)
     
@@ -126,13 +124,12 @@ for i in range(len(phi_left_vec)):
     ax2.set_xlim(0,xlim)
     ax2.set_xlabel('$x$ [-]', fontsize=labelsize)
     ax2.set_ylabel('$p$ [-]', fontsize=labelsize)
-    ax2.legend()
+    # ax2.legend()
     ax2.tick_params(axis='y', labelcolor=colors[1], labelsize=labelsize)
     ax2.tick_params(axis='x', labelsize=labelsize)
     
 for j in range(len(Lambda2_vec)):
-    dummy = axs[i_,j_].plot(2, 1/3, color='grey', linestyle=markers[j], label='$\lambda^2$ = {}'.format(Lambda2_vec[j]))
-# So far, nothing special except the managed prop_cycle. Now the trick:
+    dummy = axs[i_,j_].plot(2, 1/3, color='grey', linestyle=markers[j], label=r'$\lambda^2$ = {}'.format(Lambda2_vec[j]))
 lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
 lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
 
@@ -141,5 +138,5 @@ for line in lgnd.get_lines():
     line.set_linewidth(legend_width)
     
 fig.tight_layout()
-# fig.savefig('../../Figures/ParameterAnalysis/Lambda2_pot_press.svg', bbox_inches='tight')
 fig.show()
+input("Press Enter to continue...")

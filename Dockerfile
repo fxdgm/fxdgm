@@ -10,7 +10,9 @@ RUN conda install -n ${CONDA_DEFAULT_ENV} -c conda-forge --yes \
     fenics-dolfinx=0.9.0 \
     mpich=4.3.0 \
     pyvista=0.43.10 \
-    gcc=13.3.0 \
+    c-compiler=1.9.0 \
+    cxx-compiler=1.9.0 \
+    fortran-compiler=1.9.0 \
     sqlite=3.44.0 \
     && pip install --no-cache-dir \
         sphinx==7.3.7 \
