@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="fxdgm",
-    version="1.1.1",
+    version="1.1.2",
     description="A description is yet to follow",
     url="https://git.rwth-aachen.de/JanHab/fxdgm",
     author="Jan Habscheid, Lambert Theisen, Satyvir Singh, Stefanie Braun, Manuel Torrilhon",

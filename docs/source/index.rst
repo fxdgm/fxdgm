@@ -7,7 +7,7 @@ fxdgm
    :target: https://janhab.pages.rwth-aachen.de/fxdgm/
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.15388656.svg
    :target: https://doi.org/10.5281/zenodo.15388656
-.. image:: https://img.shields.io/badge/version-1.1.1-blue.svg
+.. image:: https://img.shields.io/badge/version-1.1.2-blue.svg
    :target: https://git.rwth-aachen.de/janhab/fxdgm/-/tags
 
 *A nonlinear, mixed finite element solver for the DGM electrolyte model*
@@ -47,8 +47,8 @@ Installation
 | First, install the **FEniCSx**  and the necessary compiler via conda and after the **fxdgm** package with pip.
 | The necessary dependencies can be installed with
 
-.. code-block:: 
-   
+.. code-block::
+
    conda install -c conda-forge fenics-dolfinx=0.9.0 mpich=4.3.0 pyvista=0.43.10 c-compiler=1.9.0 cxx-compiler=1.9.0 fortran-compiler=1.9.0 -y
    git clone https://git.rwth-aachen.de/JanHab/fxdgm.git
    cd fxdgm
@@ -58,7 +58,7 @@ Installation
 | Although this installation method should work, it was not tested for the purpose of this package.
 
 Alternative installation using Docker
--------------------------------------  
+-------------------------------------
 
 | Alternatively, the FEniCSx backend and the fxdgm package can be installed at once using Docker.
 
