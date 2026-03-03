@@ -11,6 +11,33 @@
 
 <img src="media/logo.svg" alt="Logo" width="200" />
 
+## Paper
+
+Jan Habscheid, Satyvir Singh, Lambert Theisen, Stefanie Braun, Manuel Torrilhon,
+**A finite element solver for a thermodynamically consistent electrolyte model**,
+*Computer Physics Communications*, Volume 319, 2026, 109916.\
+[https://doi.org/10.1016/j.cpc.2025.109916](https://doi.org/10.1016/j.cpc.2025.109916)
+
+<details>
+<summary>BibTeX</summary>
+
+```bibtex
+@article{HABSCHEID2026109916,
+title = {A finite element solver for a thermodynamically consistent electrolyte model},
+journal = {Computer Physics Communications},
+volume = {319},
+pages = {109916},
+year = {2026},
+issn = {0010-4655},
+doi = {https://doi.org/10.1016/j.cpc.2025.109916},
+url = {https://www.sciencedirect.com/science/article/pii/S0010465525004175},
+author = {Jan Habscheid and Satyvir Singh and Lambert Theisen and Stefanie Braun and Manuel Torrilhon},
+keywords = {Electrochemistry, Electrical double layer, Thermodynamics, Electrolyte models, FEniCS, Finite element method},
+abstract = {In this study, we present a finite element solver for a thermodynamically consistent electrolyte model that accurately captures multicomponent ionic transport by incorporating key physical phenomena such as steric effects, solvation, and pressure coupling. The model is rooted in the principles of non-equilibrium thermodynamics and strictly enforces mass conservation, charge neutrality, and entropy production. It extends beyond classical frameworks like the Nernst–Planck system by employing modified partial mass balances, the electrostatic Poisson equation, and a momentum balance expressed in terms of electrostatic potential, atomic fractions, and pressure, thereby enhancing numerical stability and physical consistency. Implemented using the FEniCSx platform, the solver efficiently handles one- and two-dimensional problems with varied boundary conditions and demonstrates excellent convergence behavior and robustness. Validation against benchmark problems confirms its improved physical fidelity, particularly in regimes characterized by high ionic concentrations and strong electrochemical gradients. Simulation results reveal critical electrolyte phenomena, including electric double layer formation, rectification behavior, and the effects of solvation number, Debye length, and compressibility. The solver’s modular variational formulation facilitates its extension to complex electrochemical systems involving multiple ionic species with asymmetric valences. We publicly provide the documented and validated solver framework.}
+}
+```
+</details>
+
 ## Physical Background
 
 The system, which is solved, refers to the original work, [Overcoming the shortcomings of the Nernst–Planck model](https://doi.org/10.1039/C3CP44390F), from Wolfgang Dreyer, Clemens Guhlke and Rüdiger Müller in 2013.\
