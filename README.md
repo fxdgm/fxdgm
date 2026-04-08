@@ -58,9 +58,11 @@ The open-source package [FEniCSx](https://fenicsproject.org/) was used for the n
 ## Installation
 
 First, install the **FEniCSx** and the necessary compiler via conda and after the **fxdgm** package with pip.
-The necessary dependencies can be installed with
+We create a conda environment; the necessary dependencies can be installed with
 
 ``` bash
+conda create -n fxdgm_env python=3.13.9 -y
+conda activate fxdgm_env
 conda install -c conda-forge fenics-dolfinx=0.9.0 mpich=4.3.0 pyvista=0.43.10 c-compiler=1.9.0 cxx-compiler=1.9.0 fortran-compiler=1.9.0 -y
 git clone https://git.rwth-aachen.de/JanHab/fxdgm.git
 cd fxdgm
